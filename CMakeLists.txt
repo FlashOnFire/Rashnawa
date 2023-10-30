@@ -12,7 +12,6 @@ link_directories(./lib)
 link_libraries(sfml-graphics sfml-window sfml-system fmod fmodstudio)
 
 add_executable(Rashnawa
-
         main.cpp
         audio/AudioManager.cpp
         audio/EventInstance.cpp)
