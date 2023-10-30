@@ -12,6 +12,12 @@ link_directories(./lib)
 link_libraries(sfml-graphics sfml-window sfml-system fmod fmodstudio)
 
 add_executable(Rashnawa
-        main.cpp
-        audio/AudioManager.cpp
-        audio/EventInstance.cpp)
+        src/main.cpp
+        src/audio/AudioManager.cpp
+        src/audio/EventInstance.cpp
+        src/Game.cpp
+        src/Game.h
+        src/graphics/Renderer.cpp
+        src/graphics/Renderer.h
+        src/world/World.cpp
+        src/world/World.h)

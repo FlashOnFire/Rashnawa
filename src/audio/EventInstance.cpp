@@ -129,4 +129,5 @@ namespace Audio {
     bool EventInstance::isValid() {
         return _instance->isValid();
     }
-}
+
+} // Audio

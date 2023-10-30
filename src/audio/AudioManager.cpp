@@ -2,6 +2,7 @@
 #include <iostream>
 
 namespace Audio {
+
     AudioManager::AudioManager() {
         Studio::System *sys;
         Studio::System::create(&sys);
@@ -9,7 +10,9 @@ namespace Audio {
         _system.reset(sys, [](Studio::System *system) {
             system->release();
         });
+    }
 
+    void AudioManager::initialize() {
         ErrCheck(_system->initialize(512, FMOD_STUDIO_INIT_NORMAL, FMOD_INIT_NORMAL, nullptr));
     }
 
@@ -67,4 +70,5 @@ namespace Audio {
             return eventDescriptions.at(path);
         }
     }
-}
+
+} // Audio

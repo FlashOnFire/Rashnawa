@@ -1,9 +1,10 @@
 #pragma once
 
-#include <fmod_studio.hpp>
+#include "fmod_studio.hpp"
 #include <iostream>
 
 namespace Audio {
+
     struct EventInstanceDeleter {
         void operator()(FMOD::Studio::EventInstance *p) const { p->release(); }
     };
@@ -14,4 +15,5 @@ namespace Audio {
             exit(EXIT_FAILURE);
         }
     }
-}
+
+} // Audio

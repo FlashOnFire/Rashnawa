@@ -9,9 +9,11 @@
 using namespace FMOD;
 
 namespace Audio {
+
     class AudioManager {
     public:
         AudioManager();
+        void initialize();
 
         void update() const;
 
@@ -28,4 +30,4 @@ namespace Audio {
         std::weak_ptr<Studio::EventDescription> getEventDescription(const std::string &path);
     };
 
-}
+} // Audio

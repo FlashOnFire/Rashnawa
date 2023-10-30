@@ -1,6 +1,6 @@
 #pragma once
 
-#include <fmod_studio.hpp>
+#include "fmod_studio.hpp"
 #include <string>
 #include <memory>
 #include "Utils.h"
@@ -8,6 +8,7 @@
 using namespace FMOD;
 
 namespace Audio {
+
     class EventInstance {
     public:
         explicit EventInstance(std::unique_ptr<Studio::EventInstance, EventInstanceDeleter>);
@@ -70,4 +71,5 @@ namespace Audio {
     private:
         std::unique_ptr<Studio::EventInstance, EventInstanceDeleter> _instance;
     };
-}
+
+} // Audio
