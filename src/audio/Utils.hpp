@@ -7,7 +7,9 @@
 namespace Audio {
 
     struct EventInstanceDeleter {
-        void operator()(FMOD::Studio::EventInstance *p) const { p->release(); }
+        void operator()(FMOD::Studio::EventInstance *p) const {
+            p->stop(FMOD_STUDIO_STOP_MODE::FMOD_STUDIO_STOP_IMMEDIATE);
+            p->release();}
     };
 
     static void ErrCheck(FMOD_RESULT result) {
