@@ -1,7 +1,7 @@
 #ifndef RASHNAWA_AUDIO_UTILS_HPP
 #define RASHNAWA_AUDIO_UTILS_HPP
 
-#include "fmod_studio.hpp"
+#include "FMOD/fmod_studio.hpp"
 #include <iostream>
 
 namespace Audio {
