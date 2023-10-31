@@ -20,6 +20,8 @@ private:
     std::unique_ptr<Graphics::Renderer> _renderer;
     std::optional<std::unique_ptr<BasicScreen>> currentScreen;
 
+    sf::Font font;
+
     void handleEvents(bool &running);
 };
 

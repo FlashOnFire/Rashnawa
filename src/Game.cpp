@@ -9,6 +9,11 @@ Game::Game() {
     currentScreen = std::make_unique<MainMenu>();
 
     _window->setFramerateLimit(240);
+
+    if (!font.loadFromFile("../assets/fonts/Unitblock.ttf")) {
+        std::cout << "Error: can't load font!" << std::endl;
+        exit(EXIT_FAILURE);
+    }
 }
 
 void Game::run() {
@@ -25,10 +30,8 @@ void Game::run() {
         _window->clear(sf::Color::White);
 
         if (currentScreen.has_value()) {
-            currentScreen.value()->update(deltaT);
-            currentScreen.value()->render(_window);
+            currentScreen.value()->render(_window, font);
         } else {
-            _world.update(deltaT);
             _renderer->render();
         }
 
@@ -48,15 +51,17 @@ void Game::handleEvents(bool &running) {
                     case sf::Keyboard::Escape:
                         running = false;
                         break;
-                    case sf::Keyboard::A:
-                        std::cout << "Pressed A" << std::endl;
-                        break;
                     default:
                         break;
                 }
                 break;
             default:
                 break;
+        }
+
+
+        if (currentScreen.has_value()) {
+            currentScreen.value()->update(event);
         }
     }
 }

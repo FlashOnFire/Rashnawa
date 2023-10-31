@@ -24,4 +24,6 @@ add_executable(Rashnawa
         src/screens/BasicScreen.cpp
         src/screens/BasicScreen.h
         src/screens/MainMenu.cpp
-        src/screens/MainMenu.h)
+        src/screens/MainMenu.h
+        src/screens/objects/Button.cpp
+        src/screens/objects/Button.h)

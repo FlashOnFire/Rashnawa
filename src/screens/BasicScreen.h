@@ -7,9 +7,9 @@
 
 class BasicScreen {
 public:
-    virtual void update(int deltaT);
+    virtual void update(const sf::Event &e);
 
-    virtual void render(std::shared_ptr<sf::RenderWindow>) const;
+    virtual void render(std::shared_ptr<sf::RenderWindow>, const sf::Font &font) const;
 
 protected:
     BasicScreen() = default;
