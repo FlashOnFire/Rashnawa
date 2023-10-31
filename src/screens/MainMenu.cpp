@@ -1,15 +1,15 @@
 #include <iostream>
+
+#include "../events/Events.hpp"
+
 #include "MainMenu.h"
 
-MainMenu::MainMenu(const std::weak_ptr<Audio::AudioManager>& audioMgr) {
-    if (auto mgr = audioMgr.lock()) {
-           music = mgr->createEventInstance("event:/tension");
-           music->setVolume(0.3);
-           music->start();
-    } else {
-        std::cout << "Error: AudioManager not loaded?" << std::endl;
-        exit(EXIT_FAILURE);
-    }
+MainMenu::MainMenu(std::shared_ptr<dexode::EventBus> eventBus, const std::shared_ptr<Audio::AudioManager> &audioMgr) {
+    _eventBus = std::move(eventBus);
+
+    music = audioMgr->createEventInstance("event:/tension");
+    music->setVolume(0.3);
+    music->start();
 
     if (!backgroundTexture->loadFromFile("../assets/menu/menufond1.png")) {
         std::cout << "Can't load menu background texture from file";
@@ -21,12 +21,14 @@ MainMenu::MainMenu(const std::weak_ptr<Audio::AudioManager>& audioMgr) {
         exit(EXIT_FAILURE);
     }
 
-    _buttons.emplace_back(std::make_unique<Button>(120, 300, 200, 80, "PLAY", []() {
+    _buttons.emplace_back(std::make_unique<Button>(120, 300, 200, 80, "PLAY", [this]() {
         std::cout << "Oui" << std::endl;
+        _eventBus->postpone(Events::GoInGame{});
     }));
 
-    _buttons.emplace_back(std::make_unique<Button>(120, 400, 200, 80, "EXIT", []() {
+    _buttons.emplace_back(std::make_unique<Button>(120, 400, 200, 80, "EXIT", [this]() {
         std::cout << "Exit" << std::endl;
+        _eventBus->postpone(Events::CloseGame{});
     }));
 }
 
@@ -53,8 +55,10 @@ void MainMenu::render(std::shared_ptr<sf::RenderWindow> window, const sf::Font &
     mainText.setStyle(sf::Text::Style::Bold);
     mainText.setCharacterSize(100);
 
-    float x = (float) wSize.x / 2.0f -  (mainText.getLocalBounds().width / 2.0f) - (mainText.getLocalBounds().left / 2.0f);
-    float y = (float) wSize.y / 7.0f - (mainText.getLocalBounds().height / 2.0f) - (mainText.getLocalBounds().top / 2.0f);
+    float x =
+            (float) wSize.x / 2.0f - (mainText.getLocalBounds().width / 2.0f) - (mainText.getLocalBounds().left / 2.0f);
+    float y =
+            (float) wSize.y / 7.0f - (mainText.getLocalBounds().height / 2.0f) - (mainText.getLocalBounds().top / 2.0f);
 
     mainText.setPosition(x, y);
 
@@ -68,6 +72,7 @@ void MainMenu::render(std::shared_ptr<sf::RenderWindow> window, const sf::Font &
 
         const auto textureSize = buttonTexture->getSize();
         const auto position = sf::Vector2i(textureSize.x * ((button->isHovered()) ? 0 : 0.5), 0);
+
         const auto size = sf::Vector2i(textureSize.x / 2, textureSize.y);
 
         shape.setTextureRect(sf::IntRect(position, size));
@@ -81,8 +86,10 @@ void MainMenu::render(std::shared_ptr<sf::RenderWindow> window, const sf::Font &
         text.setFillColor(sf::Color::Yellow);
         text.setCharacterSize(45);
 
-        float x = (float) button->getX() + (float) button->getDx() / 2.0f - (text.getLocalBounds().width / 2.0f) - text.getLocalBounds().left;
-        float y = (float) button->getY() + (float) button->getDy() / 2.0f - (text.getLocalBounds().height / 2.0f) - text.getLocalBounds().top;
+        float x = (float) button->getX() + (float) button->getDx() / 2.0f - (text.getLocalBounds().width / 2.0f) -
+                  text.getLocalBounds().left;
+        float y = (float) button->getY() + (float) button->getDy() / 2.0f - (text.getLocalBounds().height / 2.0f) -
+                  text.getLocalBounds().top;
 
         text.setPosition(x, y);
 
