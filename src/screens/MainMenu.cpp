@@ -11,10 +11,11 @@ MainMenu::MainMenu(std::shared_ptr<dexode::EventBus> eventBus, const std::shared
     music->setVolume(0.3);
     music->start();
 
-    if (!backgroundTexture->loadFromFile("../assets/menu/menufond1.png")) {
+    if (!backgroundTexture->loadFromFile("../assets/menu/menufond2.png")) {
         std::cout << "Can't load menu background texture from file";
         exit(EXIT_FAILURE);
     }
+    backgroundTexture->setSmooth(true);
 
     if (!buttonTexture->loadFromFile("../assets/menu/button.png")) {
         std::cout << "Can't load menu button texture from file";
