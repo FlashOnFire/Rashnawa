@@ -37,7 +37,7 @@ namespace Audio {
     }
 
     std::unique_ptr<EventInstance>
-    AudioManager::getEventInstance(const std::string &path) {
+    AudioManager::createEventInstance(const std::string &path) {
         Studio::EventInstance *instance;
         getEventDescription(path).lock()->createInstance(&instance);
         std::unique_ptr<Studio::EventInstance, EventInstanceDeleter> ptrInstance(instance, EventInstanceDeleter());

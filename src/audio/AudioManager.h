@@ -2,7 +2,7 @@
 #define RASHNAWA_AUDIO_AUDIOMANAGER_H
 
 #include <memory>
-#include "fmod_studio.hpp"
+#include "FMOD/fmod_studio.hpp"
 #include "EventInstance.h"
 #include <vector>
 #include <map>
@@ -22,7 +22,7 @@ namespace Audio {
 
         [[nodiscard]] std::weak_ptr<Studio::System> getSystem() const;
 
-        std::unique_ptr<EventInstance> getEventInstance(const std::string &path);
+        std::unique_ptr<EventInstance> createEventInstance(const std::string &path);
     private:
         std::shared_ptr<Studio::System> _system = nullptr;
         std::vector<std::shared_ptr<Studio::Bank>> _banks;
