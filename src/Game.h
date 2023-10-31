@@ -18,7 +18,7 @@ private:
     std::shared_ptr<Audio::AudioManager> _audioMgr;
     World _world;
     std::unique_ptr<Graphics::Renderer> _renderer;
-    //OptionalScreen _currentScreen;
+
     std::optional<std::unique_ptr<BasicScreen>> _currentScreen;
 
     sf::Font font;
