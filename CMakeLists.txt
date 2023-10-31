@@ -26,4 +26,20 @@ add_executable(Rashnawa
         src/screens/MainMenu.cpp
         src/screens/MainMenu.h
         src/screens/objects/Button.cpp
-        src/screens/objects/Button.h)
+        src/screens/objects/Button.h
+        src/entities/Entity.cpp
+        src/entities/Entity.h
+        src/entities/CollideableEntity.cpp
+        src/entities/CollideableEntity.h
+        src/entities/Hitbox.cpp
+        src/entities/Hitbox.h
+        src/entities/BlockEntity.cpp
+        src/entities/BlockEntity.h
+        src/entities/LivingEntity.cpp
+        src/entities/LivingEntity.h
+        src/entities/Pnj.cpp
+        src/entities/Pnj.h
+        src/entities/Player.cpp
+        src/entities/Player.h
+        src/entities/weapons/Weapon.h
+)

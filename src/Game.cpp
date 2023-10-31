@@ -24,8 +24,11 @@ void Game::run() {
     bool running = true;
     sf::Clock clock;
 
-    while (running) {
+        while (running) {
         int deltaT = clock.restart().asMilliseconds();
+
+
+
 
         _audioMgr->update();
 
