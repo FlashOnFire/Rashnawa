@@ -71,7 +71,7 @@ void MainMenu::render(std::shared_ptr<sf::RenderWindow> window, const sf::Font &
         shape.setTexture(buttonTexture.get());
 
         const auto textureSize = buttonTexture->getSize();
-        const auto position = sf::Vector2i(button->isHovered()? 0 : (int) textureSize.x , 0);
+        const auto position = sf::Vector2i(button->isHovered()? 0 : (int) textureSize.x /2 , 0);
 
         const auto size = sf::Vector2i((int) textureSize.x / 2, (int) textureSize.y);
 
