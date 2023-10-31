@@ -42,4 +42,6 @@ add_executable(Rashnawa
         src/entities/Player.cpp
         src/entities/Player.h
         src/entities/weapons/Weapon.h
+        src/events/Events.hpp
+        inc/dexode/EventBus.cpp
 )
