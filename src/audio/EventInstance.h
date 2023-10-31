@@ -1,7 +1,7 @@
 #ifndef RASHNAWA_AUDIO_EVENTINSTANCE_H
 #define RASHNAWA_AUDIO_EVENTINSTANCE_H
 
-#include "fmod_studio.hpp"
+#include "FMOD/fmod_studio.hpp"
 #include <string>
 #include <memory>
 #include "Utils.hpp"
