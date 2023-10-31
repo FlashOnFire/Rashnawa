@@ -1,10 +1,12 @@
 #ifndef RASHNAWA_GAME_H
 #define RASHNAWA_GAME_H
 
+#include <optional>
 
 #include "audio/AudioManager.h"
 #include "world/World.h"
 #include "graphics/Renderer.h"
+#include "screens/BasicScreen.h"
 
 class Game {
 public:
@@ -16,6 +18,9 @@ private:
     Audio::AudioManager _audioMgr;
     World _world;
     std::unique_ptr<Graphics::Renderer> _renderer;
+    std::optional<std::unique_ptr<BasicScreen>> currentScreen;
+
+    void handleEvents(bool &running);
 };
 
 

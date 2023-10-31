@@ -13,8 +13,7 @@ namespace Graphics {
     }
 
     void Renderer::render() {
-        _window->clear();
-        _window->display();
+        // TODO: actually render
     }
 
 } // Graphics
