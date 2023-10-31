@@ -8,10 +8,10 @@
 class MainMenu: public BasicScreen {
 public:
     MainMenu();
-    void update(const sf::Event &e) override;
-    void render(std::shared_ptr<sf::RenderWindow> window, const sf::Font &font) const override;
+    virtual void update(const sf::Event &e) override;
+    virtual void render(std::shared_ptr<sf::RenderWindow> window, const sf::Font &font) const override;
 private:
-    std::vector<Button> _buttons;
+    std::vector<std::unique_ptr<Button>> _buttons;
 };
 
 

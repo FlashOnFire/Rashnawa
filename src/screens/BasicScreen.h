@@ -7,8 +7,9 @@
 
 class BasicScreen {
 public:
-    virtual void update(const sf::Event &e);
+    virtual ~BasicScreen();
 
+    virtual void update(const sf::Event &e);
     virtual void render(std::shared_ptr<sf::RenderWindow>, const sf::Font &font) const;
 
 protected:

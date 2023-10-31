@@ -6,7 +6,7 @@ Game::Game() {
     _renderer = std::make_unique<Graphics::Renderer>(_window);
     _audioMgr.initialize();
 
-    currentScreen = std::make_unique<MainMenu>();
+    _currentScreen = std::make_unique<MainMenu>();
 
     _window->setFramerateLimit(240);
 
@@ -29,8 +29,8 @@ void Game::run() {
 
         _window->clear(sf::Color::White);
 
-        if (currentScreen.has_value()) {
-            currentScreen.value()->render(_window, font);
+        if (_currentScreen.has_value()) {
+            _currentScreen.value()->render(_window, font);
         } else {
             _renderer->render();
         }
@@ -60,8 +60,8 @@ void Game::handleEvents(bool &running) {
         }
 
 
-        if (currentScreen.has_value()) {
-            currentScreen.value()->update(event);
+        if (_currentScreen.has_value()) {
+            _currentScreen.value()->update(event);
         }
     }
 }

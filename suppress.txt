@@ -1,0 +1,205 @@
+
+{
+   realloc
+   Memcheck:ReallocZero
+   fun:realloc
+   obj:/usr/lib/libnvidia-glcore.so.535.113.01
+   obj:/usr/lib/libGLX_nvidia.so.535.113.01
+   obj:/usr/lib/libGLX_nvidia.so.535.113.01
+   obj:/usr/lib/libGLX_nvidia.so.535.113.01
+}
+
+{
+   calloc
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:calloc
+   obj:*
+   obj:*
+   obj:*
+   obj:/usr/lib/libnvidia-glcore.so.535.113.01
+   obj:/usr/lib/libnvidia-glcore.so.535.113.01
+   obj:/usr/lib/libnvidia-glcore.so.535.113.01
+   obj:/usr/lib/libnvidia-glcore.so.535.113.01
+   obj:/usr/lib/libnvidia-glcore.so.535.113.01
+   obj:/usr/lib/libGLX_nvidia.so.535.113.01
+   obj:/usr/lib/libGLX_nvidia.so.535.113.01
+   obj:/usr/lib/libGLX_nvidia.so.535.113.01
+}
+
+{
+   malloc
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:malloc
+   obj:*
+   obj:*
+   obj:/usr/lib/libnvidia-glcore.so.535.113.01
+   obj:/usr/lib/libnvidia-glcore.so.535.113.01
+   obj:/usr/lib/libnvidia-glcore.so.535.113.01
+   obj:/usr/lib/libnvidia-glcore.so.535.113.01
+   obj:/usr/lib/libnvidia-glcore.so.535.113.01
+   obj:/usr/lib/libGLX_nvidia.so.535.113.01
+   obj:/usr/lib/libGLX_nvidia.so.535.113.01
+   obj:/usr/lib/libGLX_nvidia.so.535.113.01
+   fun:glXCreateContextAttribsARB
+}
+
+{
+   malloc
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:malloc
+   obj:*
+   obj:*
+   obj:/usr/lib/libnvidia-glcore.so.535.113.01
+   obj:/usr/lib/libnvidia-glcore.so.535.113.01
+   obj:/usr/lib/libnvidia-glcore.so.535.113.01
+   obj:/usr/lib/libnvidia-glcore.so.535.113.01
+   obj:/usr/lib/libnvidia-glcore.so.535.113.01
+   obj:/usr/lib/libGLX_nvidia.so.535.113.01
+   obj:/usr/lib/libGLX_nvidia.so.535.113.01
+   obj:/usr/lib/libGLX_nvidia.so.535.113.01
+   fun:glXCreateContextAttribsARB
+}
+
+{
+   malloc
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:malloc
+   obj:*
+   obj:*
+   obj:/usr/lib/libnvidia-glcore.so.535.113.01
+   obj:/usr/lib/libnvidia-glcore.so.535.113.01
+   obj:/usr/lib/libnvidia-glcore.so.535.113.01
+   obj:/usr/lib/libnvidia-glcore.so.535.113.01
+   obj:/usr/lib/libnvidia-glcore.so.535.113.01
+   obj:/usr/lib/libGLX_nvidia.so.535.113.01
+   obj:/usr/lib/libGLX_nvidia.so.535.113.01
+   obj:/usr/lib/libGLX_nvidia.so.535.113.01
+   fun:glXCreateContextAttribsARB
+}
+
+{
+   calloc
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:calloc
+   obj:*
+   obj:*
+   obj:*
+   obj:*
+   obj:*
+   obj:*
+   obj:*
+   obj:/usr/lib/libnvidia-glcore.so.535.113.01
+   obj:/usr/lib/libnvidia-glcore.so.535.113.01
+   obj:/usr/lib/libnvidia-glcore.so.535.113.01
+   obj:/usr/lib/libnvidia-glcore.so.535.113.01
+}
+
+{
+   malloc
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:malloc
+   obj:*
+   obj:*
+   obj:*
+   obj:/usr/lib/libnvidia-glcore.so.535.113.01
+   obj:/usr/lib/libnvidia-glcore.so.535.113.01
+   obj:/usr/lib/libnvidia-glcore.so.535.113.01
+   obj:/usr/lib/libnvidia-glcore.so.535.113.01
+   obj:/usr/lib/libnvidia-glcore.so.535.113.01
+   obj:/usr/lib/libGLX_nvidia.so.535.113.01
+   obj:/usr/lib/libGLX_nvidia.so.535.113.01
+   obj:/usr/lib/libGLX_nvidia.so.535.113.01
+}
+
+{
+   calloc
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:calloc
+   obj:*
+   obj:*
+   obj:*
+   obj:*
+   obj:*
+   obj:*
+   obj:/usr/lib/libnvidia-glcore.so.535.113.01
+   obj:/usr/lib/libnvidia-glcore.so.535.113.01
+   obj:/usr/lib/libnvidia-glcore.so.535.113.01
+   obj:/usr/lib/libnvidia-glcore.so.535.113.01
+   obj:/usr/lib/libnvidia-glcore.so.535.113.01
+}
+
+{
+   malloc
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:malloc
+   obj:/usr/lib/libnvidia-glvkspirv.so.535.113.01
+   obj:/usr/lib/libnvidia-glvkspirv.so.535.113.01
+   obj:/usr/lib/libnvidia-glcore.so.535.113.01
+   obj:/usr/lib/libnvidia-glcore.so.535.113.01
+   obj:/usr/lib/libnvidia-glcore.so.535.113.01
+   obj:/usr/lib/libGLX_nvidia.so.535.113.01
+   obj:/usr/lib/libGLX_nvidia.so.535.113.01
+   obj:/usr/lib/libGLX_nvidia.so.535.113.01
+}
+
+{
+   realloc
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:realloc
+   obj:*
+   obj:*
+   obj:*
+   obj:*
+   obj:/usr/lib/libnvidia-glcore.so.535.113.01
+   obj:/usr/lib/libnvidia-glcore.so.535.113.01
+   obj:/usr/lib/libnvidia-glcore.so.535.113.01
+   obj:/usr/lib/libnvidia-glcore.so.535.113.01
+   obj:/usr/lib/libnvidia-glcore.so.535.113.01
+   obj:/usr/lib/libGLX_nvidia.so.535.113.01
+   obj:/usr/lib/libGLX_nvidia.so.535.113.01
+}
+
+{
+   calloc
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:calloc
+   obj:*
+   obj:*
+   obj:*
+   obj:*
+   obj:*
+   obj:*
+   obj:*
+   obj:/usr/lib/libnvidia-glcore.so.535.113.01
+   obj:/usr/lib/libnvidia-glcore.so.535.113.01
+   obj:/usr/lib/libnvidia-glcore.so.535.113.01
+   obj:/usr/lib/libnvidia-glcore.so.535.113.01
+}
+
+{
+   malloc
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:malloc
+   obj:*
+   obj:*
+   obj:*
+   obj:*
+   obj:*
+   obj:*
+   obj:/usr/lib/libnvidia-glcore.so.535.113.01
+   obj:/usr/lib/libnvidia-glcore.so.535.113.01
+   obj:/usr/lib/libnvidia-glcore.so.535.113.01
+   obj:/usr/lib/libnvidia-glcore.so.535.113.01
+   obj:/usr/lib/libnvidia-glcore.so.535.113.01
+}

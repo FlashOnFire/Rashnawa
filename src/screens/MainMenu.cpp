@@ -2,17 +2,21 @@
 #include "MainMenu.h"
 
 MainMenu::MainMenu() {
-    _buttons.emplace_back(120, 200, 200, 80, "PLAY", []() {
+    _buttons.emplace_back(std::make_unique<Button>(120, 200, 200, 80, "PLAY", []() {
         std::cout << "Oui" << std::endl;
-    });
+    }));
+
+    _buttons.emplace_back(std::make_unique<Button>(120, 300, 200, 80, "EXIT", []() {
+        std::cout << "Exit" << std::endl;
+    }));
 }
 
 void MainMenu::update(const sf::Event &e) {
     if (e.type != sf::Event::MouseButtonPressed && e.type != sf::Event::MouseMoved)
         return;
 
-    for (auto &button: _buttons) {
-        button.update(e);
+    for (const auto &button: _buttons) {
+        button->update(e);
     }
 }
 
@@ -35,20 +39,20 @@ void MainMenu::render(std::shared_ptr<sf::RenderWindow> window, const sf::Font &
     window->draw(mainText);
 
     for (const auto &button: _buttons) {
-        auto shape = sf::RectangleShape(sf::Vector2f((float) button.getDx(), (float) button.getDy()));
-        shape.setPosition((float) button.getX(), (float) button.getY());
-        shape.setFillColor((button.isHovered()) ? sf::Color::Blue : sf::Color::Black);
+        auto shape = sf::RectangleShape(sf::Vector2f((float) button->getDx(), (float) button->getDy()));
+        shape.setPosition((float) button->getX(), (float) button->getY());
+        shape.setFillColor((button->isHovered()) ? sf::Color::Blue : sf::Color::Black);
 
         window->draw(shape);
 
         sf::Text text;
         text.setFont(font);
-        text.setString(button.getText());
+        text.setString(button->getText());
         text.setFillColor(sf::Color::Yellow);
         text.setCharacterSize(45);
 
-        float x = (float) button.getX() + (float) button.getDx() / 2.0f - (text.getLocalBounds().width / 2.0f) - text.getLocalBounds().left;
-        float y = (float) button.getY() + (float) button.getDy() / 2.0f - (text.getLocalBounds().height / 2.0f) - text.getLocalBounds().top;
+        float x = (float) button->getX() + (float) button->getDx() / 2.0f - (text.getLocalBounds().width / 2.0f) - text.getLocalBounds().left;
+        float y = (float) button->getY() + (float) button->getDy() / 2.0f - (text.getLocalBounds().height / 2.0f) - text.getLocalBounds().top;
 
         text.setPosition(x, y);
 
