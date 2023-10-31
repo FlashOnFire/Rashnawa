@@ -1,7 +1,16 @@
 #include <iostream>
 #include "MainMenu.h"
 
-MainMenu::MainMenu() {
+MainMenu::MainMenu(const std::weak_ptr<Audio::AudioManager>& audioMgr) {
+    if (auto mgr = audioMgr.lock()) {
+           music = mgr->getEventInstance("event:/tension");
+           music->setVolume(0.3);
+           music->start();
+    } else {
+        std::cout << "Error: AudioManager not loaded?" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+
     _buttons.emplace_back(std::make_unique<Button>(120, 200, 200, 80, "PLAY", []() {
         std::cout << "Oui" << std::endl;
     }));

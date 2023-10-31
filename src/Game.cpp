@@ -4,9 +4,13 @@
 Game::Game() {
     _window = std::make_shared<sf::RenderWindow>(sf::VideoMode(1280, 720), "Rashnawa");
     _renderer = std::make_unique<Graphics::Renderer>(_window);
-    _audioMgr.initialize();
+    _audioMgr = std::make_shared<Audio::AudioManager>();
+    _audioMgr->initialize();
 
-    _currentScreen = std::make_unique<MainMenu>();
+    _audioMgr->loadBank("../assets/audio/Master.bank");
+    _audioMgr->loadBank("../assets/audio/Master.strings.bank");
+
+    _currentScreen = std::make_unique<MainMenu>(_audioMgr);
 
     _window->setFramerateLimit(240);
 
@@ -23,7 +27,7 @@ void Game::run() {
     while (running) {
         int deltaT = clock.restart().asMilliseconds();
 
-        _audioMgr.update();
+        _audioMgr->update();
 
         handleEvents(running);
 

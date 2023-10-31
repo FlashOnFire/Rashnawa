@@ -15,7 +15,7 @@ public:
 private:
     std::shared_ptr<sf::RenderWindow> _window;
 
-    Audio::AudioManager _audioMgr;
+    std::shared_ptr<Audio::AudioManager> _audioMgr;
     World _world;
     std::unique_ptr<Graphics::Renderer> _renderer;
     //OptionalScreen _currentScreen;

@@ -22,7 +22,7 @@ namespace Audio {
 
         [[nodiscard]] std::weak_ptr<Studio::System> getSystem() const;
 
-        EventInstance getEventInstance(const std::string &path);
+        std::unique_ptr<EventInstance> getEventInstance(const std::string &path);
     private:
         std::shared_ptr<Studio::System> _system = nullptr;
         std::vector<std::shared_ptr<Studio::Bank>> _banks;

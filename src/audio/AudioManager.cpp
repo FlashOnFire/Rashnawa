@@ -36,15 +36,13 @@ namespace Audio {
         return _system;
     }
 
-    EventInstance
+    std::unique_ptr<EventInstance>
     AudioManager::getEventInstance(const std::string &path) {
         Studio::EventInstance *instance;
         getEventDescription(path).lock()->createInstance(&instance);
         std::unique_ptr<Studio::EventInstance, EventInstanceDeleter> ptrInstance(instance, EventInstanceDeleter());
 
-        EventInstance a = Audio::EventInstance(std::move(ptrInstance));
-
-        return std::move(a);
+        return std::make_unique<Audio::EventInstance>(std::move(ptrInstance));
     }
 
     std::weak_ptr<Studio::EventDescription> AudioManager::getEventDescription(const std::string &path) {
