@@ -62,7 +62,6 @@ void MainMenu::render(std::shared_ptr<sf::RenderWindow> window, const sf::Font &
 
     mainText.setPosition(x, y);
 
-
     window->draw(mainText);
 
     for (const auto &button: _buttons) {
@@ -71,7 +70,7 @@ void MainMenu::render(std::shared_ptr<sf::RenderWindow> window, const sf::Font &
         shape.setTexture(buttonTexture.get());
 
         const auto textureSize = buttonTexture->getSize();
-        const auto position = sf::Vector2i(button->isHovered()? 0 : (int) textureSize.x /2 , 0);
+        const auto position = sf::Vector2i(button->isHovered() ? 0 : (int) textureSize.x / 2, 0);
 
         const auto size = sf::Vector2i((int) textureSize.x / 2, (int) textureSize.y);
 
@@ -87,9 +86,9 @@ void MainMenu::render(std::shared_ptr<sf::RenderWindow> window, const sf::Font &
         text.setCharacterSize(45);
 
         float fontX = (float) button->getX() + (float) button->getDx() / 2.0f - (text.getLocalBounds().width / 2.0f) -
-                  text.getLocalBounds().left;
+                      text.getLocalBounds().left;
         float fontY = (float) button->getY() + (float) button->getDy() / 2.0f - (text.getLocalBounds().height / 2.0f) -
-                  text.getLocalBounds().top;
+                      text.getLocalBounds().top;
 
         text.setPosition(fontX, fontY);
 
