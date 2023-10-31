@@ -1,7 +1,3 @@
-//
-// Created by flashonfire on 10/30/23.
-//
-
 #include "Renderer.h"
 
 #include <utility>

@@ -2,9 +2,11 @@
 #include "Game.h"
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
-
+    std::cout << "Starting game..." << std::endl;
     Game game;
+
+    std::cout << "Run!" << std::endl;
     game.run();
+
     return 0;
 }

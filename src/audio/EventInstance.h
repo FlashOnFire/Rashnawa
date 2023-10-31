@@ -1,9 +1,10 @@
-#pragma once
+#ifndef RASHNAWA_AUDIO_EVENTINSTANCE_H
+#define RASHNAWA_AUDIO_EVENTINSTANCE_H
 
 #include "fmod_studio.hpp"
 #include <string>
 #include <memory>
-#include "Utils.h"
+#include "Utils.hpp"
 
 using namespace FMOD;
 
@@ -73,3 +74,5 @@ namespace Audio {
     };
 
 } // Audio
+
+#endif //RASHNAWA_AUDIO_EVENTINSTANCE_H

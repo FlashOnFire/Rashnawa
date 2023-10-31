@@ -1,4 +1,5 @@
-#pragma once
+#ifndef RASHNAWA_AUDIO_AUDIOMANAGER_H
+#define RASHNAWA_AUDIO_AUDIOMANAGER_H
 
 #include <memory>
 #include "fmod_studio.hpp"
@@ -31,3 +32,5 @@ namespace Audio {
     };
 
 } // Audio
+
+#endif // RASHNAWA_AUDIO_AUDIOMANAGER_H
