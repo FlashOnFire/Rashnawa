@@ -17,6 +17,9 @@ public:
 private:
     std::vector<std::unique_ptr<Button>> _buttons;
     std::unique_ptr<Audio::EventInstance> music;
+
+    const std::unique_ptr<sf::Texture> backgroundTexture = std::make_unique<sf::Texture>();
+    const std::unique_ptr<sf::Texture> buttonTexture = std::make_unique<sf::Texture>();
 };
 
 
