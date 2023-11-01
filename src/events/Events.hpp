@@ -6,6 +6,9 @@ namespace Events {
     struct CloseGame {
     };
 
+    struct SwitchToMainMenu {
+    };
+
     struct SwitchToOptionsScreen {
     };
 

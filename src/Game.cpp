@@ -18,7 +18,7 @@ Game::Game() {
     _audioMgr->loadBank("../assets/audio/Master.bank");
     _audioMgr->loadBank("../assets/audio/Master.strings.bank");
 
-    _currentScreen = std::make_unique<MainMenu>(_eventBus, _audioMgr);
+    _eventBus->postpone(Events::SwitchToMainMenu{});
 
     if (!font.loadFromFile("../assets/fonts/Unitblock.ttf")) {
         std::cout << "Error: can't load font!" << std::endl;
@@ -33,11 +33,16 @@ void Game::run() {
     });
 
     dexode::EventBus::Listener changeScreenListener{_eventBus};
+    changeScreenListener.listen<Events::SwitchToMainMenu>([this](const Events::SwitchToMainMenu &e) {
+        _currentScreen = std::make_unique<MainMenu>(_eventBus, _audioMgr);
+    });
+
     changeScreenListener.listen<Events::GoInGame>([this](const Events::GoInGame &e) {
         _currentScreen.reset();
     });
+
     changeScreenListener.listen<Events::SwitchToOptionsScreen>([this](const Events::SwitchToOptionsScreen &e) {
-        *_currentScreen = std::make_unique<OptionsMenu>(_eventBus);
+        _currentScreen = std::make_unique<OptionsMenu>(_eventBus);
     });
 
     sf::Clock clock;
