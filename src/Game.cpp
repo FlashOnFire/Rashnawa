@@ -42,7 +42,7 @@ void Game::run() {
         _eventBus->process();
         _audioMgr->update();
 
-        handleEvents(_running);
+        handleEvents();
 
         _window->clear(sf::Color::White);
 
@@ -56,7 +56,7 @@ void Game::run() {
     }
 }
 
-void Game::handleEvents(bool &running) {
+void Game::handleEvents() {
     sf::Event event{};
     while (_window->pollEvent(event)) {
         switch (event.type) {

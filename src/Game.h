@@ -29,7 +29,7 @@ private:
 
     sf::Font font;
 
-    void handleEvents(bool &running);
+    void handleEvents();
 };
 
 
