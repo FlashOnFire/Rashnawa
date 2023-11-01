@@ -1,0 +1,59 @@
+{ "frames": {
+   "trucacocher 0.aseprite": {
+    "frame": { "x": 0, "y": 0, "w": 16, "h": 12 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 12 },
+    "sourceSize": { "w": 16, "h": 12 },
+    "duration": 100
+   },
+   "trucacocher 1.aseprite": {
+    "frame": { "x": 0, "y": 12, "w": 16, "h": 12 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 12 },
+    "sourceSize": { "w": 16, "h": 12 },
+    "duration": 100
+   },
+   "trucacocher 2.aseprite": {
+    "frame": { "x": 0, "y": 24, "w": 16, "h": 12 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 12 },
+    "sourceSize": { "w": 16, "h": 12 },
+    "duration": 100
+   },
+   "trucacocher 3.aseprite": {
+    "frame": { "x": 0, "y": 36, "w": 16, "h": 12 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 12 },
+    "sourceSize": { "w": 16, "h": 12 },
+    "duration": 100
+   },
+   "trucacocher 4.aseprite": {
+    "frame": { "x": 0, "y": 48, "w": 16, "h": 12 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 12 },
+    "sourceSize": { "w": 16, "h": 12 },
+    "duration": 100
+   },
+   "trucacocher 5.aseprite": {
+    "frame": { "x": 0, "y": 60, "w": 16, "h": 12 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 16, "h": 12 },
+    "sourceSize": { "w": 16, "h": 12 },
+    "duration": 100
+   }
+ },
+ "meta": {
+  "app": "http://www.aseprite.org/",
+  "version": "1.2.40-dev",
+  "image": "trucacocher.png",
+  "format": "RGBA8888",
+  "size": { "w": 16, "h": 72 },
+  "scale": "1"
+ }
+}

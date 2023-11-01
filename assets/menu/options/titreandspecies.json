@@ -1,0 +1,27 @@
+{ "frames": {
+   "titreandspecies 0.aseprite": {
+    "frame": { "x": 0, "y": 0, "w": 128, "h": 33 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 33 },
+    "sourceSize": { "w": 128, "h": 33 },
+    "duration": 100
+   },
+   "titreandspecies 1.aseprite": {
+    "frame": { "x": 0, "y": 33, "w": 128, "h": 33 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 128, "h": 33 },
+    "sourceSize": { "w": 128, "h": 33 },
+    "duration": 100
+   }
+ },
+ "meta": {
+  "app": "http://www.aseprite.org/",
+  "version": "1.2.40-dev",
+  "image": "titreandspecies.png",
+  "format": "RGBA8888",
+  "size": { "w": 128, "h": 66 },
+  "scale": "1"
+ }
+}
