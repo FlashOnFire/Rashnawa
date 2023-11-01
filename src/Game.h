@@ -9,7 +9,7 @@
 #include "world/World.h"
 #include "graphics/Renderer.h"
 #include "screens/objects/BasicScreen.h"
-#include "MusicManager.h"
+#include "audio/MusicManager.h"
 #include "events/EventManager.h"
 
 class Game {

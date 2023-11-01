@@ -1,5 +1,5 @@
 #include "MusicManager.h"
-#include "events/Events.h"
+#include "../events/Events.h"
 
 namespace Audio {
 

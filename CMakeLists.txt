@@ -46,8 +46,8 @@ add_executable(Rashnawa
         inc/dexode/EventBus.cpp
         src/screens/OptionsMenuScreen.cpp
         src/screens/OptionsMenuScreen.h
-        src/MusicManager.cpp
-        src/MusicManager.h
+        src/audio/MusicManager.cpp
+        src/audio/MusicManager.h
         src/events/EventManager.cpp
         src/events/EventManager.h
         src/screens/Screens.h

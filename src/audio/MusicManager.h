@@ -4,7 +4,7 @@
 #include <functional>
 
 #include "dexode/EventBus.hpp"
-#include "audio/AudioManager.h"
+#include "AudioManager.h"
 
 namespace Audio {
 
