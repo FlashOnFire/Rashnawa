@@ -13,8 +13,8 @@ namespace Audio {
         MusicManager(std::shared_ptr<dexode::EventBus> eventBus, std::shared_ptr<Audio::AudioManager> audioManager);
 
     private:
-        std::shared_ptr<dexode::EventBus> _eventBus;
-        std::shared_ptr<Audio::AudioManager> _audioManager;
+        const std::shared_ptr<dexode::EventBus> _eventBus;
+        const std::shared_ptr<Audio::AudioManager> _audioManager;
 
         dexode::EventBus::Listener _eventListener;
 
