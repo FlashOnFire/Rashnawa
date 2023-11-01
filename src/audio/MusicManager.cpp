@@ -13,7 +13,7 @@ namespace Audio {
         _eventListener.listen<Events::ChangeScreen>([this](const Events::ChangeScreen &e) {
             if (e.from == Screens::None && e.to == Screens::MainMenu) {
                 _musicInstance = _audioManager->createEventInstance("event:/tension");
-                _musicInstance->setVolume(0.8);
+                _musicInstance->setVolume(0.2);
                 _musicInstance->start();
             } else if (e.to == Screens::None) {
                 _musicInstance->stop(FMOD_STUDIO_STOP_MODE::FMOD_STUDIO_STOP_ALLOWFADEOUT);
