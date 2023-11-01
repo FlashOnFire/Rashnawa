@@ -17,9 +17,6 @@ void Button::mouseMoved(sf::Event::MouseMoveEvent e) {
 }
 
 void Button::mouseButtonPressed(sf::Event::MouseButtonEvent e) {
-    _hovered = e.x > _x && e.x < (_x + _dx)
-               && e.y > _y && e.y < (_y + _dy);
-
     if (e.button != sf::Mouse::Button::Left)
         return;
 
