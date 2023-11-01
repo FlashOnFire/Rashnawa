@@ -3,7 +3,7 @@
 #include <utility>
 
 OptionsMenu::OptionsMenu(std::shared_ptr<dexode::EventBus> eventBus) : _eventBus(std::move(eventBus)) {
-    if (!backgroundTexture->loadFromFile("../assets/menu/menufond2.png")) {
+    if (!backgroundTexture->loadFromFile("../assets/menu/newfont.png")) {
         std::cout << "Can't load menu background texture from file";
         exit(EXIT_FAILURE);
     }

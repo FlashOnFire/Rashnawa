@@ -1,13 +1,13 @@
 #include <iostream>
 
-#include "../events/Events.hpp"
+#include "../events/Events.h"
 
 #include "MainMenu.h"
 
 MainMenu::MainMenu(std::shared_ptr<dexode::EventBus> eventBus, const std::shared_ptr<Audio::AudioManager> &audioMgr) : _eventBus(std::move(eventBus)) {
-    music = audioMgr->createEventInstance("event:/tension");
+    /*music = audioMgr->createEventInstance("event:/tension");
     music->setVolume(0.3);
-    music->start();
+    music->start();*/
 
     if (!backgroundTexture->loadFromFile("../assets/menu/menufond2.png")) {
         std::cout << "Can't load menu background texture from file";

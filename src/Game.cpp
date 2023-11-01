@@ -2,7 +2,7 @@
 
 #include <memory>
 #include "screens/MainMenu.h"
-#include "events/Events.hpp"
+#include "events/Events.h"
 #include "screens/OptionsMenu.h"
 
 Game::Game() {
@@ -12,6 +12,8 @@ Game::Game() {
     _window->setFramerateLimit(240);
 
     _audioMgr = std::make_shared<Audio::AudioManager>();
+    _musicManager = std::make_unique<Audio::MusicManager>(_eventBus, _audioMgr);
+
     _renderer = std::make_unique<Graphics::Renderer>(_window);
 
     _audioMgr->initialize();

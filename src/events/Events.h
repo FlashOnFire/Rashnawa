@@ -1,5 +1,5 @@
-#ifndef RASHNAWA_EVENTS_HPP
-#define RASHNAWA_EVENTS_HPP
+#ifndef RASHNAWA_EVENTS_H
+#define RASHNAWA_EVENTS_H
 
 namespace Events {
 
@@ -16,4 +16,4 @@ namespace Events {
     };
 
 }
-#endif //RASHNAWA_EVENTS_HPP
+#endif //RASHNAWA_EVENTS_H

@@ -9,6 +9,7 @@
 #include "world/World.h"
 #include "graphics/Renderer.h"
 #include "screens/objects/BasicScreen.h"
+#include "MusicManager.h"
 
 class Game {
 public:
@@ -22,6 +23,8 @@ private:
     std::shared_ptr<sf::RenderWindow> _window;
 
     std::shared_ptr<Audio::AudioManager> _audioMgr;
+    std::unique_ptr<Audio::MusicManager> _musicManager;
+
     World _world;
     std::unique_ptr<Graphics::Renderer> _renderer;
 
