@@ -24,8 +24,8 @@ Game::Game() {
 
     _eventBus->postpone<Events::ChangeScreen>({.from =  Screens::None, .to =  Screens::MainMenu});
 
-    if (!font.loadFromFile("../assets/fonts/Unitblock.ttf")) {
-        std::cout << "Error: can't load font!" << std::endl;
+    if (!_font.loadFromFile("../assets/fonts/Unitblock.ttf")) {
+        std::cout << "Error: can't load _font!" << std::endl;
         exit(EXIT_FAILURE);
     }
 }
@@ -46,7 +46,7 @@ void Game::run() {
                 _currentScreen = std::make_unique<MainMenuScreen>(_eventBus);
                 break;
             case OptionsMenu:
-                _currentScreen = std::make_unique<OptionsMenuScreen>(_eventBus);
+                _currentScreen = std::make_unique<OptionsMenuScreen>(_eventBus, _font, _window->getSize());
                 break;
         }
     });
@@ -64,7 +64,7 @@ void Game::run() {
         _window->clear(sf::Color::White);
 
         if (_currentScreen.has_value()) {
-            _currentScreen.value()->render(_window, font);
+            _currentScreen.value()->render(_window, _font);
         } else {
             _renderer->render();
         }

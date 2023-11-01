@@ -51,4 +51,5 @@ add_executable(Rashnawa
         src/events/EventManager.cpp
         src/events/EventManager.h
         src/screens/Screens.h
+        src/screens/OptionsCategories.h
 )

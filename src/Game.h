@@ -32,7 +32,7 @@ private:
 
     std::optional<std::unique_ptr<BasicScreen>> _currentScreen;
 
-    sf::Font font;
+    sf::Font _font;
 };
 
 
