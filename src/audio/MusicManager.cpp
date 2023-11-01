@@ -2,20 +2,21 @@
 #include "../events/Events.h"
 
 namespace Audio {
-
     MusicManager::MusicManager(std::shared_ptr<dexode::EventBus> eventBus,
                                std::shared_ptr<Audio::AudioManager> audioManager) : _eventBus(std::move(eventBus)),
                                                                                     _audioManager(
                                                                                             std::move(audioManager)),
                                                                                     _eventListener(
                                                                                             dexode::EventBus::Listener(
-                                                                                                    {_eventBus})) {
+                                                                                                    _eventBus)) {
 
         _eventListener.listen<Events::ChangeScreen>([this](const Events::ChangeScreen &e) {
             if (e.from == Screens::None && e.to == Screens::MainMenu) {
                 _musicInstance = _audioManager->createEventInstance("event:/tension");
                 _musicInstance->setVolume(0.2);
                 _musicInstance->start();
+            } else if (e.to == Screens::None) {
+                _musicInstance->stop(FMOD_STUDIO_STOP_MODE::FMOD_STUDIO_STOP_ALLOWFADEOUT);
             }
         });
 
