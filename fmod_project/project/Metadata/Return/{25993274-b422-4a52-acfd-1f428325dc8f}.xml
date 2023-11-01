@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="MixerReturn" id="{25993274-b422-4a52-acfd-1f428325dc8f}">
+		<property name="overridingInputFormat">
+			<value>2</value>
+		</property>
+		<property name="name">
+			<value>Reverb</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{53f565dd-8e16-4409-8537-e4c263b941a2}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{ef870e6b-1f3e-4e10-9e62-e35598ec3500}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{78ab0156-634e-44da-9342-38719f7d6eb4}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{53f565dd-8e16-4409-8537-e4c263b941a2}">
+		<relationship name="effects">
+			<destination>{aabc8c56-7145-40da-83d1-03ba66b48bc8}</destination>
+			<destination>{a77ff66e-8ac3-489a-be81-63ece69c38cb}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{ef870e6b-1f3e-4e10-9e62-e35598ec3500}">
+		<property name="surroundPanDirection">
+			<value>100.738892</value>
+		</property>
+		<property name="surroundPanExtent">
+			<value>76.2508698</value>
+		</property>
+	</object>
+	<object class="SFXReverbEffect" id="{aabc8c56-7145-40da-83d1-03ba66b48bc8}">
+		<property name="wetLevel">
+			<value>0</value>
+		</property>
+		<property name="dryLevel">
+			<value>-80</value>
+		</property>
+	</object>
+	<object class="MixerBusFader" id="{a77ff66e-8ac3-489a-be81-63ece69c38cb}" />
+</objects>
