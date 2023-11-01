@@ -10,8 +10,6 @@ class MainMenuScreen : public BasicScreen {
 public:
     explicit MainMenuScreen(std::shared_ptr<dexode::EventBus> eventBus);
 
-    void update(const sf::Event &e) override;
-
     void render(std::shared_ptr<sf::RenderWindow> window, const sf::Font &font) const override;
 
 private:

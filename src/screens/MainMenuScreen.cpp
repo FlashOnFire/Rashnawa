@@ -47,9 +47,6 @@ MainMenuScreen::MainMenuScreen(std::shared_ptr<dexode::EventBus> eventBus) : _ev
     std::cout << "Created MainMenuScreen!" << std::endl;
 }
 
-void MainMenuScreen::update(const sf::Event &e) {
-}
-
 void MainMenuScreen::render(std::shared_ptr<sf::RenderWindow> window, const sf::Font &font) const {
     sf::Vector2 wSize = window->getSize();
 
