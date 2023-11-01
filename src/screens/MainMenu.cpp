@@ -4,9 +4,7 @@
 
 #include "MainMenu.h"
 
-MainMenu::MainMenu(std::shared_ptr<dexode::EventBus> eventBus, const std::shared_ptr<Audio::AudioManager> &audioMgr) {
-    _eventBus = std::move(eventBus);
-
+MainMenu::MainMenu(std::shared_ptr<dexode::EventBus> eventBus, const std::shared_ptr<Audio::AudioManager> &audioMgr) : _eventBus(std::move(eventBus)) {
     music = audioMgr->createEventInstance("event:/tension");
     music->setVolume(0.3);
     music->start();
@@ -23,11 +21,16 @@ MainMenu::MainMenu(std::shared_ptr<dexode::EventBus> eventBus, const std::shared
     }
 
     _buttons.emplace_back(std::make_unique<Button>(120, 300, 200, 80, "PLAY", [this]() {
-        std::cout << "Oui" << std::endl;
+        std::cout << "Play" << std::endl;
         _eventBus->postpone(Events::GoInGame{});
     }));
 
-    _buttons.emplace_back(std::make_unique<Button>(120, 400, 200, 80, "EXIT", [this]() {
+    _buttons.emplace_back(std::make_unique<Button>(120, 400, 200, 80, "OPTIONS", [this]() {
+        std::cout << "Options" << std::endl;
+        _eventBus->postpone(Events::SwitchToOptionsScreen{});
+    }));
+
+    _buttons.emplace_back(std::make_unique<Button>(120, 600, 200, 80, "EXIT", [this]() {
         std::cout << "Exit" << std::endl;
         _eventBus->postpone(Events::CloseGame{});
     }));

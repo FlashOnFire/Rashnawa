@@ -5,7 +5,12 @@ namespace Events {
 
     struct CloseGame {
     };
-    struct GoInGame {};
+
+    struct SwitchToOptionsScreen {
+    };
+
+    struct GoInGame {
+    };
 
 }
 #endif //RASHNAWA_EVENTS_HPP

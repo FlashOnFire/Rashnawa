@@ -1,6 +1,9 @@
 #include "Game.h"
+
+#include <memory>
 #include "screens/MainMenu.h"
 #include "events/Events.hpp"
+#include "screens/OptionsMenu.h"
 
 Game::Game() {
     _eventBus = std::make_shared<dexode::EventBus>();
@@ -32,6 +35,9 @@ void Game::run() {
     dexode::EventBus::Listener changeScreenListener{_eventBus};
     changeScreenListener.listen<Events::GoInGame>([this](const Events::GoInGame &e) {
         _currentScreen.reset();
+    });
+    changeScreenListener.listen<Events::SwitchToOptionsScreen>([this](const Events::SwitchToOptionsScreen &e) {
+        *_currentScreen = std::make_unique<OptionsMenu>(_eventBus);
     });
 
     sf::Clock clock;
