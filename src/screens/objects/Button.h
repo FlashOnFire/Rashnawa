@@ -11,7 +11,9 @@ public:
     Button(int x, int y, int dx, int dy, std::string text,
            const std::function<void()> &callback);
 
-    void update(sf::Event e);
+    void mouseMoved(sf::Event::MouseMoveEvent e);
+
+    void mouseButtonPressed(sf::Event::MouseButtonEvent e);
 
     [[nodiscard]] int getX() const;
 
@@ -24,6 +26,7 @@ public:
     [[nodiscard]] const std::string &getText() const;
 
     [[nodiscard]] bool isHovered() const;
+
 private:
     const int _x, _y, _dx, _dy;
     const std::string _text;

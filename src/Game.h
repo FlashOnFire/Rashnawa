@@ -10,6 +10,7 @@
 #include "graphics/Renderer.h"
 #include "screens/objects/BasicScreen.h"
 #include "MusicManager.h"
+#include "events/EventManager.h"
 
 class Game {
 public:
@@ -21,6 +22,7 @@ private:
     std::shared_ptr<dexode::EventBus> _eventBus;
 
     std::shared_ptr<sf::RenderWindow> _window;
+    std::shared_ptr<EventManager> _eventManager;
 
     std::shared_ptr<Audio::AudioManager> _audioMgr;
     std::unique_ptr<Audio::MusicManager> _musicManager;
@@ -31,8 +33,6 @@ private:
     std::optional<std::unique_ptr<BasicScreen>> _currentScreen;
 
     sf::Font font;
-
-    void handleEvents();
 };
 
 

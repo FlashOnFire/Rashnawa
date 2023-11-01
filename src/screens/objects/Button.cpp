@@ -11,23 +11,21 @@ Button::Button(const int x, const int y, const int dx, const int dy, std::string
                                                                 callback) {
 }
 
-void Button::update(const sf::Event e) {
-    switch (e.type) {
-        case sf::Event::EventType::MouseMoved:
-            _hovered = e.mouseMove.x > _x && e.mouseMove.x < (_x + _dx)
-                       && e.mouseMove.y > _y && e.mouseMove.y < (_y + _dy);
-            break;
-        case sf::Event::EventType::MouseButtonPressed:
-            if (e.mouseButton.button != sf::Mouse::Button::Left)
-                return;
+void Button::mouseMoved(sf::Event::MouseMoveEvent e) {
+    _hovered = e.x > _x && e.x < (_x + _dx)
+               && e.y > _y && e.y < (_y + _dy);
+}
 
-            if (e.mouseButton.x > _x && e.mouseButton.x < (_x + _dx)
-                       && e.mouseButton.y > _y && e.mouseButton.y < (_y + _dy)) {
-                _callback();
-            }
-            break;
-        default:
-            break;
+void Button::mouseButtonPressed(sf::Event::MouseButtonEvent e) {
+    _hovered = e.x > _x && e.x < (_x + _dx)
+               && e.y > _y && e.y < (_y + _dy);
+
+    if (e.button != sf::Mouse::Button::Left)
+        return;
+
+    if (e.x > _x && e.x < (_x + _dx)
+        && e.y > _y && e.y < (_y + _dy)) {
+        _callback();
     }
 }
 

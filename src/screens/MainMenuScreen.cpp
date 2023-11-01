@@ -2,13 +2,9 @@
 
 #include "../events/Events.h"
 
-#include "MainMenu.h"
+#include "MainMenuScreen.h"
 
-MainMenu::MainMenu(std::shared_ptr<dexode::EventBus> eventBus, const std::shared_ptr<Audio::AudioManager> &audioMgr) : _eventBus(std::move(eventBus)) {
-    /*music = audioMgr->createEventInstance("event:/tension");
-    music->setVolume(0.3);
-    music->start();*/
-
+MainMenuScreen::MainMenuScreen(std::shared_ptr<dexode::EventBus> eventBus) : _eventBus(std::move(eventBus)) {
     if (!backgroundTexture->loadFromFile("../assets/menu/menufond2.png")) {
         std::cout << "Can't load menu background texture from file";
         exit(EXIT_FAILURE);
@@ -22,12 +18,12 @@ MainMenu::MainMenu(std::shared_ptr<dexode::EventBus> eventBus, const std::shared
 
     _buttons.emplace_back(std::make_unique<Button>(120, 300, 200, 80, "PLAY", [this]() {
         std::cout << "Play" << std::endl;
-        _eventBus->postpone(Events::GoInGame{});
+        _eventBus->postpone(Events::ChangeScreen{.from = Screens::MainMenu, .to = Screens::None});
     }));
 
     _buttons.emplace_back(std::make_unique<Button>(120, 400, 200, 80, "OPTIONS", [this]() {
         std::cout << "Options" << std::endl;
-        _eventBus->postpone(Events::SwitchToOptionsScreen{});
+        _eventBus->postpone(Events::ChangeScreen{.from = Screens::MainMenu, .to = Screens::OptionsMenu});
     }));
 
     _buttons.emplace_back(std::make_unique<Button>(120, 600, 200, 80, "EXIT", [this]() {
@@ -35,19 +31,26 @@ MainMenu::MainMenu(std::shared_ptr<dexode::EventBus> eventBus, const std::shared
         _eventBus->postpone(Events::CloseGame{});
     }));
 
-    std::cout << "Created MainMenu!" << std::endl;
+    _eventListener = std::make_unique<dexode::EventBus::Listener>(_eventBus);
+    _eventListener->listen<sf::Event::MouseMoveEvent>([this](const sf::Event::MouseMoveEvent &e) {
+        for (const auto &button: _buttons) {
+            button->mouseMoved(e);
+        }
+    });
+
+    _eventListener->listen<Events::MouseButtonPressed>([this](const Events::MouseButtonPressed &e) {
+        for (const auto &button: _buttons) {
+            button->mouseButtonPressed(e.event);
+        }
+    });
+
+    std::cout << "Created MainMenuScreen!" << std::endl;
 }
 
-void MainMenu::update(const sf::Event &e) {
-    if (e.type != sf::Event::MouseButtonPressed && e.type != sf::Event::MouseMoved)
-        return;
-
-    for (const auto &button: _buttons) {
-        button->update(e);
-    }
+void MainMenuScreen::update(const sf::Event &e) {
 }
 
-void MainMenu::render(std::shared_ptr<sf::RenderWindow> window, const sf::Font &font) const {
+void MainMenuScreen::render(std::shared_ptr<sf::RenderWindow> window, const sf::Font &font) const {
     sf::Vector2 wSize = window->getSize();
 
     auto background = sf::RectangleShape(sf::Vector2f(wSize));

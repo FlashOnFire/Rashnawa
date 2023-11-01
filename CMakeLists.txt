@@ -23,8 +23,8 @@ add_executable(Rashnawa
         src/world/World.h
         src/screens/objects/BasicScreen.cpp
         src/screens/objects/BasicScreen.h
-        src/screens/MainMenu.cpp
-        src/screens/MainMenu.h
+        src/screens/MainMenuScreen.cpp
+        src/screens/MainMenuScreen.h
         src/screens/objects/Button.cpp
         src/screens/objects/Button.h
         src/entities/Entity.cpp
@@ -44,8 +44,11 @@ add_executable(Rashnawa
         src/entities/weapons/Weapon.h
         src/events/Events.h
         inc/dexode/EventBus.cpp
-        src/screens/OptionsMenu.cpp
-        src/screens/OptionsMenu.h
+        src/screens/OptionsMenuScreen.cpp
+        src/screens/OptionsMenuScreen.h
         src/MusicManager.cpp
         src/MusicManager.h
+        src/events/EventManager.cpp
+        src/events/EventManager.h
+        src/screens/Screens.h
 )
