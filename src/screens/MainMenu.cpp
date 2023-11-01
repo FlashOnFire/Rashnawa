@@ -34,6 +34,8 @@ MainMenu::MainMenu(std::shared_ptr<dexode::EventBus> eventBus, const std::shared
         std::cout << "Exit" << std::endl;
         _eventBus->postpone(Events::CloseGame{});
     }));
+
+    std::cout << "Created MainMenu!" << std::endl;
 }
 
 void MainMenu::update(const sf::Event &e) {

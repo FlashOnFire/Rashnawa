@@ -8,6 +8,8 @@ OptionsMenu::OptionsMenu(std::shared_ptr<dexode::EventBus> eventBus) : _eventBus
         exit(EXIT_FAILURE);
     }
     backgroundTexture->setSmooth(true);
+
+    std::cout << "Created OptionsMenu!" << std::endl;
 }
 
 void OptionsMenu::update(const sf::Event &e) {

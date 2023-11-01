@@ -24,7 +24,7 @@ namespace Audio {
 
         std::unique_ptr<EventInstance> createEventInstance(const std::string &path);
     private:
-        std::shared_ptr<Studio::System> _system = nullptr;
+        std::shared_ptr<Studio::System> _system;
         std::vector<std::shared_ptr<Studio::Bank>> _banks;
         std::map<const std::string, std::shared_ptr<Studio::EventDescription>> eventDescriptions;
 

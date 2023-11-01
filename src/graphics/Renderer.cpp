@@ -1,11 +1,14 @@
 #include "Renderer.h"
 
 #include <utility>
+#include <iostream>
 
 namespace Graphics {
 
     Renderer::Renderer(std::shared_ptr<sf::RenderWindow> window) {
         _window = std::move(window);
+
+        std::cout << "Created Renderer!" << std::endl;
     }
 
     void Renderer::render() {

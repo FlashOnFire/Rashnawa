@@ -4,6 +4,8 @@ namespace Audio {
 
     EventInstance::EventInstance(std::unique_ptr<Studio::EventInstance, EventInstanceDeleter> instance) {
         _instance = std::move(instance);
+
+        std::cout << "Created EventInstance!" << std::endl;
     }
 
     void EventInstance::start() {

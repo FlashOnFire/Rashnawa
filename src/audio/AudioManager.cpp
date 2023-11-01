@@ -10,6 +10,8 @@ namespace Audio {
         _system.reset(sys, [](Studio::System *system) {
             system->release();
         });
+
+        std::cout << "Created AudioManager!" << std::endl;
     }
 
     void AudioManager::initialize() {
