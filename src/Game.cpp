@@ -61,12 +61,12 @@ void Game::handleEvents(bool &running) {
     while (_window->pollEvent(event)) {
         switch (event.type) {
             case sf::Event::Closed:
-                running = false;
+                _eventBus->postpone(Events::CloseGame{});
                 break;
             case sf::Event::KeyPressed:
                 switch (event.key.code) {
                     case sf::Keyboard::Escape:
-                        running = false;
+                        _eventBus->postpone(Events::CloseGame{});
                         break;
                     default:
                         break;

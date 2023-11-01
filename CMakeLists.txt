@@ -21,8 +21,8 @@ add_executable(Rashnawa
         src/graphics/Renderer.h
         src/world/World.cpp
         src/world/World.h
-        src/screens/BasicScreen.cpp
-        src/screens/BasicScreen.h
+        src/screens/objects/BasicScreen.cpp
+        src/screens/objects/BasicScreen.h
         src/screens/MainMenu.cpp
         src/screens/MainMenu.h
         src/screens/objects/Button.cpp

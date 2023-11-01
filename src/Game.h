@@ -8,7 +8,7 @@
 #include "audio/AudioManager.h"
 #include "world/World.h"
 #include "graphics/Renderer.h"
-#include "screens/BasicScreen.h"
+#include "screens/objects/BasicScreen.h"
 
 class Game {
 public:

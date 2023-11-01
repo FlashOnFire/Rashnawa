@@ -1,7 +1,7 @@
 #ifndef RASHNAWA_MAINMENU_H
 #define RASHNAWA_MAINMENU_H
 
-#include "BasicScreen.h"
+#include "objects/BasicScreen.h"
 #include "objects/Button.h"
 #include "../audio/AudioManager.h"
 #include "dexode/EventBus.hpp"
