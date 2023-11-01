@@ -4,7 +4,7 @@
 
 #include "MainMenuScreen.h"
 
-MainMenuScreen::MainMenuScreen(std::shared_ptr<dexode::EventBus> eventBus) : _eventBus(std::move(eventBus)) {
+MainMenuScreen::MainMenuScreen(std::shared_ptr<dexode::EventBus> eventBus) : _eventBus(std::move(eventBus)), _eventListener(std::make_unique<dexode::EventBus::Listener>(_eventBus)) {
     if (!backgroundTexture->loadFromFile("../assets/menu/menufond2.png")) {
         std::cout << "Can't load menu background texture from file";
         exit(EXIT_FAILURE);
@@ -31,7 +31,7 @@ MainMenuScreen::MainMenuScreen(std::shared_ptr<dexode::EventBus> eventBus) : _ev
         _eventBus->postpone(Events::CloseGame{});
     }));
 
-    _eventListener = std::make_unique<dexode::EventBus::Listener>(_eventBus);
+
     _eventListener->listen<sf::Event::MouseMoveEvent>([this](const sf::Event::MouseMoveEvent &e) {
         for (const auto &button: _buttons) {
             button->mouseMoved(e);
