@@ -27,12 +27,9 @@ public:
 
     [[nodiscard]] sf::Vector2f getPosition() const;
 
-    void setPosition(const sf::Vector2f &pos);
-
     [[nodiscard]] sf::Vector2f getSize() const;
 
-    void setSize(const sf::Vector2f &size);
-
+    virtual void setTransform(const sf::Vector2f &pos, const sf::Vector2f &size);
 private:
     std::shared_ptr<sf::Texture> _texture;
     std::function<void()> _callback;

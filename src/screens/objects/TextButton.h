@@ -12,11 +12,13 @@ public:
 
     TextButton(const std::string& string, const sf::Font &font, std::shared_ptr<sf::Texture> texture, const std::function<void()> &callback);
 
-    void updateComponentsTransform();
-
     [[nodiscard]] std::string getText() const;
+
+    void setTransform(const sf::Vector2f &pos, const sf::Vector2f &size) override;
 private:
     sf::Text text;
+
+    void updateTextTransform();
 
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };

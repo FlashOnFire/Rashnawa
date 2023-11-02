@@ -5,7 +5,8 @@
 #include <utility>
 
 OptionsMenuScreen::OptionsMenuScreen(std::shared_ptr<dexode::EventBus> eventBus, std::shared_ptr<sf::Font> font,
-                                     const sf::Vector2<unsigned int> &windowSize) : BasicScreen(std::move(font)), _eventBus(std::move(eventBus)) {
+                                     const sf::Vector2<unsigned int> &windowSize) : BasicScreen(std::move(font)),
+                                                                                    _eventBus(std::move(eventBus)) {
     if (!_backgroundTexture->loadFromFile("../assets/menu/newfont.png")) {
         std::cout << "Can't load menu _background texture from file";
         exit(EXIT_FAILURE);
@@ -76,7 +77,7 @@ void OptionsMenuScreen::updateComponentsTransform(const sf::Vector2<unsigned int
     const auto optionsBackgroundPosY = (float) windowSize.y * 0.2f;
 
     const auto optionsBackgroundSizeX = (float) windowSize.x * 0.65f;
-    const auto optionsBackgroundSizeY = (float) windowSize.y * (1.0f -0.2f - 0.1f);
+    const auto optionsBackgroundSizeY = (float) windowSize.y * (1.0f - 0.2f - 0.1f);
 
     _optionsBackground.setPosition(optionsBackgroundPosX, optionsBackgroundPosY);
     _optionsBackground.setSize(sf::Vector2f(optionsBackgroundSizeX, optionsBackgroundSizeY));
@@ -90,8 +91,8 @@ void OptionsMenuScreen::updateComponentsTransform(const sf::Vector2<unsigned int
     const auto buttonCategoriesSizeX = (float) windowSize.x * 0.1f;
     const auto buttonCategoriesSizeY = (float) windowSize.y * 0.15f;
 
-    _soundCategoryBackgroundButton->setPosition(sf::Vector2f(buttonCategoriesPosX, buttonCategoriesPosY));
-    _soundCategoryBackgroundButton->setSize(sf::Vector2f(buttonCategoriesSizeX, buttonCategoriesSizeY));
+    _soundCategoryBackgroundButton->setTransform(sf::Vector2f(buttonCategoriesPosX, buttonCategoriesPosY),
+                                                 sf::Vector2f(buttonCategoriesSizeX, buttonCategoriesSizeY));
 
     _currentOptionCategory->updateComponentsTransform();
 }

@@ -63,15 +63,12 @@ sf::Vector2f Button::getPosition() const {
     return shape.getPosition();
 }
 
-void Button::setPosition(const sf::Vector2f &pos) {
-    shape.setPosition(pos);
-}
-
 sf::Vector2f Button::getSize() const {
     return shape.getSize();
 }
 
-void Button::setSize(const sf::Vector2f &size) {
+void Button::setTransform(const sf::Vector2f &pos, const sf::Vector2f &size) {
+    shape.setPosition(pos);
     shape.setSize(size);
 }
 
