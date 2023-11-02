@@ -29,6 +29,8 @@ void TextButton::updateTextTransform() {
                   text.getLocalBounds().top;
 
     text.setPosition(sf::Vector2f(fontX, fontY));
+
+    //TODO: set characterSize
 }
 
 void TextButton::setColor(const sf::Color &color) {
