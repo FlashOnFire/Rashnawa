@@ -1,9 +1,8 @@
 #include <iostream>
+#include <utility>
 #include "BasicScreen.h"
 
-BasicScreen::~BasicScreen() {
+BasicScreen::BasicScreen(std::shared_ptr<sf::Font> font) : _font(std::move(font)) {
 }
 
-void BasicScreen::render(std::shared_ptr<sf::RenderWindow>, const sf::Font &font) const {
-    std::cout << "basic screen render" << std::endl;
-}
+BasicScreen::~BasicScreen() = default;

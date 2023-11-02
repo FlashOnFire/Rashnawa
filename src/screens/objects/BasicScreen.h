@@ -9,10 +9,12 @@ class BasicScreen {
 public:
     virtual ~BasicScreen();
 
-    virtual void render(std::shared_ptr<sf::RenderWindow>, const sf::Font &font) const;
+    virtual void render(std::shared_ptr<sf::RenderWindow> window) const = 0;
 
 protected:
-    BasicScreen() = default;
+    std::shared_ptr<sf::Font> _font;
+
+    explicit BasicScreen(std::shared_ptr<sf::Font> font);
 };
 
 

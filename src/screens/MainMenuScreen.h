@@ -8,9 +8,9 @@
 
 class MainMenuScreen : public BasicScreen {
 public:
-    explicit MainMenuScreen(std::shared_ptr<dexode::EventBus> eventBus);
+    explicit MainMenuScreen(std::shared_ptr<dexode::EventBus> eventBus, std::shared_ptr<sf::Font> font);
 
-    void render(std::shared_ptr<sf::RenderWindow> window, const sf::Font &font) const override;
+    void render(std::shared_ptr<sf::RenderWindow> window) const override;
 
 private:
     const std::shared_ptr<dexode::EventBus> _eventBus;
@@ -19,7 +19,7 @@ private:
     std::vector<std::unique_ptr<Button>> _buttons;
 
     const std::unique_ptr<sf::Texture> backgroundTexture = std::make_unique<sf::Texture>();
-    const std::unique_ptr<sf::Texture> buttonTexture = std::make_unique<sf::Texture>();
+    const std::shared_ptr<sf::Texture> buttonTexture = std::make_shared<sf::Texture>();
 };
 
 

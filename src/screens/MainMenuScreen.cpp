@@ -3,10 +3,11 @@
 #include "../events/Events.h"
 
 #include "MainMenuScreen.h"
+#include "objects/TextButton.h"
 
-MainMenuScreen::MainMenuScreen(std::shared_ptr<dexode::EventBus> eventBus) : _eventBus(std::move(eventBus)), _eventListener(std::make_unique<dexode::EventBus::Listener>(_eventBus)) {
+MainMenuScreen::MainMenuScreen(std::shared_ptr<dexode::EventBus> eventBus, std::shared_ptr<sf::Font> font) : BasicScreen(std::move(font)), _eventBus(std::move(eventBus)), _eventListener(std::make_unique<dexode::EventBus::Listener>(_eventBus)) {
     if (!backgroundTexture->loadFromFile("../assets/menu/menufond2.png")) {
-        std::cout << "Can't load menu background texture from file";
+        std::cout << "Can't load menu _background texture from file";
         exit(EXIT_FAILURE);
     }
     backgroundTexture->setSmooth(true);
@@ -16,17 +17,17 @@ MainMenuScreen::MainMenuScreen(std::shared_ptr<dexode::EventBus> eventBus) : _ev
         exit(EXIT_FAILURE);
     }
 
-    _buttons.emplace_back(std::make_unique<Button>(120, 300, 200, 80, "PLAY", [this]() {
+    _buttons.emplace_back(std::make_unique<TextButton>(120, 300, 200, 80, "PLAY", _font, buttonTexture, [this]() {
         std::cout << "Play" << std::endl;
         _eventBus->postpone(Events::ChangeScreen{.from = Screens::MainMenu, .to = Screens::None});
     }));
 
-    _buttons.emplace_back(std::make_unique<Button>(120, 400, 200, 80, "OPTIONS", [this]() {
+    _buttons.emplace_back(std::make_unique<TextButton>(120, 400, 200, 80, "OPTIONS", _font, buttonTexture, [this]() {
         std::cout << "Options" << std::endl;
         _eventBus->postpone(Events::ChangeScreen{.from = Screens::MainMenu, .to = Screens::OptionsMenu});
     }));
 
-    _buttons.emplace_back(std::make_unique<Button>(120, 600, 200, 80, "EXIT", [this]() {
+    _buttons.emplace_back(std::make_unique<TextButton>(120, 600, 200, 80, "EXIT", _font, buttonTexture, [this]() {
         std::cout << "Exit" << std::endl;
         _eventBus->postpone(Events::CloseGame{});
     }));
@@ -47,7 +48,7 @@ MainMenuScreen::MainMenuScreen(std::shared_ptr<dexode::EventBus> eventBus) : _ev
     std::cout << "Created MainMenuScreen!" << std::endl;
 }
 
-void MainMenuScreen::render(std::shared_ptr<sf::RenderWindow> window, const sf::Font &font) const {
+void MainMenuScreen::render(std::shared_ptr<sf::RenderWindow> window) const {
     sf::Vector2 wSize = window->getSize();
 
     auto background = sf::RectangleShape(sf::Vector2f(wSize));
@@ -55,7 +56,7 @@ void MainMenuScreen::render(std::shared_ptr<sf::RenderWindow> window, const sf::
     window->draw(background);
 
     sf::Text mainText;
-    mainText.setFont(font);
+    mainText.setFont(*_font);
     mainText.setString("RASHNAWA");
     mainText.setFillColor(sf::Color::Black);
     mainText.setStyle(sf::Text::Style::Bold);
@@ -71,21 +72,9 @@ void MainMenuScreen::render(std::shared_ptr<sf::RenderWindow> window, const sf::
     window->draw(mainText);
 
     for (const auto &button: _buttons) {
-        auto shape = sf::RectangleShape(sf::Vector2f((float) button->getDx(), (float) button->getDy()));
-        shape.setPosition((float) button->getX(), (float) button->getY());
-        shape.setTexture(buttonTexture.get());
+        window->draw(*button);
 
-        const auto textureSize = buttonTexture->getSize();
-        const auto position = sf::Vector2i(button->isHovered() ? 0 : (int) textureSize.x / 2, 0);
-
-        const auto size = sf::Vector2i((int) textureSize.x / 2, (int) textureSize.y);
-
-        shape.setTextureRect(sf::IntRect(position, size));
-
-
-        window->draw(shape);
-
-        sf::Text text;
+        /*sf::Text text;
         text.setFont(font);
         text.setString(button->getText());
         text.setFillColor(sf::Color::Yellow);
@@ -98,7 +87,7 @@ void MainMenuScreen::render(std::shared_ptr<sf::RenderWindow> window, const sf::
 
         text.setPosition(fontX, fontY);
 
-        window->draw(text);
+        window->draw(text);*/
     }
 }
 

@@ -21,7 +21,7 @@ namespace Audio {
 
             if (e.to == Screens::OptionsMenu) {
                 _musicInstance->setParameterByName("midhigh", 0, false);
-            } else if (e.from == Screens::OptionsMenu) {
+            } else if (e.from == Screens::MainMenu) {
                 _musicInstance->setParameterByName("midhigh", 1, false);
             }
         });

@@ -52,4 +52,14 @@ add_executable(Rashnawa
         src/events/EventManager.h
         src/screens/Screens.h
         src/screens/OptionsCategories.h
+        src/screens/objects/Slider.cpp
+        src/screens/objects/Slider.h
+        src/screens/objects/OptionsCategory.cpp
+        src/screens/objects/OptionsCategory.h
+        src/screens/objects/OptionComponent.cpp
+        src/screens/objects/OptionComponent.h
+        src/screens/SoundOptions.cpp
+        src/screens/SoundOptions.h
+        src/screens/objects/TextButton.cpp
+        src/screens/objects/TextButton.h
 )

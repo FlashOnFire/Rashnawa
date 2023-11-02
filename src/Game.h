@@ -32,7 +32,7 @@ private:
 
     std::optional<std::unique_ptr<BasicScreen>> _currentScreen;
 
-    sf::Font _font;
+    std::shared_ptr<sf::Font> _font = std::make_shared<sf::Font>();
 };
 
 
