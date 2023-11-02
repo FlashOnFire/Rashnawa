@@ -48,8 +48,6 @@ OptionsMenuScreen::OptionsMenuScreen(std::shared_ptr<dexode::EventBus> eventBus,
 
     _optionsBackground.setTexture(_optionsBackgroundTexture.get());
 
-    std::cout << _buttonsTexture << std::endl;
-
     _soundCategoryBackgroundButton = std::make_unique<Button>(_buttonsTexture, []() {
         std::cout << "clicked" << std::endl;
     });
