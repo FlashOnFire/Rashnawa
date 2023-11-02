@@ -12,6 +12,8 @@ public:
 
     TextButton(const std::string& string, const sf::Font &font, std::shared_ptr<sf::Texture> texture, const std::function<void()> &callback);
 
+    void setColor(const sf::Color &color);
+
     [[nodiscard]] std::string getText() const;
 
     void setTransform(const sf::Vector2f &pos, const sf::Vector2f &size) override;

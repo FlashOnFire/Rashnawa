@@ -7,7 +7,7 @@
 TextButton::TextButton(float x, float y, float dx, float dy, const std::string& string, std::shared_ptr<sf::Font> font, std::shared_ptr<sf::Texture> texture,
                        const std::function<void()> &callback) : Button(x, y, dx, dy, std::move(texture), callback) {
     text.setString(string);
-    text.setFillColor(sf::Color::Yellow);
+
     text.setCharacterSize(45);
     text.setFont(*font);
 
@@ -18,7 +18,6 @@ TextButton::TextButton(const std::string& string, const sf::Font& font, std::sha
                        const std::function<void()> &callback) : Button(std::move(texture), callback) {
     text.setString(string);
 
-    text.setFillColor(sf::Color::Yellow);
     text.setCharacterSize(45);
     text.setFont(font);
 }
@@ -32,18 +31,22 @@ void TextButton::updateTextTransform() {
     text.setPosition(sf::Vector2f(fontX, fontY));
 }
 
-std::string TextButton::getText() const {
-    return text.getString();
+void TextButton::setColor(const sf::Color &color) {
+    text.setFillColor(color);
 }
 
-void TextButton::draw(sf::RenderTarget &target, sf::RenderStates states) const {
-    Button::draw(target, states);
-
-    target.draw(text);
+std::string TextButton::getText() const {
+    return text.getString();
 }
 
 void TextButton::setTransform(const sf::Vector2f &pos, const sf::Vector2f &size) {
     Button::setTransform(pos, size);
 
     updateTextTransform();
+}
+
+void TextButton::draw(sf::RenderTarget &target, sf::RenderStates states) const {
+    Button::draw(target, states);
+
+    target.draw(text);
 }
