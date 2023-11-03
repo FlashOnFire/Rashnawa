@@ -56,15 +56,16 @@ void Slider::updateComponentTransform() {
     _maxKnobX =
             _slider.getPosition().x + (_slider.getSize().x * _scale) - (_sliderKnob.getSize().x * _scale * 0.5f);
 
+    _sliderKnob.setPosition(0,
+                            _slider.getPosition().y + _slider.getSize().y * _scale * 0.5f -
+                            _sliderKnob.getSize().y * _scale * 0.5f);
+
     updateKnobPlacement();
 }
 
 void Slider::updateKnobPlacement() {
     const auto posX = std::lerp(_minKnobX, _maxKnobX, _value);
-    const auto posY =
-            _slider.getPosition().y + _slider.getSize().y * _scale * 0.5f - _sliderKnob.getSize().y * _scale * 0.5f;
-
-    _sliderKnob.setPosition(posX, posY);
+    _sliderKnob.setPosition(posX, _sliderKnob.getPosition().y);
 }
 
 void Slider::onMouseMove(const sf::Event::MouseMoveEvent &e) {
@@ -74,9 +75,10 @@ void Slider::onMouseMove(const sf::Event::MouseMoveEvent &e) {
                (float) e.y < (_sliderKnob.getPosition().y + (_sliderKnob.getSize().y) * _scale);
 
     if (_grabbed) {
-        const float invLerp = (((float) e.x - _sliderKnob.getSize().x * _scale * 0.5f) - _minKnobX) / (_maxKnobX - _minKnobX);
+        const float invLerp =
+                (((float) e.x - _sliderKnob.getSize().x * _scale * 0.5f) - _minKnobX) / (_maxKnobX - _minKnobX);
 
-        _value = std::clamp(invLerp , 0.0f, 1.0f);
+        _value = std::clamp(invLerp, 0.0f, 1.0f);
         updateKnobPlacement();
     }
 }
