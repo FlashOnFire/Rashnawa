@@ -38,7 +38,6 @@ OptionsMenuScreen::OptionsMenuScreen(std::shared_ptr<dexode::EventBus> eventBus,
         exit(EXIT_FAILURE);
     }
 
-
     _titleText.setString("Options");
     _titleText.setFont(*_font);
     _titleText.setCharacterSize(65);
@@ -60,6 +59,18 @@ OptionsMenuScreen::OptionsMenuScreen(std::shared_ptr<dexode::EventBus> eventBus,
     _eventListener = std::make_unique<dexode::EventBus::Listener>(_eventBus);
     _eventListener->listen<Events::EscapeBtn>([this](const Events::EscapeBtn &e) {
         _eventBus->postpone<Events::ChangeScreen>({.from = Screens::OptionsMenu, .to = Screens::MainMenu});
+    });
+
+    _eventListener->listen<sf::Event::MouseMoveEvent>([this](const sf::Event::MouseMoveEvent &e) {
+        _currentOptionCategory->onMouseMove(e);
+    });
+
+    _eventListener->listen<Events::MouseButtonPressed>([this](const Events::MouseButtonPressed &e) {
+        _currentOptionCategory->onMousePressed(e.event);
+    });
+
+    _eventListener->listen<Events::MouseButtonReleased>([this](const Events::MouseButtonReleased &e) {
+        _currentOptionCategory->onMouseReleased(e.event);
     });
 
     std::cout << "Created OptionsMenuScreen!" << std::endl;

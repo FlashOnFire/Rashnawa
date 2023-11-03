@@ -2,10 +2,12 @@
 #define RASHNAWA_OPTIONSCATEGORY_H
 
 
-#include <vector>
-#include <SFML/Graphics/Drawable.hpp>
-#include "OptionComponent.h"
 #include <memory>
+#include <vector>
+
+#include <SFML/Graphics/Drawable.hpp>
+#include <SFML/Window/Event.hpp>
+#include "OptionComponent.h"
 
 class OptionsCategory : public sf::Drawable {
 public:
@@ -24,6 +26,10 @@ public:
     void setTransform(const sf::Vector2f &position, const sf::Vector2f &size);
 
     virtual void updateComponentsTransform() = 0;
+
+    virtual void onMouseMove(const sf::Event::MouseMoveEvent &event);
+    virtual void onMousePressed(const sf::Event::MouseButtonEvent &event);
+    virtual void onMouseReleased(const sf::Event::MouseButtonEvent &event);
 protected:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override = 0;
 };

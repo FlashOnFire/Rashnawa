@@ -3,16 +3,26 @@
 
 
 #include <SFML/Graphics/Drawable.hpp>
+#include <SFML/Window/Event.hpp>
 
 class OptionComponent : public sf::Drawable {
 public:
-    ~OptionComponent() override;
-    [[nodiscard]] virtual const sf::Vector2f &getPosition() const = 0;
+    ~OptionComponent() override = default;
 
-    [[nodiscard]] virtual const sf::Vector2f &getSize() const = 0;
+    [[nodiscard]] const sf::Vector2f &getPosition() const;
 
-    virtual void setTransform(const sf::Vector2f &position, const sf::Vector2f &size) = 0;
-private:
+    [[nodiscard]] const sf::Vector2f &getSize() const;
+
+    virtual void setTransform(const sf::Vector2f &position, const sf::Vector2f &size);
+
+    virtual void updateComponentTransform() = 0;
+
+    virtual void onMouseMove(const sf::Event::MouseMoveEvent &event);
+    virtual void onMousePressed(const sf::Event::MouseButtonEvent &event);
+    virtual void onMouseReleased(const sf::Event::MouseButtonEvent &event);
+protected:
+    sf::Vector2f _position, _size;
+
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override = 0;
 };
 

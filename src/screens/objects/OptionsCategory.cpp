@@ -14,3 +14,21 @@ void OptionsCategory::setTransform(const sf::Vector2f &position, const sf::Vecto
 
     updateComponentsTransform();
 }
+
+void OptionsCategory::onMouseMove(const sf::Event::MouseMoveEvent &event) {
+    for (const auto &component: _components) {
+        component->onMouseMove(event);
+    }
+}
+
+void OptionsCategory::onMousePressed(const sf::Event::MouseButtonEvent &event) {
+    for (const auto &component: _components) {
+        component->onMousePressed(event);
+    }
+}
+
+void OptionsCategory::onMouseReleased(const sf::Event::MouseButtonEvent &event) {
+    for (const auto &component: _components) {
+        component->onMouseReleased(event);
+    }
+}

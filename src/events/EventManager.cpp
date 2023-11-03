@@ -25,6 +25,10 @@ void EventManager::handleEvents() {
                 break;
             case sf::Event::MouseButtonPressed:
                 _eventBus->postpone<Events::MouseButtonPressed>({.event = event.mouseButton});
+                break;
+            case sf::Event::MouseButtonReleased:
+                _eventBus->postpone<Events::MouseButtonReleased>({.event = event.mouseButton});
+                break;
             case sf::Event::MouseMoved:
                 _eventBus->postpone(event.mouseMove);
                 break;

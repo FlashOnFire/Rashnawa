@@ -27,5 +27,9 @@ namespace Events {
     struct MouseButtonPressed {
         sf::Event::MouseButtonEvent event;
     };
+
+    struct MouseButtonReleased {
+        sf::Event::MouseButtonEvent event;
+    };
 }
 #endif //RASHNAWA_EVENTS_H
