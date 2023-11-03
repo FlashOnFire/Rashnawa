@@ -16,11 +16,14 @@ Game::Game() {
 
     _renderer = std::make_unique<Graphics::Renderer>(_window);
 
+    _keybindHandler = std::make_unique<KeybindHandler>(_eventBus);
+
     _audioMgr->initialize();
     _audioMgr->loadBank("../assets/audio/Master.bank");
     _audioMgr->loadBank("../assets/audio/Master.strings.bank");
 
     _eventBus->postpone<Events::ChangeScreen>({.from =  Screens::None, .to =  Screens::MainMenu});
+
 
     if (!_font->loadFromFile("../assets/fonts/Unitblock.ttf")) {
         std::cout << "Error: can't load _font!" << std::endl;
@@ -79,6 +82,7 @@ void Game::handleEvents() {
                 _eventBus->postpone(Events::CloseGame{});
                 break;
             case sf::Event::KeyPressed:
+                _keybindHandler->handleEvent(event.key);
                 switch (event.key.code) {
                     case sf::Keyboard::Escape:
                         _eventBus->postpone(Events::EscapeBtn{});

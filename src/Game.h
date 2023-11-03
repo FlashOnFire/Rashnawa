@@ -10,6 +10,7 @@
 #include "graphics/Renderer.h"
 #include "screens/objects/BasicScreen.h"
 #include "audio/MusicManager.h"
+#include "events/KeybindHandler.h"
 
 class Game {
 public:
@@ -31,6 +32,8 @@ private:
     std::optional<std::unique_ptr<BasicScreen>> _currentScreen;
 
     std::shared_ptr<sf::Font> _font = std::make_shared<sf::Font>();
+
+    std::shared_ptr<KeybindHandler> _keybindHandler;
 
     void handleEvents();
 };

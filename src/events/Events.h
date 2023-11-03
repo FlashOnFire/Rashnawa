@@ -17,5 +17,9 @@ namespace Events {
         Screens from;
         Screens to;
     };
+
+    struct PlayerAction {
+        Keybinds keybinds;
+    };
 }
 #endif //RASHNAWA_EVENTS_H

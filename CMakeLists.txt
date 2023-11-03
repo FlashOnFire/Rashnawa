@@ -60,4 +60,7 @@ add_executable(Rashnawa
         src/screens/SoundOptions.h
         src/screens/objects/TextButton.cpp
         src/screens/objects/TextButton.h
+        src/events/KeybindHandler.cpp
+        src/events/KeybindHandler.h
+        src/events/Keybinds.h
 )
