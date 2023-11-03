@@ -19,11 +19,9 @@ protected:
 public:
     [[nodiscard]] const sf::Vector2f &getPosition() const;
 
-    void setPosition(const sf::Vector2f &position);
-
     [[nodiscard]] const sf::Vector2f &getSize() const;
 
-    void setSize(const sf::Vector2f &size);
+    void setTransform(const sf::Vector2f &position, const sf::Vector2f &size);
 
     virtual void updateComponentsTransform() = 0;
 protected:

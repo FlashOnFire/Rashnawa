@@ -18,11 +18,9 @@ public:
 
     [[nodiscard]] const sf::Vector2f &getPosition() const override;
 
-    void setPosition(const sf::Vector2f &position) override;
-
     [[nodiscard]] const sf::Vector2f &getSize() const override;
 
-    void setSize(const sf::Vector2f &size) override;
+    void setTransform(const sf::Vector2f &position, const sf::Vector2f &size) override;
 
 private:
     std::shared_ptr<sf::Texture> _sliderTexture;

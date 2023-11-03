@@ -82,8 +82,8 @@ void OptionsMenuScreen::updateComponentsTransform(const sf::Vector2<unsigned int
     _optionsBackground.setPosition(optionsBackgroundPosX, optionsBackgroundPosY);
     _optionsBackground.setSize(sf::Vector2f(optionsBackgroundSizeX, optionsBackgroundSizeY));
 
-    _currentOptionCategory->setPosition(sf::Vector2f(optionsBackgroundPosX, optionsBackgroundPosY));
-    _currentOptionCategory->setSize(sf::Vector2f(optionsBackgroundSizeX, optionsBackgroundSizeY));
+    _currentOptionCategory->setTransform(sf::Vector2f(optionsBackgroundPosX, optionsBackgroundPosY),
+                                         sf::Vector2f(optionsBackgroundSizeX, optionsBackgroundSizeY));
 
     const auto buttonCategoriesPosX = (float) windowSize.x * 0.1f;
     const auto buttonCategoriesPosY = (float) windowSize.y * 0.2f;
@@ -93,8 +93,6 @@ void OptionsMenuScreen::updateComponentsTransform(const sf::Vector2<unsigned int
 
     _soundCategoryBackgroundButton->setTransform(sf::Vector2f(buttonCategoriesPosX, buttonCategoriesPosY),
                                                  sf::Vector2f(buttonCategoriesSizeX, buttonCategoriesSizeY));
-
-    _currentOptionCategory->updateComponentsTransform();
 }
 
 void OptionsMenuScreen::render(std::shared_ptr<sf::RenderWindow> window) const {

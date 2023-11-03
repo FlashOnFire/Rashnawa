@@ -33,14 +33,11 @@ const sf::Vector2f &Slider::getPosition() const {
     return _slider.getPosition();
 }
 
-void Slider::setPosition(const sf::Vector2f &position) {
-    _slider.setPosition(position);
-}
-
 const sf::Vector2f &Slider::getSize() const {
     return _slider.getSize();
 }
 
-void Slider::setSize(const sf::Vector2f &size) {
+void Slider::setTransform(const sf::Vector2f &position, const sf::Vector2f &size) {
+    _slider.setPosition(position);
     _slider.setSize(size);
 }
