@@ -4,6 +4,7 @@
 #include <SFML/Window/Event.hpp>
 
 #include "../screens/Screens.h"
+#include "Keybinds.h"
 
 namespace Events {
 
