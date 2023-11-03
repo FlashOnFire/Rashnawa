@@ -32,20 +32,19 @@ MainMenuScreen::MainMenuScreen(std::shared_ptr<dexode::EventBus> eventBus, std::
         _eventBus->postpone(Events::CloseGame{});
     }));
 
-
-    _eventListener->listen<sf::Event::MouseMoveEvent>([this](const sf::Event::MouseMoveEvent &e) {
-        for (const auto &button: _buttons) {
-            button->mouseMoved(e);
-        }
-    });
-
-    _eventListener->listen<Events::MouseButtonPressed>([this](const Events::MouseButtonPressed &e) {
-        for (const auto &button: _buttons) {
-            button->mouseButtonPressed(e.event);
-        }
-    });
-
     std::cout << "Created MainMenuScreen!" << std::endl;
+}
+
+void MainMenuScreen::onMouseMove(const sf::Event::MouseMoveEvent &event) {
+    for (const auto &button: _buttons) {
+        button->mouseMoved(event);
+    }
+}
+
+void MainMenuScreen::onMousePressed(const sf::Event::MouseButtonEvent &event) {
+    for (const auto &button: _buttons) {
+        button->mouseButtonPressed(event);
+    }
 }
 
 void MainMenuScreen::render(std::shared_ptr<sf::RenderWindow> window) const {
@@ -73,21 +72,5 @@ void MainMenuScreen::render(std::shared_ptr<sf::RenderWindow> window) const {
 
     for (const auto &button: _buttons) {
         window->draw(*button);
-
-        /*sf::Text text;
-        text.setFont(font);
-        text.setString(button->getText());
-        text.setFillColor(sf::Color::Yellow);
-        text.setCharacterSize(45);
-
-        float fontX = (float) button->getX() + (float) button->getDx() / 2.0f - (text.getLocalBounds().width / 2.0f) -
-                      text.getLocalBounds().left;
-        float fontY = (float) button->getY() + (float) button->getDy() / 2.0f - (text.getLocalBounds().height / 2.0f) -
-                      text.getLocalBounds().top;
-
-        text.setPosition(fontX, fontY);
-
-        window->draw(text);*/
     }
 }
-

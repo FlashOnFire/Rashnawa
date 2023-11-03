@@ -13,11 +13,6 @@ class OptionsCategory : public sf::Drawable {
 public:
     OptionsCategory() = default;
     ~OptionsCategory() override = default;
-protected:
-    sf::Vector2f _position;
-    sf::Vector2f _size;
-
-    std::vector<std::unique_ptr<OptionComponent>> _components;
 public:
     [[nodiscard]] const sf::Vector2f &getPosition() const;
 
@@ -31,6 +26,11 @@ public:
     virtual void onMousePressed(const sf::Event::MouseButtonEvent &event);
     virtual void onMouseReleased(const sf::Event::MouseButtonEvent &event);
 protected:
+    sf::Vector2f _position;
+    sf::Vector2f _size;
+
+    std::vector<std::unique_ptr<OptionComponent>> _components;
+
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override = 0;
 };
 

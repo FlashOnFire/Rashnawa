@@ -17,19 +17,5 @@ namespace Events {
         Screens from;
         Screens to;
     };
-
-    struct SwitchToOptionsScreen {
-    };
-
-    struct GoInGame {
-    };
-
-    struct MouseButtonPressed {
-        sf::Event::MouseButtonEvent event;
-    };
-
-    struct MouseButtonReleased {
-        sf::Event::MouseButtonEvent event;
-    };
 }
 #endif //RASHNAWA_EVENTS_H

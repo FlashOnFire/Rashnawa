@@ -48,8 +48,6 @@ add_executable(Rashnawa
         src/screens/OptionsMenuScreen.h
         src/audio/MusicManager.cpp
         src/audio/MusicManager.h
-        src/events/EventManager.cpp
-        src/events/EventManager.h
         src/screens/Screens.h
         src/screens/OptionsCategories.h
         src/screens/objects/Slider.cpp

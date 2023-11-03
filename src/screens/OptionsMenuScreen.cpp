@@ -61,18 +61,6 @@ OptionsMenuScreen::OptionsMenuScreen(std::shared_ptr<dexode::EventBus> eventBus,
         _eventBus->postpone<Events::ChangeScreen>({.from = Screens::OptionsMenu, .to = Screens::MainMenu});
     });
 
-    _eventListener->listen<sf::Event::MouseMoveEvent>([this](const sf::Event::MouseMoveEvent &e) {
-        _currentOptionCategory->onMouseMove(e);
-    });
-
-    _eventListener->listen<Events::MouseButtonPressed>([this](const Events::MouseButtonPressed &e) {
-        _currentOptionCategory->onMousePressed(e.event);
-    });
-
-    _eventListener->listen<Events::MouseButtonReleased>([this](const Events::MouseButtonReleased &e) {
-        _currentOptionCategory->onMouseReleased(e.event);
-    });
-
     std::cout << "Created OptionsMenuScreen!" << std::endl;
 }
 
@@ -114,4 +102,16 @@ void OptionsMenuScreen::render(std::shared_ptr<sf::RenderWindow> window) const {
     window->draw(*_soundCategoryBackgroundButton);
 
     window->draw(*_currentOptionCategory);
+}
+
+void OptionsMenuScreen::onMouseMove(const sf::Event::MouseMoveEvent &e) {
+    _currentOptionCategory->onMouseMove(e);
+}
+
+void OptionsMenuScreen::onMousePressed(const sf::Event::MouseButtonEvent &event) {
+    _currentOptionCategory->onMousePressed(event);
+}
+
+void OptionsMenuScreen::onMouseReleased(const sf::Event::MouseButtonEvent &event) {
+    _currentOptionCategory->onMouseReleased(event);
 }

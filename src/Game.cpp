@@ -11,8 +11,6 @@ Game::Game() {
     _window = std::make_shared<sf::RenderWindow>(sf::VideoMode(1280, 720), "Rashnawa");
     _window->setFramerateLimit(240);
 
-    _eventManager = std::make_shared<EventManager>(_eventBus, _window);
-
     _audioMgr = std::make_shared<Audio::AudioManager>();
     _musicManager = std::make_unique<Audio::MusicManager>(_eventBus, _audioMgr);
 
@@ -59,7 +57,7 @@ void Game::run() {
         _eventBus->process();
         _audioMgr->update();
 
-        _eventManager->handleEvents();
+        handleEvents();
 
         _window->clear(sf::Color::White);
 
@@ -70,5 +68,48 @@ void Game::run() {
         }
 
         _window->display();
+    }
+}
+
+void Game::handleEvents() {
+    sf::Event event{};
+    while (_window->pollEvent(event)) {
+        switch (event.type) {
+            case sf::Event::Closed:
+                _eventBus->postpone(Events::CloseGame{});
+                break;
+            case sf::Event::KeyPressed:
+                switch (event.key.code) {
+                    case sf::Keyboard::Escape:
+                        _eventBus->postpone(Events::EscapeBtn{});
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            case sf::Event::MouseMoved:
+                if (_currentScreen.has_value()) {
+                    _currentScreen.value()->onMouseMove(event.mouseMove);
+                }
+                break;
+            case sf::Event::MouseButtonPressed:
+                if (event.mouseButton.button != sf::Mouse::Button::Left)
+                    continue;
+
+                if (_currentScreen.has_value()) {
+                    _currentScreen.value()->onMousePressed(event.mouseButton);
+                }
+                break;
+            case sf::Event::MouseButtonReleased:
+                if (event.mouseButton.button != sf::Mouse::Button::Left)
+                    continue;
+
+                if (_currentScreen.has_value()) {
+                    _currentScreen.value()->onMouseReleased(event.mouseButton);
+                }
+                break;
+            default:
+                break;
+        }
     }
 }

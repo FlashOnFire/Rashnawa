@@ -17,7 +17,6 @@ Slider::Slider(std::shared_ptr<sf::Texture> sliderTexture, std::shared_ptr<sf::T
     _sliderKnob.setSize(sf::Vector2f(_sliderKnobTexture->getSize()));
 
     visu.setFillColor(sf::Color(30, 30, 30, 180));
-    std::cout << "Created Slider!" << std::endl;
 }
 
 float Slider::getValue() const {
@@ -38,9 +37,6 @@ void Slider::updateComponentTransform() {
     const auto paddingX = _size.x * 0.1f;
 
     _scale = (_size.x - 2.0f * paddingX) / (float) _sliderTexture->getSize().x;
-
-    std::cout << "padding : " << paddingX << std::endl;
-    std::cout << "scale : " << _scale << std::endl;
 
     _slider.setScale(_scale, _scale);
 
