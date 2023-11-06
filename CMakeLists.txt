@@ -63,4 +63,6 @@ add_executable(Rashnawa
         src/events/KeybindHandler.cpp
         src/events/KeybindHandler.h
         src/events/Keybinds.h
+        src/world/Room.cpp
+        src/world/Room.h
 )

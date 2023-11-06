@@ -10,7 +10,8 @@ enum Keybinds {
     JUMP,
     DASH,
     ATTACK,
-    SPECIAL
+    SPECIAL,
+    INTERACT
 };
 
 
