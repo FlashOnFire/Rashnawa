@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{b174ecb5-f063-4414-a09b-1f8571d29f26}">
+		<property name="name">
+			<value>choeur</value>
+		</property>
+		<relationship name="folder">
+			<destination>{ec786930-289b-4f71-bba6-3f95db01ffce}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{debf0bba-44d2-4bb6-aa96-8c4c2d0e5195}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{debf0bba-44d2-4bb6-aa96-8c4c2d0e5195}">
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+		<property name="seekSpeed">
+			<value>0.029999999329447746</value>
+		</property>
+		<property name="seekSpeedAsymmetric">
+			<value>true</value>
+		</property>
+	</object>
+</objects>

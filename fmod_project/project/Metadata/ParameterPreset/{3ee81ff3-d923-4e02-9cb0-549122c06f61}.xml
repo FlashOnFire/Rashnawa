@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{3ee81ff3-d923-4e02-9cb0-549122c06f61}">
+		<property name="name">
+			<value>drum3</value>
+		</property>
+		<relationship name="folder">
+			<destination>{ec786930-289b-4f71-bba6-3f95db01ffce}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{0210e52f-1179-4763-814f-7b3621a4a9f5}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{0210e52f-1179-4763-814f-7b3621a4a9f5}">
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+		<property name="seekSpeed">
+			<value>0.029999999329447746</value>
+		</property>
+		<property name="seekSpeedAsymmetric">
+			<value>true</value>
+		</property>
+	</object>
+</objects>

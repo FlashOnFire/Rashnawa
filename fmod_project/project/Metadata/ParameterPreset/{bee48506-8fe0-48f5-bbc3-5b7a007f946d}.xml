@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{bee48506-8fe0-48f5-bbc3-5b7a007f946d}">
+		<property name="name">
+			<value>attack</value>
+		</property>
+		<relationship name="folder">
+			<destination>{ec786930-289b-4f71-bba6-3f95db01ffce}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{018419f8-7fd5-422d-87a6-a98fc0cfa7ca}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{018419f8-7fd5-422d-87a6-a98fc0cfa7ca}">
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+		<property name="seekSpeed">
+			<value>0.029999999329447746</value>
+		</property>
+		<property name="seekSpeedAsymmetric">
+			<value>true</value>
+		</property>
+	</object>
+</objects>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{63ac06da-50b7-4304-aa84-894ff460bc2a}">
+		<property name="assetPath">
+			<value>unknoawedplez/main.wav</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>59.538458049886621</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{21cdf035-fac1-408d-a667-8129f6fa1451}</destination>
+		</relationship>
+	</object>
+</objects>

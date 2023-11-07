@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{a860b1eb-c46e-4d42-b44f-b0726195e891}">
+		<property name="name">
+			<value>bass</value>
+		</property>
+		<relationship name="folder">
+			<destination>{ec786930-289b-4f71-bba6-3f95db01ffce}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{5f9c32f7-78ff-4730-ad87-e0700addb50e}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{5f9c32f7-78ff-4730-ad87-e0700addb50e}">
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+		<property name="seekSpeed">
+			<value>0.029999999329447746</value>
+		</property>
+		<property name="seekSpeedAsymmetric">
+			<value>true</value>
+		</property>
+	</object>
+</objects>
