@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="EffectPreset" id="{fb81b470-cc92-4afb-b840-d3c462a4bea7}">
+		<property name="name">
+			<value>Effect Chain 2</value>
+		</property>
+		<relationship name="folder">
+			<destination>{898e585b-90ff-4b18-b9ac-a5f9767976b8}</destination>
+		</relationship>
+		<relationship name="effect">
+			<destination>{57fb087c-1469-4c4c-b762-44f871b600f1}</destination>
+		</relationship>
+	</object>
+	<object class="EffectChain" id="{57fb087c-1469-4c4c-b762-44f871b600f1}">
+		<relationship name="effects">
+			<destination>{331f34ec-ee49-4b61-8d9a-fb0db9ea0443}</destination>
+			<destination>{c87a585a-3be4-4aeb-bed4-dc302eda9fd3}</destination>
+		</relationship>
+	</object>
+	<object class="ThreeEQEffect" id="{331f34ec-ee49-4b61-8d9a-fb0db9ea0443}">
+		<property name="lowGain">
+			<value>-16.5</value>
+		</property>
+		<property name="midGain">
+			<value>-42</value>
+		</property>
+		<property name="highGain">
+			<value>-47</value>
+		</property>
+	</object>
+	<object class="PannerEffect" id="{c87a585a-3be4-4aeb-bed4-dc302eda9fd3}" />
+</objects>

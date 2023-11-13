@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="EffectPreset" id="{45a81b7f-a4c8-4fed-9ad8-68f64ec437f8}">
+		<property name="name">
+			<value>Effect Chain</value>
+		</property>
+		<relationship name="folder">
+			<destination>{898e585b-90ff-4b18-b9ac-a5f9767976b8}</destination>
+		</relationship>
+		<relationship name="effect">
+			<destination>{3870bd0b-bbd9-487b-b6b9-f47c3da3d7db}</destination>
+		</relationship>
+	</object>
+	<object class="EffectChain" id="{3870bd0b-bbd9-487b-b6b9-f47c3da3d7db}">
+		<relationship name="effects">
+			<destination>{6eea7ba6-8140-46db-9668-2ad9878ef33c}</destination>
+		</relationship>
+	</object>
+	<object class="PannerEffect" id="{6eea7ba6-8140-46db-9668-2ad9878ef33c}">
+		<property name="surroundStereoSeparation">
+			<value>0</value>
+		</property>
+	</object>
+</objects>

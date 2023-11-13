@@ -1,22 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.02.02.00">
-	<object class="ParameterPreset" id="{f392015e-fb56-4727-be05-8a48878e67b2}">
+	<object class="ParameterPreset" id="{107ab105-f861-4440-9151-da802187a332}">
 		<property name="name">
-			<value>exit</value>
+			<value>newexit</value>
 		</property>
 		<relationship name="folder">
 			<destination>{ec786930-289b-4f71-bba6-3f95db01ffce}</destination>
 		</relationship>
 		<relationship name="parameter">
-			<destination>{f8683979-0ad2-46a6-9b1b-e0ca32a767ff}</destination>
+			<destination>{8ae00cae-6c74-4c73-9079-abaa20bc0138}</destination>
 		</relationship>
 	</object>
-	<object class="GameParameter" id="{f8683979-0ad2-46a6-9b1b-e0ca32a767ff}">
+	<object class="GameParameter" id="{8ae00cae-6c74-4c73-9079-abaa20bc0138}">
+		<property name="parameterType">
+			<value>1</value>
+		</property>
+		<property name="maximum">
+			<value>2</value>
+		</property>
 		<property name="initialValue">
 			<value>0</value>
-		</property>
-		<property name="seekSpeed">
-			<value>0.14000000059604645</value>
 		</property>
 	</object>
 </objects>
