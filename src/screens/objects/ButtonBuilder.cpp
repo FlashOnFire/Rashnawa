@@ -72,7 +72,6 @@ std::unique_ptr<Button> ButtonBuilder::build() {
         _button->updateTextureRect();
     }
 
-    // hack
     if (_button->_text.has_value()) {
         _button->updateTextTransform();
     }

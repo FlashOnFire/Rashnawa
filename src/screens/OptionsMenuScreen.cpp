@@ -157,3 +157,7 @@ void OptionsMenuScreen::onMousePressed(const sf::Event::MouseButtonEvent &e) {
 void OptionsMenuScreen::onMouseReleased(const sf::Event::MouseButtonEvent &event) {
     _currentOptionCategory->onMouseButtonReleased(event);
 }
+
+void OptionsMenuScreen::onWindowResize(const sf::Event::SizeEvent &event) {
+    updateComponentsTransform(sf::Vector2<unsigned int>(event.width, event.height));
+}

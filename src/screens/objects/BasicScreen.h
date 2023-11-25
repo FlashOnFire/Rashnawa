@@ -15,6 +15,8 @@ public:
 
     virtual void onMouseReleased(const sf::Event::MouseButtonEvent &event);
 
+    virtual void onWindowResize(const sf::Event::SizeEvent &event);
+
     virtual void render(std::shared_ptr<sf::RenderWindow> window) const = 0;
 
 protected:

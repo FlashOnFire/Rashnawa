@@ -20,6 +20,8 @@ public:
 
     void onMouseReleased(const sf::Event::MouseButtonEvent &event) override;
 
+    void onWindowResize(const sf::Event::SizeEvent &event) override;
+
     void render(std::shared_ptr<sf::RenderWindow> window) const override;
 
 private:

@@ -8,7 +8,7 @@
 Game::Game() {
     _eventBus = std::make_shared<dexode::EventBus>();
 
-    _window = std::make_shared<sf::RenderWindow>(sf::VideoMode(1280, 720), "Rashnawa");
+    _window = std::make_shared<sf::RenderWindow>(sf::VideoMode(1920, 1080), "Rashnawa");
     _window->setFramerateLimit(240);
 
     _audioMgr = std::make_shared<Audio::AudioManager>();
@@ -80,6 +80,13 @@ void Game::handleEvents() {
         switch (event.type) {
             case sf::Event::Closed:
                 _eventBus->postpone(Events::CloseGame{});
+                break;
+            case sf::Event::Resized:
+                _window->setView(sf::View(sf::FloatRect(0, 0, (float) event.size.width, (float) event.size.height)));
+
+                if (_currentScreen.has_value()) {
+                    _currentScreen.value()->onWindowResize(event.size);
+                }
                 break;
             case sf::Event::KeyPressed:
                 _keybindHandler->handleEvent(event.key);
