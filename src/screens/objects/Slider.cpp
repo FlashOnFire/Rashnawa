@@ -5,7 +5,6 @@
 
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/RenderStates.hpp>
-#include <iostream>
 
 Slider::Slider(std::shared_ptr<sf::Texture> sliderTexture, std::shared_ptr<sf::Texture> sliderKnobTexture,
                float value) : _sliderTexture(std::move(sliderTexture)),

@@ -64,7 +64,7 @@ namespace Audio {
 
         void setReverbLevel(int index, float level);
 
-        // two values, must create a struct for this.. void getCPUUsage(int *exclusive, int *inclusive) const;
+        // two values, must create a struct for this : void getCPUUsage(int *exclusive, int *inclusive) const;
         [[nodiscard]] FMOD_STUDIO_MEMORY_USAGE getMemoryUsage() const;
 
         bool isValid();

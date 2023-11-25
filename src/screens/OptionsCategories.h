@@ -2,8 +2,9 @@
 #define RASHNAWA_OPTIONSCATEGORIES_H
 
 enum OptionsCategories {
+    SOUND,
     GRAPHICS,
-    SOUND
+    OTHER
 };
 
 #endif //RASHNAWA_OPTIONSCATEGORIES_H

@@ -28,7 +28,7 @@ public:
 
     ButtonBuilder &hoverTexCoords(int x, int y, int dx, int dy);
 
-    ButtonBuilder &text(const std::string &text, std::shared_ptr<sf::Font> font);
+    ButtonBuilder &text(const std::string &text, const std::shared_ptr<sf::Font> &font);
 
     ButtonBuilder &callback(std::function<void()> callback);
 

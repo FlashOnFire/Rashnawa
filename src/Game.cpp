@@ -55,7 +55,7 @@ void Game::run() {
     sf::Clock clock;
 
     while (_running) {
-        int deltaT = clock.restart().asMilliseconds();
+        //int deltaT = clock.restart().asMilliseconds();
 
         _eventBus->process();
         _audioMgr->update();

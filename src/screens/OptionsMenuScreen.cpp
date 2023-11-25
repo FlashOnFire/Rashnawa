@@ -8,13 +8,13 @@
 OptionsMenuScreen::OptionsMenuScreen(std::shared_ptr<dexode::EventBus> eventBus, std::shared_ptr<sf::Font> font,
                                      const sf::Vector2<unsigned int> &windowSize) : BasicScreen(std::move(font)),
                                                                                     _eventBus(std::move(eventBus)) {
-    if (!_backgroundTexture->loadFromFile("../assets/menu/newfont.png")) {
+    if (!_backgroundTexture->loadFromFile("../assets/menu/new_background.png")) {
         std::cout << "Can't load menu background texture from file";
         exit(EXIT_FAILURE);
     }
     _backgroundTexture->setSmooth(true);
 
-    if (!_titleBackground->loadFromFile("../assets/menu/newfont.png")) {
+    if (!_titleBackground->loadFromFile("../assets/menu/new_background.png")) {
         std::cout << "Can't load menu background texture from file";
         exit(EXIT_FAILURE);
     }
