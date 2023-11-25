@@ -14,6 +14,7 @@ namespace Audio {
     class AudioManager {
     public:
         AudioManager();
+
         void initialize();
 
         void update() const;
@@ -23,6 +24,7 @@ namespace Audio {
         [[nodiscard]] std::weak_ptr<Studio::System> getSystem() const;
 
         std::unique_ptr<EventInstance> createEventInstance(const std::string &path);
+
     private:
         std::shared_ptr<Studio::System> _system;
         std::vector<std::shared_ptr<Studio::Bank>> _banks;

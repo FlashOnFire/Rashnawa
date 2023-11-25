@@ -9,7 +9,8 @@ namespace Graphics {
 
     class Renderer {
     public:
-        Renderer(std::shared_ptr<sf::RenderWindow> ptr);
+        explicit Renderer(std::shared_ptr<sf::RenderWindow> ptr);
+
         void render();
 
     private:

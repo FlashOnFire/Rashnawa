@@ -57,14 +57,22 @@ OptionsMenuScreen::OptionsMenuScreen(std::shared_ptr<dexode::EventBus> eventBus,
                 std::cout << "clicked" << std::endl;
             }).build();
 
-    _graphicsCategoryBackgroundButton = ButtonBuilder().texture(_buttonsTexture, sf::Vector2i(0, (int) (_buttonsTexture->getSize().y /3)), buttonSize)
-            .hoverTexCoords(sf::Vector2i(0, (int) (_buttonsTexture->getSize().y /3 + _buttonsTexture->getSize().y / 9)), buttonSize)
+    _graphicsCategoryBackgroundButton = ButtonBuilder().texture(_buttonsTexture, sf::Vector2i(0,
+                                                                                              (int) (_buttonsTexture->getSize().y /
+                                                                                                     3)), buttonSize)
+            .hoverTexCoords(
+                    sf::Vector2i(0, (int) (_buttonsTexture->getSize().y / 3 + _buttonsTexture->getSize().y / 9)),
+                    buttonSize)
             .callback([]() {
                 std::cout << "clicked" << std::endl;
             }).build();
 
-    _otherCategoryBackgroundButton = ButtonBuilder().texture(_buttonsTexture, sf::Vector2i(0 , (int) ((_buttonsTexture->getSize().y /3)*2)), buttonSize)
-            .hoverTexCoords(sf::Vector2i(0, (int) (2*(_buttonsTexture->getSize().y /3) + _buttonsTexture->getSize().y / 9)), buttonSize)
+    _otherCategoryBackgroundButton = ButtonBuilder().texture(_buttonsTexture, sf::Vector2i(0,
+                                                                                           (int) ((_buttonsTexture->getSize().y /
+                                                                                                   3) * 2)), buttonSize)
+            .hoverTexCoords(
+                    sf::Vector2i(0, (int) (2 * (_buttonsTexture->getSize().y / 3) + _buttonsTexture->getSize().y / 9)),
+                    buttonSize)
             .callback([]() {
                 std::cout << "clicked" << std::endl;
             }).build();
@@ -110,11 +118,14 @@ void OptionsMenuScreen::updateComponentsTransform(const sf::Vector2<unsigned int
     _soundCategoryBackgroundButton->setTransform(sf::Vector2f(buttonCategoriesPosX, buttonCategoriesPosY),
                                                  sf::Vector2f(buttonCategoriesSize, buttonCategoriesSize));
 
-    _graphicsCategoryBackgroundButton->setTransform(sf::Vector2f(buttonCategoriesPosX, buttonCategoriesPosY + buttonCategoriesSize + betweenCategoryButtonsGap),
-                                                sf::Vector2f(buttonCategoriesSize, buttonCategoriesSize));
+    _graphicsCategoryBackgroundButton->setTransform(
+            sf::Vector2f(buttonCategoriesPosX, buttonCategoriesPosY + buttonCategoriesSize + betweenCategoryButtonsGap),
+            sf::Vector2f(buttonCategoriesSize, buttonCategoriesSize));
 
-    _otherCategoryBackgroundButton->setTransform(sf::Vector2f(buttonCategoriesPosX, buttonCategoriesPosY + 2 * (buttonCategoriesSize + betweenCategoryButtonsGap)),
-                                                    sf::Vector2f(buttonCategoriesSize, buttonCategoriesSize));
+    _otherCategoryBackgroundButton->setTransform(
+            sf::Vector2f(buttonCategoriesPosX, buttonCategoriesPosY + 2 * (buttonCategoriesSize +
+                                                                           betweenCategoryButtonsGap)),
+            sf::Vector2f(buttonCategoriesSize, buttonCategoriesSize));
 }
 
 void OptionsMenuScreen::render(std::shared_ptr<sf::RenderWindow> window) const {

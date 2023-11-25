@@ -18,12 +18,15 @@ public:
     virtual void updateComponentTransform() = 0;
 
     virtual void onMouseMove(const sf::Event::MouseMoveEvent &event);
+
     virtual void onMousePressed(const sf::Event::MouseButtonEvent &event);
+
     virtual void onMouseReleased(const sf::Event::MouseButtonEvent &event);
+
 protected:
     sf::Vector2f _position, _size;
 
-    void draw(sf::RenderTarget& target, sf::RenderStates states) const override = 0;
+    void draw(sf::RenderTarget &target, sf::RenderStates states) const override = 0;
 };
 
 

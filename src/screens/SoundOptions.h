@@ -11,11 +11,12 @@ public:
     SoundOptions(std::shared_ptr<sf::Texture> sliderTexture, std::shared_ptr<sf::Texture> sliderKnobTexture);
 
     void updateComponentsTransform() override;
+
 private:
     const std::shared_ptr<sf::Texture> _sliderTexture;
     const std::shared_ptr<sf::Texture> _sliderKnobTexture;
 
-    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+    void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 };
 
 

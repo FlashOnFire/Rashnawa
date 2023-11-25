@@ -39,12 +39,13 @@ private:
     void updateKnobPlacement();
 
     void onMouseMove(const sf::Event::MouseMoveEvent &event) override;
+
     void onMousePressed(const sf::Event::MouseButtonEvent &event) override;
+
     void onMouseReleased(const sf::Event::MouseButtonEvent &event) override;
 
-    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+    void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 };
-
 
 
 #endif //RASHNAWA_SLIDER_H

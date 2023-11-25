@@ -23,7 +23,9 @@ public:
     ButtonBuilder &texture(std::shared_ptr<sf::Texture> texture, int x, int y, int dx, int dy);
 
     ButtonBuilder &hoverTexCoords(const sf::IntRect &texCoords);
+
     ButtonBuilder &hoverTexCoords(const sf::Vector2i &hoverTexCoordsPos, const sf::Vector2i &hoverTexCoordsSize);
+
     ButtonBuilder &hoverTexCoords(int x, int y, int dx, int dy);
 
     ButtonBuilder &text(const std::string &text, std::shared_ptr<sf::Font> font);

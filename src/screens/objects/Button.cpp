@@ -10,7 +10,7 @@ void Button::onMouseMoved(const sf::Event::MouseMoveEvent &e) {
     const auto size = sf::Vector2i(_shape.getSize());
 
     if (_hovered != (e.x > pos.x && e.x < (pos.x + size.x)
-        && e.y > pos.y && e.y < (pos.y + size.y))) {
+                     && e.y > pos.y && e.y < (pos.y + size.y))) {
         _hovered = !_hovered;
         updateTextureRect();
     }
@@ -41,9 +41,11 @@ void Button::updateTextureRect() {
 }
 
 void Button::updateTextTransform() {
-    float fontX = (float) _shape.getPosition().x + (float) _shape.getSize().x / 2.0f - (_text.value().getLocalBounds().width / 2.0f) -
+    float fontX = (float) _shape.getPosition().x + (float) _shape.getSize().x / 2.0f -
+                  (_text.value().getLocalBounds().width / 2.0f) -
                   _text.value().getLocalBounds().left;
-    float fontY = (float) _shape.getPosition().y + (float) _shape.getSize().y / 2.0f - (_text.value().getLocalBounds().height / 2.0f) -
+    float fontY = (float) _shape.getPosition().y + (float) _shape.getSize().y / 2.0f -
+                  (_text.value().getLocalBounds().height / 2.0f) -
                   _text.value().getLocalBounds().top;
 
     _text.value().setPosition(sf::Vector2f(fontX, fontY));

@@ -9,15 +9,19 @@
 #include "objects/OptionsCategory.h"
 #include "objects/Button.h"
 
-class OptionsMenuScreen: public BasicScreen {
+class OptionsMenuScreen : public BasicScreen {
 public:
-    explicit OptionsMenuScreen(std::shared_ptr<dexode::EventBus> eventBus, std::shared_ptr<sf::Font> font, const sf::Vector2<unsigned int> &windowSize);
+    explicit OptionsMenuScreen(std::shared_ptr<dexode::EventBus> eventBus, std::shared_ptr<sf::Font> font,
+                               const sf::Vector2<unsigned int> &windowSize);
 
     void onMouseMove(const sf::Event::MouseMoveEvent &event) override;
+
     void onMousePressed(const sf::Event::MouseButtonEvent &event) override;
+
     void onMouseReleased(const sf::Event::MouseButtonEvent &event) override;
 
     void render(std::shared_ptr<sf::RenderWindow> window) const override;
+
 private:
     const std::shared_ptr<dexode::EventBus> _eventBus;
 

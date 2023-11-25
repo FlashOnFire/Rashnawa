@@ -10,7 +10,9 @@
 class KeybindHandler {
 public:
     explicit KeybindHandler(std::shared_ptr<dexode::EventBus> eventBus);
+
     void handleEvent(const sf::Event::KeyEvent &event);
+
 private :
     std::shared_ptr<dexode::EventBus> _eventBus;
     std::map<Keybinds, sf::Keyboard::Key> _keymap;

@@ -5,6 +5,7 @@
 class Weapon {
 public:
     virtual void attack();
+
 private:
     float _windupTime;
     float _damage;

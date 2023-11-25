@@ -27,9 +27,12 @@ public:
     [[nodiscard]] sf::Vector2f getSize() const;
 
     void setTransform(const sf::Vector2f &pos, const sf::Vector2f &size);
+
     void setTexture(std::shared_ptr<sf::Texture> texture);
+
 private:
     friend class ButtonBuilder;
+
     Button() = default;
 
     FillMode _fillMode = FillMode::None;
@@ -47,7 +50,7 @@ private:
     void updateTextTransform();
 
 protected:
-    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+    void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
     sf::RectangleShape _shape;
 };
