@@ -3,47 +3,63 @@
 #include "../events/Events.h"
 
 #include "MainMenuScreen.h"
-#include "objects/TextButton.h"
+#include "objects/ButtonBuilder.h"
 
-MainMenuScreen::MainMenuScreen(std::shared_ptr<dexode::EventBus> eventBus, std::shared_ptr<sf::Font> font) : BasicScreen(std::move(font)), _eventBus(std::move(eventBus)), _eventListener(std::make_unique<dexode::EventBus::Listener>(_eventBus)) {
+MainMenuScreen::MainMenuScreen(std::shared_ptr<dexode::EventBus> eventBus, std::shared_ptr<sf::Font> font)
+        : BasicScreen(std::move(font)), _eventBus(std::move(eventBus)),
+          _eventListener(std::make_unique<dexode::EventBus::Listener>(_eventBus)) {
     if (!backgroundTexture->loadFromFile("../assets/menu/menufond2.png")) {
-        std::cout << "Can't load menu _background texture from file";
+        std::cout << "Can't load menu background texture from file";
         exit(EXIT_FAILURE);
     }
     backgroundTexture->setSmooth(true);
 
     if (!buttonTexture->loadFromFile("../assets/menu/button.png")) {
-        std::cout << "Can't load menu button texture from file";
+        std::cout << "Can't load menu button texture from file" << std::endl;
         exit(EXIT_FAILURE);
     }
 
-    _buttons.emplace_back(std::make_unique<TextButton>(120, 300, 200, 80, "PLAY", _font, buttonTexture, [this]() {
-        std::cout << "Play" << std::endl;
-        _eventBus->postpone(Events::ChangeScreen{.from = Screens::MainMenu, .to = Screens::None});
-    }));
+    _buttons.push_back(ButtonBuilder()
+                               .texture(buttonTexture)
+                               .text("PLAY", _font)
+                               .transform(120, 300, 200, 80)
+                               .callback([this]() {
+                                   std::cout << "Play" << std::endl;
+                                   _eventBus->postpone(
+                                           Events::ChangeScreen{.from = Screens::MainMenu, .to = Screens::None});
+                               }).build());
 
-    _buttons.emplace_back(std::make_unique<TextButton>(120, 400, 200, 80, "OPTIONS", _font, buttonTexture, [this]() {
-        std::cout << "Options" << std::endl;
-        _eventBus->postpone(Events::ChangeScreen{.from = Screens::MainMenu, .to = Screens::OptionsMenu});
-    }));
+    _buttons.push_back(ButtonBuilder()
+                               .texture(buttonTexture)
+                               .text("OPTIONS", _font)
+                               .transform(120, 400, 200, 80)
+                               .callback([this]() {
+                                   std::cout << "Options" << std::endl;
+                                   _eventBus->postpone(
+                                           Events::ChangeScreen{.from = Screens::MainMenu, .to = Screens::OptionsMenu});
+                               }).build());
 
-    _buttons.emplace_back(std::make_unique<TextButton>(120, 600, 200, 80, "EXIT", _font, buttonTexture, [this]() {
-        std::cout << "Exit" << std::endl;
-        _eventBus->postpone(Events::CloseGame{});
-    }));
+    _buttons.push_back(ButtonBuilder()
+                               .texture(buttonTexture)
+                               .text("EXIT", _font)
+                               .transform(120, 600, 200, 80)
+                               .callback([this]() {
+                                   std::cout << "Exit" << std::endl;
+                                   _eventBus->postpone(Events::CloseGame{});
+                               }).build());
 
     std::cout << "Created MainMenuScreen!" << std::endl;
 }
 
 void MainMenuScreen::onMouseMove(const sf::Event::MouseMoveEvent &event) {
     for (const auto &button: _buttons) {
-        button->mouseMoved(event);
+        button->onMouseMoved(event);
     }
 }
 
 void MainMenuScreen::onMousePressed(const sf::Event::MouseButtonEvent &event) {
     for (const auto &button: _buttons) {
-        button->mouseButtonPressed(event);
+        button->onMouseButtonPressed(event);
     }
 }
 

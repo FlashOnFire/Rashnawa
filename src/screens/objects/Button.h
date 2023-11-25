@@ -9,17 +9,14 @@
 #include <memory>
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/Text.hpp>
+#include <optional>
+#include "FillMode.h"
 
 class Button : public sf::Drawable {
 public:
-    Button(float x, float y, float dx, float dy, std::shared_ptr<sf::Texture> texture,
-           const std::function<void()> &callback);
+    void onMouseMoved(const sf::Event::MouseMoveEvent &e);
 
-    Button(std::shared_ptr<sf::Texture> texture, const std::function<void()> &callback);
-
-    void mouseMoved(sf::Event::MouseMoveEvent e);
-
-    void mouseButtonPressed(sf::Event::MouseButtonEvent e);
+    void onMouseButtonPressed(const sf::Event::MouseButtonEvent &e);
 
     void updateTextureRect();
 
@@ -29,17 +26,27 @@ public:
 
     [[nodiscard]] sf::Vector2f getSize() const;
 
-    virtual void setTransform(const sf::Vector2f &pos, const sf::Vector2f &size);
+    void setTransform(const sf::Vector2f &pos, const sf::Vector2f &size);
+    void setTexture(std::shared_ptr<sf::Texture> texture);
 private:
+    friend class ButtonBuilder;
+    Button() = default;
+
+    FillMode _fillMode = FillMode::None;
     std::shared_ptr<sf::Texture> _texture;
-    std::function<void()> _callback;
+
+    std::optional<sf::Text> _text;
+
+    std::optional<std::function<void()>> _callback;
 
     bool _hovered = false;
+
+    void updateTextTransform();
 
 protected:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
-    sf::RectangleShape shape;
+    sf::RectangleShape _shape;
 };
 
 

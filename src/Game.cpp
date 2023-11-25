@@ -26,7 +26,7 @@ Game::Game() {
 
 
     if (!_font->loadFromFile("../assets/fonts/Unitblock.ttf")) {
-        std::cout << "Error: can't load _font!" << std::endl;
+        std::cout << "Error: can't load font!" << std::endl;
         exit(EXIT_FAILURE);
     }
 }
@@ -40,13 +40,13 @@ void Game::run() {
     dexode::EventBus::Listener changeScreenListener{_eventBus};
     changeScreenListener.listen<Events::ChangeScreen>([this](const Events::ChangeScreen &e) {
         switch (e.to) {
-            case None:
+            case Screens::None:
                 _currentScreen.reset();
                 break;
-            case MainMenu:
+            case Screens::MainMenu:
                 _currentScreen = std::make_unique<MainMenuScreen>(_eventBus, _font);
                 break;
-            case OptionsMenu:
+            case Screens::OptionsMenu:
                 _currentScreen = std::make_unique<OptionsMenuScreen>(_eventBus, _font, _window->getSize());
                 break;
         }

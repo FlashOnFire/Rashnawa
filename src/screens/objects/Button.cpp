@@ -5,26 +5,9 @@
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/Texture.hpp>
 
-Button::Button(const float x, const float y, const float dx, const float dy, std::shared_ptr<sf::Texture> texture,
-               const std::function<void()> &callback) : _texture(std::move(texture)),
-                                                        _callback(
-                                                                callback) {
-    shape.setPosition(x, y);
-    shape.setSize(sf::Vector2f(dx, dy));
-    shape.setTexture(_texture.get());
-
-    updateTextureRect();
-}
-
-Button::Button(std::shared_ptr<sf::Texture> texture, const std::function<void()> &callback) : _texture(
-        std::move(texture)), _callback(callback) {
-    shape.setTexture(_texture.get());
-    updateTextureRect();
-}
-
-void Button::mouseMoved(sf::Event::MouseMoveEvent e) {
-    const auto pos = sf::Vector2i(shape.getPosition());
-    const auto size = sf::Vector2i(shape.getSize());
+void Button::onMouseMoved(const sf::Event::MouseMoveEvent &e) {
+    const auto pos = sf::Vector2i(_shape.getPosition());
+    const auto size = sf::Vector2i(_shape.getSize());
 
     if (_hovered != (e.x > pos.x && e.x < (pos.x + size.x)
         && e.y > pos.y && e.y < (pos.y + size.y))) {
@@ -33,16 +16,19 @@ void Button::mouseMoved(sf::Event::MouseMoveEvent e) {
     }
 }
 
-void Button::mouseButtonPressed(sf::Event::MouseButtonEvent e) {
+void Button::onMouseButtonPressed(const sf::Event::MouseButtonEvent &e) {
     if (e.button != sf::Mouse::Button::Left)
         return;
 
-    const auto pos = sf::Vector2i(shape.getPosition());
-    const auto size = sf::Vector2i(shape.getSize());
+    const auto pos = sf::Vector2i(_shape.getPosition());
+    const auto size = sf::Vector2i(_shape.getSize());
 
-    if (e.x > pos.x && e.x < (pos.x + size.x)
-        && e.y > pos.y && e.y < (pos.y + size.y)) {
-        _callback();
+    if (_callback.has_value()) {
+        if (e.x > pos.x && e.x < (pos.x + size.x)
+            && e.y > pos.y && e.y < (pos.y + size.y)) {
+
+            _callback.value()();
+        }
     }
 }
 
@@ -52,7 +38,18 @@ void Button::updateTextureRect() {
 
     const auto size = sf::Vector2i((int) textureSize.x, (int) textureSize.y / 2);
 
-    shape.setTextureRect(sf::IntRect(position, size));
+    _shape.setTextureRect(sf::IntRect(position, size));
+}
+
+void Button::updateTextTransform() {
+    float fontX = (float) _shape.getPosition().x + (float) _shape.getSize().x / 2.0f - (_text.value().getLocalBounds().width / 2.0f) -
+                  _text.value().getLocalBounds().left;
+    float fontY = (float) _shape.getPosition().y + (float) _shape.getSize().y / 2.0f - (_text.value().getLocalBounds().height / 2.0f) -
+                  _text.value().getLocalBounds().top;
+
+    _text.value().setPosition(sf::Vector2f(fontX, fontY));
+
+    //TODO: set characterSize
 }
 
 bool Button::isHovered() const {
@@ -60,18 +57,27 @@ bool Button::isHovered() const {
 }
 
 sf::Vector2f Button::getPosition() const {
-    return shape.getPosition();
+    return _shape.getPosition();
 }
 
 sf::Vector2f Button::getSize() const {
-    return shape.getSize();
+    return _shape.getSize();
 }
 
 void Button::setTransform(const sf::Vector2f &pos, const sf::Vector2f &size) {
-    shape.setPosition(pos);
-    shape.setSize(size);
+    _shape.setPosition(pos);
+    _shape.setSize(size);
 }
 
 void Button::draw(sf::RenderTarget &target, sf::RenderStates states) const {
-    target.draw(shape);
+    target.draw(_shape);
+
+    if (_text.has_value()) {
+        target.draw(_text.value());
+    }
+}
+
+void Button::setTexture(std::shared_ptr<sf::Texture> texture) {
+    _texture = std::move(texture);
+    _shape.setTexture(_texture.get());
 }

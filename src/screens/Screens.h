@@ -1,7 +1,7 @@
 #ifndef RASHNAWA_SCREENS_H
 #define RASHNAWA_SCREENS_H
 
-enum Screens {
+enum class Screens {
     None, MainMenu, OptionsMenu,
 };
 

@@ -21,13 +21,13 @@ void OptionsCategory::onMouseMove(const sf::Event::MouseMoveEvent &event) {
     }
 }
 
-void OptionsCategory::onMousePressed(const sf::Event::MouseButtonEvent &event) {
+void OptionsCategory::onMouseButtonPressed(const sf::Event::MouseButtonEvent &event) {
     for (const auto &component: _components) {
         component->onMousePressed(event);
     }
 }
 
-void OptionsCategory::onMouseReleased(const sf::Event::MouseButtonEvent &event) {
+void OptionsCategory::onMouseButtonReleased(const sf::Event::MouseButtonEvent &event) {
     for (const auto &component: _components) {
         component->onMouseReleased(event);
     }

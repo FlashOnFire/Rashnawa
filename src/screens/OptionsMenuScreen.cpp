@@ -1,6 +1,7 @@
 #include "OptionsMenuScreen.h"
 #include "../events/Events.h"
 #include "SoundOptions.h"
+#include "objects/ButtonBuilder.h"
 
 #include <utility>
 
@@ -8,33 +9,33 @@ OptionsMenuScreen::OptionsMenuScreen(std::shared_ptr<dexode::EventBus> eventBus,
                                      const sf::Vector2<unsigned int> &windowSize) : BasicScreen(std::move(font)),
                                                                                     _eventBus(std::move(eventBus)) {
     if (!_backgroundTexture->loadFromFile("../assets/menu/newfont.png")) {
-        std::cout << "Can't load menu _background texture from file";
+        std::cout << "Can't load menu background texture from file";
         exit(EXIT_FAILURE);
     }
     _backgroundTexture->setSmooth(true);
 
     if (!_titleBackground->loadFromFile("../assets/menu/newfont.png")) {
-        std::cout << "Can't load menu _background texture from file";
+        std::cout << "Can't load menu background texture from file";
         exit(EXIT_FAILURE);
     }
 
     if (!_optionsBackgroundTexture->loadFromFile("../assets/menu/options/background.png")) {
-        std::cout << "Can't load menu _background texture from file";
+        std::cout << "Can't load menu background texture from file";
         exit(EXIT_FAILURE);
     }
 
     if (!_buttonsTexture->loadFromFile("../assets/menu/options/button.png")) {
-        std::cout << "Can't load menu _background texture from file";
+        std::cout << "Can't load menu button texture from file";
         exit(EXIT_FAILURE);
     }
 
     if (!_sliderTexture->loadFromFile("../assets/menu/options/slider.png")) {
-        std::cout << "Can't load menu _background texture from file";
+        std::cout << "Can't load menu slider texture from file";
         exit(EXIT_FAILURE);
     }
 
     if (!_sliderKnobTexture->loadFromFile("../assets/menu/options/sliderknob.png")) {
-        std::cout << "Can't load menu _background texture from file";
+        std::cout << "Can't load menu sliderknob texture from file";
         exit(EXIT_FAILURE);
     }
 
@@ -48,9 +49,9 @@ OptionsMenuScreen::OptionsMenuScreen(std::shared_ptr<dexode::EventBus> eventBus,
 
     _optionsBackground.setTexture(_optionsBackgroundTexture.get());
 
-    _soundCategoryBackgroundButton = std::make_unique<Button>(_buttonsTexture, []() {
+    _soundCategoryBackgroundButton = ButtonBuilder().texture(_buttonsTexture).callback([]() {
         std::cout << "clicked" << std::endl;
-    });
+    }).build();
 
     _currentOptionCategory = std::make_unique<SoundOptions>(_sliderTexture, _sliderKnobTexture);
 
@@ -106,12 +107,14 @@ void OptionsMenuScreen::render(std::shared_ptr<sf::RenderWindow> window) const {
 
 void OptionsMenuScreen::onMouseMove(const sf::Event::MouseMoveEvent &e) {
     _currentOptionCategory->onMouseMove(e);
+    _soundCategoryBackgroundButton->onMouseMoved(e);
 }
 
-void OptionsMenuScreen::onMousePressed(const sf::Event::MouseButtonEvent &event) {
-    _currentOptionCategory->onMousePressed(event);
+void OptionsMenuScreen::onMousePressed(const sf::Event::MouseButtonEvent &e) {
+    _currentOptionCategory->onMouseButtonPressed(e);
+    _soundCategoryBackgroundButton->onMouseButtonPressed(e);
 }
 
 void OptionsMenuScreen::onMouseReleased(const sf::Event::MouseButtonEvent &event) {
-    _currentOptionCategory->onMouseReleased(event);
+    _currentOptionCategory->onMouseButtonReleased(event);
 }

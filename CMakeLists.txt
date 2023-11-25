@@ -58,11 +58,12 @@ add_executable(Rashnawa
         src/screens/objects/OptionComponent.h
         src/screens/SoundOptions.cpp
         src/screens/SoundOptions.h
-        src/screens/objects/TextButton.cpp
-        src/screens/objects/TextButton.h
         src/events/KeybindHandler.cpp
         src/events/KeybindHandler.h
         src/events/Keybinds.h
         src/world/Room.cpp
         src/world/Room.h
+        src/screens/objects/ButtonBuilder.cpp
+        src/screens/objects/ButtonBuilder.h
+        src/screens/objects/FillMode.h
 )

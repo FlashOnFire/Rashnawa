@@ -23,8 +23,8 @@ public:
     virtual void updateComponentsTransform() = 0;
 
     virtual void onMouseMove(const sf::Event::MouseMoveEvent &event);
-    virtual void onMousePressed(const sf::Event::MouseButtonEvent &event);
-    virtual void onMouseReleased(const sf::Event::MouseButtonEvent &event);
+    virtual void onMouseButtonPressed(const sf::Event::MouseButtonEvent &event);
+    virtual void onMouseButtonReleased(const sf::Event::MouseButtonEvent &event);
 protected:
     sf::Vector2f _position;
     sf::Vector2f _size;
