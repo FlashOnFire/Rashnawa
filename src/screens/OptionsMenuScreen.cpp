@@ -57,6 +57,18 @@ OptionsMenuScreen::OptionsMenuScreen(std::shared_ptr<dexode::EventBus> eventBus,
                 std::cout << "clicked" << std::endl;
             }).build();
 
+    _graphicsCategoryBackgroundButton = ButtonBuilder().texture(_buttonsTexture, sf::Vector2i(0, (int) (_buttonsTexture->getSize().y /3)), buttonSize)
+            .hoverTexCoords(sf::Vector2i(0, (int) (_buttonsTexture->getSize().y /3 + _buttonsTexture->getSize().y / 9)), buttonSize)
+            .callback([]() {
+                std::cout << "clicked" << std::endl;
+            }).build();
+
+    _otherCategoryBackgroundButton = ButtonBuilder().texture(_buttonsTexture, sf::Vector2i(0 , (int) ((_buttonsTexture->getSize().y /3)*2)), buttonSize)
+            .hoverTexCoords(sf::Vector2i(0, (int) (2*(_buttonsTexture->getSize().y /3) + _buttonsTexture->getSize().y / 9)), buttonSize)
+            .callback([]() {
+                std::cout << "clicked" << std::endl;
+            }).build();
+
     _currentOptionCategory = std::make_unique<SoundOptions>(_sliderTexture, _sliderKnobTexture);
 
     updateComponentsTransform(windowSize);
@@ -93,9 +105,16 @@ void OptionsMenuScreen::updateComponentsTransform(const sf::Vector2<unsigned int
     const auto buttonCategoriesPosY = (float) windowSize.y * 0.2f;
 
     const auto buttonCategoriesSize = (float) windowSize.x * 0.1f;
+    const auto betweenCategoryButtonsGap = (float) windowSize.x * 0.02f;
 
     _soundCategoryBackgroundButton->setTransform(sf::Vector2f(buttonCategoriesPosX, buttonCategoriesPosY),
                                                  sf::Vector2f(buttonCategoriesSize, buttonCategoriesSize));
+
+    _graphicsCategoryBackgroundButton->setTransform(sf::Vector2f(buttonCategoriesPosX, buttonCategoriesPosY + buttonCategoriesSize + betweenCategoryButtonsGap),
+                                                sf::Vector2f(buttonCategoriesSize, buttonCategoriesSize));
+
+    _otherCategoryBackgroundButton->setTransform(sf::Vector2f(buttonCategoriesPosX, buttonCategoriesPosY + 2 * (buttonCategoriesSize + betweenCategoryButtonsGap)),
+                                                    sf::Vector2f(buttonCategoriesSize, buttonCategoriesSize));
 }
 
 void OptionsMenuScreen::render(std::shared_ptr<sf::RenderWindow> window) const {
@@ -104,6 +123,8 @@ void OptionsMenuScreen::render(std::shared_ptr<sf::RenderWindow> window) const {
     window->draw(_optionsBackground);
 
     window->draw(*_soundCategoryBackgroundButton);
+    window->draw(*_graphicsCategoryBackgroundButton);
+    window->draw(*_otherCategoryBackgroundButton);
 
     window->draw(*_currentOptionCategory);
 }
@@ -111,11 +132,15 @@ void OptionsMenuScreen::render(std::shared_ptr<sf::RenderWindow> window) const {
 void OptionsMenuScreen::onMouseMove(const sf::Event::MouseMoveEvent &e) {
     _currentOptionCategory->onMouseMove(e);
     _soundCategoryBackgroundButton->onMouseMoved(e);
+    _graphicsCategoryBackgroundButton->onMouseMoved(e);
+    _otherCategoryBackgroundButton->onMouseMoved(e);
 }
 
 void OptionsMenuScreen::onMousePressed(const sf::Event::MouseButtonEvent &e) {
     _currentOptionCategory->onMouseButtonPressed(e);
     _soundCategoryBackgroundButton->onMouseButtonPressed(e);
+    _graphicsCategoryBackgroundButton->onMouseButtonPressed(e);
+    _otherCategoryBackgroundButton->onMouseButtonPressed(e);
 }
 
 void OptionsMenuScreen::onMouseReleased(const sf::Event::MouseButtonEvent &event) {

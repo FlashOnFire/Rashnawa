@@ -44,7 +44,7 @@ ButtonBuilder &ButtonBuilder::hoverTexCoords(int x, int y, int dx, int dy) {
 
 ButtonBuilder &ButtonBuilder::text(const std::string &text, std::shared_ptr<sf::Font> font) {
     _button->_text = sf::Text(text, *font, 45);
-    _button->_text->setFillColor(sf::Color(255, 190, 37));
+    _button->_text->setFillColor(sf::Color::Black);
 
     return *this;
 }

@@ -39,6 +39,8 @@ private:
     std::unique_ptr<OptionsCategory> _currentOptionCategory;
 
     std::unique_ptr<Button> _soundCategoryBackgroundButton;
+    std::unique_ptr<Button> _graphicsCategoryBackgroundButton;
+    std::unique_ptr<Button> _otherCategoryBackgroundButton;
 
     void updateComponentsTransform(const sf::Vector2<unsigned int> &windowSize);
 };
