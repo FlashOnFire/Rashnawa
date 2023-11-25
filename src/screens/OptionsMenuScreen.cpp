@@ -49,9 +49,13 @@ OptionsMenuScreen::OptionsMenuScreen(std::shared_ptr<dexode::EventBus> eventBus,
 
     _optionsBackground.setTexture(_optionsBackgroundTexture.get());
 
-    _soundCategoryBackgroundButton = ButtonBuilder().texture(_buttonsTexture).callback([]() {
-        std::cout << "clicked" << std::endl;
-    }).build();
+    sf::Vector2i buttonSize = sf::Vector2i((int) _buttonsTexture->getSize().x, (int) _buttonsTexture->getSize().y / 9);
+
+    _soundCategoryBackgroundButton = ButtonBuilder().texture(_buttonsTexture, sf::Vector2i(0, 0), buttonSize)
+            .hoverTexCoords(sf::Vector2i(0, (int) _buttonsTexture->getSize().y / 9), buttonSize)
+            .callback([]() {
+                std::cout << "clicked" << std::endl;
+            }).build();
 
     _currentOptionCategory = std::make_unique<SoundOptions>(_sliderTexture, _sliderKnobTexture);
 
@@ -88,11 +92,10 @@ void OptionsMenuScreen::updateComponentsTransform(const sf::Vector2<unsigned int
     const auto buttonCategoriesPosX = (float) windowSize.x * 0.1f;
     const auto buttonCategoriesPosY = (float) windowSize.y * 0.2f;
 
-    const auto buttonCategoriesSizeX = (float) windowSize.x * 0.1f;
-    const auto buttonCategoriesSizeY = (float) windowSize.y * 0.15f;
+    const auto buttonCategoriesSize = (float) windowSize.x * 0.1f;
 
     _soundCategoryBackgroundButton->setTransform(sf::Vector2f(buttonCategoriesPosX, buttonCategoriesPosY),
-                                                 sf::Vector2f(buttonCategoriesSizeX, buttonCategoriesSizeY));
+                                                 sf::Vector2f(buttonCategoriesSize, buttonCategoriesSize));
 }
 
 void OptionsMenuScreen::render(std::shared_ptr<sf::RenderWindow> window) const {

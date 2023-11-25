@@ -15,15 +15,26 @@ private:
 public:
     ButtonBuilder();
 
-    ButtonBuilder& texture(std::shared_ptr<sf::Texture> texture);
+    ButtonBuilder &texture(std::shared_ptr<sf::Texture> texture, const sf::IntRect &texCoords);
 
-    ButtonBuilder& text(const std::string& text, std::shared_ptr<sf::Font> font);
-    ButtonBuilder& callback(std::function<void()>  callback);
+    ButtonBuilder &texture(std::shared_ptr<sf::Texture> texture, const sf::Vector2i &texCoordsPosition,
+                           const sf::Vector2i &texCoordsSize);
 
-    ButtonBuilder& transform(sf::Vector2f position, sf::Vector2f size);
+    ButtonBuilder &texture(std::shared_ptr<sf::Texture> texture, int x, int y, int dx, int dy);
+
+    ButtonBuilder &hoverTexCoords(const sf::IntRect &texCoords);
+    ButtonBuilder &hoverTexCoords(const sf::Vector2i &hoverTexCoordsPos, const sf::Vector2i &hoverTexCoordsSize);
+    ButtonBuilder &hoverTexCoords(int x, int y, int dx, int dy);
+
+    ButtonBuilder &text(const std::string &text, std::shared_ptr<sf::Font> font);
+
+    ButtonBuilder &callback(std::function<void()> callback);
+
+    ButtonBuilder &transform(sf::Vector2f position, sf::Vector2f size);
+
     ButtonBuilder &transform(float x, float y, float dx, float dy);
 
-    std::unique_ptr<Button>  build();
+    std::unique_ptr<Button> build();
 
 };
 

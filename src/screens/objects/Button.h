@@ -35,6 +35,9 @@ private:
     FillMode _fillMode = FillMode::None;
     std::shared_ptr<sf::Texture> _texture;
 
+    sf::IntRect _normalStateTexCoords;
+    std::optional<sf::IntRect> _hoverStateTexCoords;
+
     std::optional<sf::Text> _text;
 
     std::optional<std::function<void()>> _callback;

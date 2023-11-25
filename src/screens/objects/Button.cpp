@@ -33,12 +33,11 @@ void Button::onMouseButtonPressed(const sf::Event::MouseButtonEvent &e) {
 }
 
 void Button::updateTextureRect() {
-    const auto textureSize = _texture->getSize();
-    const auto position = sf::Vector2i(0, _hovered ? 0 : (int) textureSize.y / 2);
-
-    const auto size = sf::Vector2i((int) textureSize.x, (int) textureSize.y / 2);
-
-    _shape.setTextureRect(sf::IntRect(position, size));
+    if (_hovered && _hoverStateTexCoords.has_value())
+        _shape.setTextureRect(_hoverStateTexCoords.value());
+    else {
+        _shape.setTextureRect(_normalStateTexCoords);
+    }
 }
 
 void Button::updateTextTransform() {

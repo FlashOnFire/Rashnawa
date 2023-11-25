@@ -19,8 +19,18 @@ MainMenuScreen::MainMenuScreen(std::shared_ptr<dexode::EventBus> eventBus, std::
         exit(EXIT_FAILURE);
     }
 
+    sf::IntRect normalButtonTexCoords = {sf::Vector2i(0, 0),
+                                         sf::Vector2i((int) buttonTexture->getSize().x,
+                                                      (int) buttonTexture->getSize().y / 2)};
+
+    sf::IntRect hoveredButtonTexCoords = {
+            sf::Vector2i(0, (int) buttonTexture->getSize().y / 2),
+            sf::Vector2i((int) buttonTexture->getSize().x,
+                         (int) buttonTexture->getSize().y / 2)};
+
     _buttons.push_back(ButtonBuilder()
-                               .texture(buttonTexture)
+                               .texture(buttonTexture, normalButtonTexCoords)
+                               .hoverTexCoords(hoveredButtonTexCoords)
                                .text("PLAY", _font)
                                .transform(120, 300, 200, 80)
                                .callback([this]() {
@@ -30,7 +40,8 @@ MainMenuScreen::MainMenuScreen(std::shared_ptr<dexode::EventBus> eventBus, std::
                                }).build());
 
     _buttons.push_back(ButtonBuilder()
-                               .texture(buttonTexture)
+                               .texture(buttonTexture, normalButtonTexCoords)
+                               .hoverTexCoords(hoveredButtonTexCoords)
                                .text("OPTIONS", _font)
                                .transform(120, 400, 200, 80)
                                .callback([this]() {
@@ -40,7 +51,8 @@ MainMenuScreen::MainMenuScreen(std::shared_ptr<dexode::EventBus> eventBus, std::
                                }).build());
 
     _buttons.push_back(ButtonBuilder()
-                               .texture(buttonTexture)
+                               .texture(buttonTexture, normalButtonTexCoords)
+                               .hoverTexCoords(hoveredButtonTexCoords)
                                .text("EXIT", _font)
                                .transform(120, 600, 200, 80)
                                .callback([this]() {
