@@ -66,7 +66,7 @@ ButtonBuilder &ButtonBuilder::transform(const float x, const float y, const floa
 }
 
 std::unique_ptr<Button> ButtonBuilder::build() {
-    assert(_button->fillColor != FillMode::None);
+    assert(_button->_fillMode != FillMode::None);
 
     if (_button->_fillMode == FillMode::Texture) {
         _button->updateTextureRect();
