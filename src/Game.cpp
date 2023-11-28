@@ -33,20 +33,22 @@ Game::Game() {
 
 void Game::run() {
     dexode::EventBus::Listener endGameListener{_eventBus};
-    endGameListener.listen<Events::CloseGame>([this](const Events::CloseGame &e) {
+    endGameListener.listen<Events::CloseGame>([this](const Events::CloseGame) {
         _running = false;
     });
 
     dexode::EventBus::Listener changeScreenListener{_eventBus};
     changeScreenListener.listen<Events::ChangeScreen>([this](const Events::ChangeScreen &e) {
         switch (e.to) {
-            case Screens::None:
+            using enum Screens;
+
+            case None:
                 _currentScreen.reset();
                 break;
-            case Screens::MainMenu:
+            case MainMenu:
                 _currentScreen = std::make_unique<MainMenuScreen>(_eventBus, _font);
                 break;
-            case Screens::OptionsMenu:
+            case OptionsMenu:
                 _currentScreen = std::make_unique<OptionsMenuScreen>(_eventBus, _font, _window->getSize());
                 break;
         }

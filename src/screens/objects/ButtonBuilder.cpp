@@ -2,10 +2,6 @@
 #include <utility>
 #include "ButtonBuilder.h"
 
-ButtonBuilder::ButtonBuilder() {
-    _button = std::unique_ptr<Button>(new Button());
-}
-
 ButtonBuilder &
 ButtonBuilder::texture(std::shared_ptr<sf::Texture> texture, const sf::IntRect &texCoords) {
     assert(_button->_fillMode == FillMode::None);

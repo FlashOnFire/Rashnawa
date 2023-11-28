@@ -11,17 +11,19 @@ namespace Audio {
                                                                                                     _eventBus)) {
 
         _eventListener.listen<Events::ChangeScreen>([this](const Events::ChangeScreen &e) {
-            if (e.from == Screens::None && e.to == Screens::MainMenu) {
+            using enum Screens;
+
+            if (e.from == None && e.to == MainMenu) {
                 _musicInstance = _audioManager->createEventInstance("event:/tension");
-                _musicInstance->setVolume(0.2);
+                _musicInstance->setVolume(0.2f);
                 _musicInstance->start();
-            } else if (e.to == Screens::None) {
+            } else if (e.to == None) {
                 _musicInstance->stop(FMOD_STUDIO_STOP_MODE::FMOD_STUDIO_STOP_ALLOWFADEOUT);
             }
 
-            if (e.to == Screens::OptionsMenu) {
+            if (e.to == OptionsMenu) {
                 _musicInstance->setParameterByName("midhigh", 0, false);
-            } else if (e.to == Screens::MainMenu) {
+            } else if (e.to == MainMenu) {
                 _musicInstance->setParameterByName("midhigh", 1, false);
             }
         });

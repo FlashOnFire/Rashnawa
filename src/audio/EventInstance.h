@@ -6,13 +6,11 @@
 #include <memory>
 #include "Utils.hpp"
 
-using namespace FMOD;
-
 namespace Audio {
 
     class EventInstance {
     public:
-        explicit EventInstance(std::unique_ptr<Studio::EventInstance, EventInstanceDeleter>);
+        explicit EventInstance(std::unique_ptr<FMOD::Studio::EventInstance, EventInstanceDeleter>);
 
         void start();
 
@@ -33,7 +31,7 @@ namespace Audio {
 
         void setPitch(float pitch);
 
-        [[nodiscard]] float getProperty(FMOD_STUDIO_EVENT_PROPERTY index);
+        [[nodiscard]] float getProperty(FMOD_STUDIO_EVENT_PROPERTY index) const;
 
         void setProperty(FMOD_STUDIO_EVENT_PROPERTY index, float value);
 
@@ -52,13 +50,13 @@ namespace Audio {
         /** Skipped 3D attributes and functions since we are in a 2D game  **/
         /********************************************************************/
 
-        float getParameterByName(const std::string &name);
+        float getParameterByName(const std::string &name) const;
 
         void setParameterByName(const std::string &name, float value, bool ignoreSeekSpeed);
 
         void setParameterByNameWithLabel(const std::string &name, const std::string &label, bool ignoreSeekSpeed);
 
-        [[nodiscard]] std::shared_ptr<ChannelGroup> getChannelGroup() const;
+        [[nodiscard]] std::shared_ptr<FMOD::ChannelGroup> getChannelGroup() const;
 
         [[nodiscard]] float getReverbLevel(int index) const;
 
@@ -67,10 +65,10 @@ namespace Audio {
         // two values, must create a struct for this : void getCPUUsage(int *exclusive, int *inclusive) const;
         [[nodiscard]] FMOD_STUDIO_MEMORY_USAGE getMemoryUsage() const;
 
-        bool isValid();
+        bool isValid() const;
 
     private:
-        std::unique_ptr<Studio::EventInstance, EventInstanceDeleter> _instance;
+        std::unique_ptr<FMOD::Studio::EventInstance, EventInstanceDeleter> _instance;
     };
 
 } // Audio

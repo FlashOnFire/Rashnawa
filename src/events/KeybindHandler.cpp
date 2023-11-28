@@ -8,7 +8,7 @@ KeybindHandler::KeybindHandler(std::shared_ptr<dexode::EventBus> eventBus) : _ev
     std::cout << "Created KeybindHandler!" << std::endl;
 }
 
-void KeybindHandler::handleEvent(const sf::Event::KeyEvent &event) {
+void KeybindHandler::handleEvent(const sf::Event::KeyEvent &event) const {
     for (const auto &[key, value]: _keymap) {
         if (value == event.code) {
             _eventBus->postpone<Events::PlayerAction>({key});

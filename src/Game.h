@@ -28,7 +28,6 @@ private:
     std::shared_ptr<Audio::AudioManager> _audioMgr;
     std::unique_ptr<Audio::MusicManager> _musicManager;
 
-    World _world;
     std::unique_ptr<Graphics::Renderer> _renderer;
 
     std::optional<std::unique_ptr<BasicScreen>> _currentScreen;

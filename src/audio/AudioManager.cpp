@@ -4,10 +4,10 @@
 namespace Audio {
 
     AudioManager::AudioManager() {
-        Studio::System *sys;
-        Studio::System::create(&sys);
+        FMOD::Studio::System *sys;
+        FMOD::Studio::System::create(&sys);
 
-        _system.reset(sys, [](Studio::System *system) {
+        _system.reset(sys, [](FMOD::Studio::System *system) {
             system->release();
         });
 
@@ -22,34 +22,34 @@ namespace Audio {
         _system->update();
     }
 
-    std::weak_ptr<Studio::Bank> AudioManager::loadBank(const std::string &path) {
-        Studio::Bank *bank;
+    std::weak_ptr<FMOD::Studio::Bank> AudioManager::loadBank(const std::string &path) {
+        FMOD::Studio::Bank *bank;
         ErrCheck(_system->loadBankFile(path.c_str(), FMOD_STUDIO_LOAD_BANK_NORMAL, &bank));
 
-        std::shared_ptr<Studio::Bank> bankPtr(bank, [](Studio::Bank *bank) {
-            bank->unload();
+        std::shared_ptr<FMOD::Studio::Bank> bankPtr(bank, [](FMOD::Studio::Bank *b) {
+            b->unload();
         });
 
         _banks.push_back(bankPtr);
-        return (bankPtr);
+        return bankPtr;
     }
 
-    std::weak_ptr<Studio::System> AudioManager::getSystem() const {
+    std::weak_ptr<FMOD::Studio::System> AudioManager::getSystem() const {
         return _system;
     }
 
     std::unique_ptr<EventInstance>
     AudioManager::createEventInstance(const std::string &path) {
-        Studio::EventInstance *instance;
+        FMOD::Studio::EventInstance *instance;
         getEventDescription(path).lock()->createInstance(&instance);
-        std::unique_ptr<Studio::EventInstance, EventInstanceDeleter> ptrInstance(instance, EventInstanceDeleter());
+        std::unique_ptr<FMOD::Studio::EventInstance, EventInstanceDeleter> ptrInstance(instance, EventInstanceDeleter());
 
         return std::make_unique<Audio::EventInstance>(std::move(ptrInstance));
     }
 
-    std::weak_ptr<Studio::EventDescription> AudioManager::getEventDescription(const std::string &path) {
-        if (eventDescriptions.count(path) == 0) {
-            Studio::EventDescription *event;
+    std::weak_ptr<FMOD::Studio::EventDescription> AudioManager::getEventDescription(const std::string &path) {
+        if (!eventDescriptions.contains(path)) {
+            FMOD::Studio::EventDescription *event;
 
             ErrCheck(_system->getEvent(path.c_str(), &event));
 
@@ -58,10 +58,10 @@ namespace Audio {
                 exit(EXIT_FAILURE);
             }
 
-            std::shared_ptr<Studio::EventDescription> eventPtr = std::shared_ptr<Studio::EventDescription>(event,
-                                                                                                           [](Studio::EventDescription *evt) {
-                                                                                                               evt->releaseAllInstances();
-                                                                                                           });
+            auto eventPtr = std::shared_ptr<FMOD::Studio::EventDescription>(event,
+                                                                      [](FMOD::Studio::EventDescription *evt) {
+                                                                          evt->releaseAllInstances();
+                                                                      });
 
             eventDescriptions.insert(std::pair(path, eventPtr));
 

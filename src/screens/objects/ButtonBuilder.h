@@ -11,10 +11,8 @@
 
 class ButtonBuilder {
 private:
-    std::unique_ptr<Button> _button;
+    std::unique_ptr<Button> _button = std::unique_ptr<Button>(new Button());
 public:
-    ButtonBuilder();
-
     ButtonBuilder &texture(std::shared_ptr<sf::Texture> texture, const sf::IntRect &texCoords);
 
     ButtonBuilder &texture(std::shared_ptr<sf::Texture> texture, const sf::Vector2i &texCoordsPosition,

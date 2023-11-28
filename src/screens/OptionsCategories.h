@@ -1,7 +1,7 @@
 #ifndef RASHNAWA_OPTIONSCATEGORIES_H
 #define RASHNAWA_OPTIONSCATEGORIES_H
 
-enum OptionsCategories {
+enum class OptionsCategories {
     SOUND,
     GRAPHICS,
     OTHER

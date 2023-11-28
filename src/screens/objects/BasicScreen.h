@@ -21,7 +21,6 @@ public:
 
 protected:
     std::shared_ptr<sf::Font> _font;
-
     explicit BasicScreen(std::shared_ptr<sf::Font> font);
 };
 

@@ -35,6 +35,8 @@ private:
 
     Button() = default;
 
+    sf::RectangleShape _shape;
+
     FillMode _fillMode = FillMode::None;
     std::shared_ptr<sf::Texture> _texture;
 
@@ -51,8 +53,6 @@ private:
 
 protected:
     void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
-
-    sf::RectangleShape _shape;
 };
 
 

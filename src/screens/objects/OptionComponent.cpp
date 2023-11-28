@@ -16,10 +16,13 @@ void OptionComponent::setTransform(const sf::Vector2f &position, const sf::Vecto
 }
 
 void OptionComponent::onMouseMove(const sf::Event::MouseMoveEvent &event) {
+    // Intentionally blank to allow option components not to implement some events
 }
 
 void OptionComponent::onMousePressed(const sf::Event::MouseButtonEvent &event) {
+    // Intentionally blank to allow option components not to implement some events
 }
 
 void OptionComponent::onMouseReleased(const sf::Event::MouseButtonEvent &event) {
+    // Intentionally blank to allow option components not to implement some events
 }

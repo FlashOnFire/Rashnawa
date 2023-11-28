@@ -23,12 +23,11 @@ void Button::onMouseButtonPressed(const sf::Event::MouseButtonEvent &e) {
     const auto pos = sf::Vector2i(_shape.getPosition());
     const auto size = sf::Vector2i(_shape.getSize());
 
-    if (_callback.has_value()) {
-        if (e.x > pos.x && e.x < (pos.x + size.x)
-            && e.y > pos.y && e.y < (pos.y + size.y)) {
+    if (_callback.has_value() &&
+        e.x > pos.x && e.x < (pos.x + size.x)
+        && e.y > pos.y && e.y < (pos.y + size.y)) {
 
-            _callback.value()();
-        }
+        _callback.value()();
     }
 }
 
@@ -41,10 +40,10 @@ void Button::updateTextureRect() {
 }
 
 void Button::updateTextTransform() {
-    float fontX = (float) _shape.getPosition().x + (float) _shape.getSize().x / 2.0f -
+    float fontX = _shape.getPosition().x + _shape.getSize().x / 2.0f -
                   (_text.value().getLocalBounds().width / 2.0f) -
                   _text.value().getLocalBounds().left;
-    float fontY = (float) _shape.getPosition().y + (float) _shape.getSize().y / 2.0f -
+    float fontY = _shape.getPosition().y + _shape.getSize().y / 2.0f -
                   (_text.value().getLocalBounds().height / 2.0f) -
                   _text.value().getLocalBounds().top;
 

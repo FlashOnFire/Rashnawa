@@ -7,8 +7,6 @@
 #include <vector>
 #include <map>
 
-using namespace FMOD;
-
 namespace Audio {
 
     class AudioManager {
@@ -19,18 +17,18 @@ namespace Audio {
 
         void update() const;
 
-        std::weak_ptr<Studio::Bank> loadBank(const std::string &path);
+        std::weak_ptr<FMOD::Studio::Bank> loadBank(const std::string &path);
 
-        [[nodiscard]] std::weak_ptr<Studio::System> getSystem() const;
+        [[nodiscard]] std::weak_ptr<FMOD::Studio::System> getSystem() const;
 
         std::unique_ptr<EventInstance> createEventInstance(const std::string &path);
 
     private:
-        std::shared_ptr<Studio::System> _system;
-        std::vector<std::shared_ptr<Studio::Bank>> _banks;
-        std::map<const std::string, std::shared_ptr<Studio::EventDescription>> eventDescriptions;
+        std::shared_ptr<FMOD::Studio::System> _system;
+        std::vector<std::shared_ptr<FMOD::Studio::Bank>> _banks;
+        std::map<const std::string, std::shared_ptr<FMOD::Studio::EventDescription>> eventDescriptions;
 
-        std::weak_ptr<Studio::EventDescription> getEventDescription(const std::string &path);
+        std::weak_ptr<FMOD::Studio::EventDescription> getEventDescription(const std::string &path);
     };
 
 } // Audio

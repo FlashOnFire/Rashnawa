@@ -4,11 +4,12 @@
 
 class Weapon {
 public:
-    virtual void attack();
+    virtual ~Weapon() = default;
+    virtual void attack() = 0;
 
 private:
-    float _windupTime;
-    float _damage;
+    float _windupTime = 0;
+    float _damage = 0;
 };
 
 

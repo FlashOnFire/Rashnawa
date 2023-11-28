@@ -4,7 +4,7 @@
 
 #include "CollideableEntity.h"
 
-class LivingEntity : CollideableEntity {
+class LivingEntity : public CollideableEntity {
 
 };
 

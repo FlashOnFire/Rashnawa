@@ -2,11 +2,12 @@
 #define RASHNAWA_PLAYER_H
 
 
+#include <memory>
 #include "LivingEntity.h"
 #include "weapons/Weapon.h"
 #include "items/Item.h"
 
-class Player : LivingEntity {
+class Player : public LivingEntity {
 public:
 
 
@@ -32,8 +33,7 @@ private:
     bool _dashing = false;
     bool _hasDashed = false;
     bool _usingWeapon = false;
-    Weapon weapon;
-    Item item;
+    std::unique_ptr<Weapon> weapon;
 };
 
 

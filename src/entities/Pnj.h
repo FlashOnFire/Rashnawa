@@ -4,7 +4,7 @@
 
 #include "LivingEntity.h"
 
-class Pnj : LivingEntity {
+class Pnj : public LivingEntity {
 
 };
 

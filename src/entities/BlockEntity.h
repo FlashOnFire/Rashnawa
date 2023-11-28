@@ -4,7 +4,7 @@
 
 #include "CollideableEntity.h"
 
-class BlockEntity : CollideableEntity {
+class BlockEntity : public CollideableEntity {
 
 };
 

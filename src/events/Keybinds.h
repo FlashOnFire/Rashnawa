@@ -2,7 +2,7 @@
 #define RASHNAWA_KEYBINDS_H
 
 
-enum Keybinds {
+enum class Keybinds {
     LEFT,
     RIGHT,
     UP,

@@ -2,8 +2,8 @@
 
 namespace Audio {
 
-    EventInstance::EventInstance(std::unique_ptr<Studio::EventInstance, EventInstanceDeleter> instance) {
-        _instance = std::move(instance);
+    EventInstance::EventInstance(std::unique_ptr<FMOD::Studio::EventInstance, EventInstanceDeleter> instance) : _instance(
+            std::move(instance)) {
 
         std::cout << "Created EventInstance!" << std::endl;
     }
@@ -50,7 +50,7 @@ namespace Audio {
         ErrCheck(_instance->setPitch(pitch));
     }
 
-    float EventInstance::getProperty(FMOD_STUDIO_EVENT_PROPERTY index) {
+    float EventInstance::getProperty(FMOD_STUDIO_EVENT_PROPERTY index) const {
         float val;
         ErrCheck(_instance->getProperty(index, &val));
         return val;
@@ -86,7 +86,7 @@ namespace Audio {
         return virt;
     }
 
-    float EventInstance::getParameterByName(const std::string &name) {
+    float EventInstance::getParameterByName(const std::string &name) const {
         float value;
         ErrCheck(_instance->getParameterByName(name.c_str(), &value));
         return value;
@@ -101,12 +101,12 @@ namespace Audio {
         ErrCheck(_instance->setParameterByNameWithLabel(name.c_str(), label.c_str(), ignoreSeekSpeed));
     }
 
-    std::shared_ptr<ChannelGroup> EventInstance::getChannelGroup() const {
-        ChannelGroup *grp;
-        ErrCheck(_instance->getChannelGroup(&grp));
+    std::shared_ptr<FMOD::ChannelGroup> EventInstance::getChannelGroup() const {
+        FMOD::ChannelGroup *group;
+        ErrCheck(_instance->getChannelGroup(&group));
 
-        std::shared_ptr<ChannelGroup> ptr(grp, [](ChannelGroup *grp) {
-            grp->release();
+        std::shared_ptr<FMOD::ChannelGroup> ptr(group, [](FMOD::ChannelGroup *g) {
+            g->release();
         });
 
         return ptr;
@@ -128,7 +128,7 @@ namespace Audio {
         return usage;
     }
 
-    bool EventInstance::isValid() {
+    bool EventInstance::isValid() const {
         return _instance->isValid();
     }
 

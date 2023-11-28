@@ -49,7 +49,7 @@ OptionsMenuScreen::OptionsMenuScreen(std::shared_ptr<dexode::EventBus> eventBus,
 
     _optionsBackground.setTexture(_optionsBackgroundTexture.get());
 
-    sf::Vector2i buttonSize = sf::Vector2i((int) _buttonsTexture->getSize().x, (int) _buttonsTexture->getSize().y / 9);
+    auto buttonSize = sf::Vector2i((int) _buttonsTexture->getSize().x, (int) _buttonsTexture->getSize().y / 9);
 
     _soundCategoryBackgroundButton = ButtonBuilder().texture(_buttonsTexture, sf::Vector2i(0, 0), buttonSize)
             .hoverTexCoords(sf::Vector2i(0, (int) _buttonsTexture->getSize().y / 9), buttonSize)
@@ -82,7 +82,7 @@ OptionsMenuScreen::OptionsMenuScreen(std::shared_ptr<dexode::EventBus> eventBus,
     updateComponentsTransform(windowSize);
 
     _eventListener = std::make_unique<dexode::EventBus::Listener>(_eventBus);
-    _eventListener->listen<Events::EscapeBtn>([this](const Events::EscapeBtn &e) {
+    _eventListener->listen<Events::EscapeBtn>([this](const Events::EscapeBtn) {
         _eventBus->postpone<Events::ChangeScreen>({.from = Screens::OptionsMenu, .to = Screens::MainMenu});
     });
 
