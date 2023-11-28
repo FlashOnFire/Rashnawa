@@ -49,19 +49,19 @@ OptionsMenuScreen::OptionsMenuScreen(std::shared_ptr<dexode::EventBus> eventBus,
 
     _optionsBackground.setTexture(_optionsBackgroundTexture.get());
 
-    auto buttonSize = sf::Vector2i((int) _buttonsTexture->getSize().x, (int) _buttonsTexture->getSize().y / 9);
+    auto buttonSize = sf::Vector2i((int) _buttonsTexture->getSize().x / 2, (int) _buttonsTexture->getSize().y / 8);
 
     _soundCategoryBackgroundButton = ButtonBuilder().texture(_buttonsTexture, sf::Vector2i(0, 0), buttonSize)
-            .hoverTexCoords(sf::Vector2i(0, (int) _buttonsTexture->getSize().y / 9), buttonSize)
+            .hoverTexCoords(sf::Vector2i(0, (int) _buttonsTexture->getSize().y / 8), buttonSize)
             .callback([]() {
                 std::cout << "clicked" << std::endl;
             }).build();
 
     _graphicsCategoryBackgroundButton = ButtonBuilder().texture(_buttonsTexture, sf::Vector2i(0,
                                                                                               (int) (_buttonsTexture->getSize().y /
-                                                                                                     3)), buttonSize)
+                                                                                                     4)), buttonSize)
             .hoverTexCoords(
-                    sf::Vector2i(0, (int) (_buttonsTexture->getSize().y / 3 + _buttonsTexture->getSize().y / 9)),
+                    sf::Vector2i(0, (int) (_buttonsTexture->getSize().y / 4 + _buttonsTexture->getSize().y / 8)),
                     buttonSize)
             .callback([]() {
                 std::cout << "clicked" << std::endl;
@@ -69,9 +69,9 @@ OptionsMenuScreen::OptionsMenuScreen(std::shared_ptr<dexode::EventBus> eventBus,
 
     _otherCategoryBackgroundButton = ButtonBuilder().texture(_buttonsTexture, sf::Vector2i(0,
                                                                                            (int) ((_buttonsTexture->getSize().y /
-                                                                                                   3) * 2)), buttonSize)
+                                                                                                   4) * 2)), buttonSize)
             .hoverTexCoords(
-                    sf::Vector2i(0, (int) (2 * (_buttonsTexture->getSize().y / 3) + _buttonsTexture->getSize().y / 9)),
+                    sf::Vector2i(0, (int) (2 * (_buttonsTexture->getSize().y / 4) + _buttonsTexture->getSize().y / 8)),
                     buttonSize)
             .callback([]() {
                 std::cout << "clicked" << std::endl;
