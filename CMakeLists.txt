@@ -66,4 +66,6 @@ add_executable(Rashnawa
         src/screens/objects/ButtonBuilder.cpp
         src/screens/objects/ButtonBuilder.h
         src/screens/objects/FillMode.h
+        src/graphics/Animations.h
+        src/graphics/Animations.cpp
 )

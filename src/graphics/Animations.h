@@ -6,23 +6,28 @@
 
 class Animations {
 public:
-    enum {
-        COURSE=0,
-        MARCHE=1,
-        SAUT=2
+    enum AnimationType {
+        IDLE=0,
+        RUNNING=1,
+        WALKING=2
     };
 
-    unsigned int NB_FRAME;
-    unsigned int FRAME_TIME;
-    unsigned int _current_time ;
-    unsigned int _current_frame ;
-//    enum int type = COURSE;
-    std::string texture_name ;
+    unsigned int FRAME_COUNT = 2;
+    unsigned int FRAME_TIME = 1000;
+    unsigned int FRAME_WITDH = 88;
+    unsigned int FRAME_HEIGHT = 88;
+    unsigned int TOTAL_ANIMATION_TIME = FRAME_TIME*FRAME_COUNT;
+    unsigned int _current_time = 0;
+    unsigned int _current_frame = 0;
 
+
+    std::string _types[5] = {"IDLE", "RUNNING", "WALKING"};
+    std::string _type = _types[1] ;
+
+    void switchAnimation(const AnimationType& type);
 
     void update(unsigned int DeltaTime);
 
-    void setFrame();
 
 
 };
