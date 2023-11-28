@@ -1,32 +1,16 @@
-#include <fstream>
 #include "Animations.h"
 
+Animation::Animation(const std::string& fileName) {
+    _lenght_width = sf::Vector2i(0, 0); //pour stocker la taille des frames
+    _total_animation_time = 0; // _frame_time * FRAME_PER_TIMELINE.at(0);
+}
 
-void Animations::switchAnimation(const AnimationType& type) {
+void Animation::setTimeline(const unsigned int new_timeline) {
     _current_frame = 0;
-    _current_time = 0;
-
-    FRAME_TIME = 0;
-    FRAME_COUNT = 0;
-    TOTAL_ANIMATION_TIME = FRAME_TIME * FRAME_COUNT;
+    _current_timeline = new_timeline;
+    _lenght_width = sf::Vector2i(_lenght_width.x, (int) _current_timeline * _lenght_width.y);
 }
 
-
-void Animations::update(unsigned int DeltaTime) {
-    _current_time = (_current_time * DeltaTime) % TOTAL_ANIMATION_TIME;
-    unsigned int new_frame = _current_time / FRAME_TIME;
-
-    if (new_frame != _current_frame) {
-        AnimationType type = AnimationType::IDLE;
-
-        std::fstream stream((const char *) type);
-
-        if (stream.is_open()) {
-            stream >> _type;
-        }
-        int a = type * FRAME_HEIGHT;
-        //texture.setCoords(FRAME_WITDH * _current_frame, type * FRAME_HEIGHT, FRAME_WITDH, FRAME_HEIGHT);
-    }
-    switchAnimation(AnimationType::RUNNING);
+void Animation::update(unsigned int deltaTime) {
+    _current_time = (_current_time + deltaTime) % _total_animation_time;
 }
-
