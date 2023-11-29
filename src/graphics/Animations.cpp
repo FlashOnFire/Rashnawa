@@ -2,7 +2,7 @@
 #include <fstream>
 
 Animation::Animation(const std::string &fileName, const std::function<void(sf::Vector2i coords)> &callback) {
-    std::ifstream file(fileName + ".txt");
+    std::ifstream file("../assets/animations/" + fileName + ".txt");
 
     if (!file.is_open()) {
         std::cout << "cannot open file " << fileName << std::endl;
