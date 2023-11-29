@@ -10,33 +10,38 @@ OptionsMenuScreen::OptionsMenuScreen(std::shared_ptr<dexode::EventBus> eventBus,
                                      const sf::Vector2<unsigned int> &windowSize) : BasicScreen(std::move(font)),
                                                                                     _eventBus(std::move(eventBus)) {
     if (!_backgroundTexture->loadFromFile("../assets/menu/new_background.png")) {
-        std::cout << "Can't load menu background texture from file";
+        std::cout << "Can't load menu background backgroundTexture from file";
         exit(EXIT_FAILURE);
     }
     _backgroundTexture->setSmooth(true);
 
     if (!_titleBackground->loadFromFile("../assets/menu/new_background.png")) {
-        std::cout << "Can't load menu background texture from file";
+        std::cout << "Can't load menu background backgroundTexture from file";
         exit(EXIT_FAILURE);
     }
 
     if (!_optionsBackgroundTexture->loadFromFile("../assets/menu/options/background.png")) {
-        std::cout << "Can't load menu background texture from file";
+        std::cout << "Can't load menu background backgroundTexture from file";
         exit(EXIT_FAILURE);
     }
 
-    if (!_buttonsTexture->loadFromFile("../assets/menu/options/button.png")) {
-        std::cout << "Can't load menu button texture from file";
+    if (!_buttonsBackgroundTexture->loadFromFile("../assets/menu/options/button_background.png")) {
+        std::cout << "Can't load menu button backgroundTexture from file";
+        exit(EXIT_FAILURE);
+    }
+
+    if (!_buttonsForegroundTexture->loadFromFile("../assets/menu/options/button.png")) {
+        std::cout << "Can't load menu button backgroundTexture from file";
         exit(EXIT_FAILURE);
     }
 
     if (!_sliderTexture->loadFromFile("../assets/menu/options/slider.png")) {
-        std::cout << "Can't load menu slider texture from file";
+        std::cout << "Can't load menu slider backgroundTexture from file";
         exit(EXIT_FAILURE);
     }
 
     if (!_sliderKnobTexture->loadFromFile("../assets/menu/options/sliderknob.png")) {
-        std::cout << "Can't load menu sliderknob texture from file";
+        std::cout << "Can't load menu sliderknob backgroundTexture from file";
         exit(EXIT_FAILURE);
     }
 
@@ -50,35 +55,31 @@ OptionsMenuScreen::OptionsMenuScreen(std::shared_ptr<dexode::EventBus> eventBus,
 
     _optionsBackground.setTexture(_optionsBackgroundTexture.get());
 
-    auto buttonSize = sf::Vector2i((int) _buttonsTexture->getSize().x / 2, (int) _buttonsTexture->getSize().y / 12);
+    auto buttonSize = sf::Vector2i((int) _buttonsBackgroundTexture->getSize().x,
+                                   (int) _buttonsBackgroundTexture->getSize().y / 3);
 
-    _animation = std::make_shared<Animation>( "button", [](sf::Vector2i coords){
-            std::cout << coords.x << "   " << coords.y << std::endl;
-    });
-    _eventBus->postpone<Events::AnimationCreated>({.animation = _animation});
+    auto buttonNormalCoords = sf::Vector2i(0, 0);
+    auto buttonHoveredCoords = sf::Vector2i(0, (int) _buttonsBackgroundTexture->getSize().y / 3);
 
-    _soundCategoryBackgroundButton = ButtonBuilder().texture(_buttonsTexture, sf::Vector2i(0, 0), buttonSize)
-            .hoverTexCoords(sf::Vector2i(0, (int) _buttonsTexture->getSize().y / 12), buttonSize)
+    _soundCategoryBackgroundButton = ButtonBuilder()
+            .backgroundTexture(_buttonsBackgroundTexture, buttonNormalCoords, buttonSize)
+            .hoverBackgroundTexCoords(buttonHoveredCoords, buttonSize)
+            .foregroundTexture(_buttonsForegroundTexture)
+                    .animation(_eventBus, "button", 0, 1, 2)
             .callback([]() {
                 std::cout << "clicked" << std::endl;
             }).build();
 
-    _graphicsCategoryBackgroundButton = ButtonBuilder().texture(_buttonsTexture, sf::Vector2i(0,
-                                                                                              (int) (_buttonsTexture->getSize().y /
-                                                                                                     4)), buttonSize)
-            .hoverTexCoords(
-                    sf::Vector2i(0, (int) (_buttonsTexture->getSize().y / 4 + _buttonsTexture->getSize().y / 12)),
-                    buttonSize)
+    _graphicsCategoryBackgroundButton = ButtonBuilder().backgroundTexture(_buttonsBackgroundTexture, buttonNormalCoords,
+                                                                          buttonSize)
+            .hoverBackgroundTexCoords(buttonHoveredCoords, buttonSize)
             .callback([]() {
                 std::cout << "clicked" << std::endl;
             }).build();
 
-    _otherCategoryBackgroundButton = ButtonBuilder().texture(_buttonsTexture, sf::Vector2i(0,
-                                                                                           (int) ((_buttonsTexture->getSize().y /
-                                                                                                   4) * 2)), buttonSize)
-            .hoverTexCoords(
-                    sf::Vector2i(0, (int) (2 * (_buttonsTexture->getSize().y / 4) + _buttonsTexture->getSize().y / 12)),
-                    buttonSize)
+    _otherCategoryBackgroundButton = ButtonBuilder().backgroundTexture(_buttonsBackgroundTexture, buttonNormalCoords,
+                                                                       buttonSize)
+            .hoverBackgroundTexCoords(buttonHoveredCoords, buttonSize)
             .callback([]() {
                 std::cout << "clicked" << std::endl;
             }).build();

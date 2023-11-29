@@ -34,7 +34,8 @@ private:
 
     const std::unique_ptr<sf::Texture> _titleBackground = std::make_unique<sf::Texture>();
     const std::unique_ptr<sf::Texture> _optionsBackgroundTexture = std::make_unique<sf::Texture>();
-    const std::shared_ptr<sf::Texture> _buttonsTexture = std::make_shared<sf::Texture>();
+    const std::shared_ptr<sf::Texture> _buttonsBackgroundTexture = std::make_shared<sf::Texture>();
+    const std::shared_ptr<sf::Texture> _buttonsForegroundTexture = std::make_shared<sf::Texture>();
 
     const std::shared_ptr<sf::Texture> _sliderTexture = std::make_shared<sf::Texture>();
     const std::shared_ptr<sf::Texture> _sliderKnobTexture = std::make_shared<sf::Texture>();
@@ -48,8 +49,6 @@ private:
     std::unique_ptr<Button> _soundCategoryBackgroundButton;
     std::unique_ptr<Button> _graphicsCategoryBackgroundButton;
     std::unique_ptr<Button> _otherCategoryBackgroundButton;
-
-    std::shared_ptr<Animation> _animation;
 
     void updateComponentsTransform(const sf::Vector2<unsigned int> &windowSize);
 };

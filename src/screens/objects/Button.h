@@ -10,7 +10,13 @@
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/Text.hpp>
 #include <optional>
-#include "FillMode.h"
+#include "../../graphics/Animations.h"
+
+struct ButtonAnimationTimelines {
+    int normal = 0;
+    int hovered = 0;
+    int clicked = 0;
+};
 
 class Button : public sf::Drawable {
 public:
@@ -28,26 +34,35 @@ public:
 
     void setTransform(const sf::Vector2f &pos, const sf::Vector2f &size);
 
-    void setTexture(std::shared_ptr<sf::Texture> texture);
+    void setBackgroundTexture(std::shared_ptr<sf::Texture> texture);
+
+    void setForegroundTexture(std::shared_ptr<sf::Texture> texture);
 
 private:
     friend class ButtonBuilder;
 
     Button() = default;
 
-    sf::RectangleShape _shape;
+    sf::RectangleShape _backgroundShape;
+    sf::RectangleShape _foregroundShape;
 
-    FillMode _fillMode = FillMode::None;
-    std::shared_ptr<sf::Texture> _texture;
+    std::optional<std::shared_ptr<sf::Texture>> _backgroundTexture;
+    std::optional<std::shared_ptr<sf::Texture>> _foregroundTexture;
 
-    sf::IntRect _normalStateTexCoords;
-    std::optional<sf::IntRect> _hoverStateTexCoords;
+    std::optional<sf::IntRect> _backgroundNormalStateTexCoords;
+    std::optional<sf::IntRect> _backgroundHoverStateTexCoords;
+    std::optional<sf::IntRect> _backgroundClickedStateTexCoords;
+
+    std::optional<std::shared_ptr<Animation>> _animation;
+    std::optional<ButtonAnimationTimelines> _animationTimelines;
 
     std::optional<sf::Text> _text;
 
     std::optional<std::function<void()>> _callback;
 
     bool _hovered = false;
+
+    std::weak_ptr<Animation> addAnimation(const std::string &name, const ButtonAnimationTimelines &animationTimelines);
 
     void updateTextTransform();
 

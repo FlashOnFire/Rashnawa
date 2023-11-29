@@ -7,24 +7,37 @@
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/Font.hpp>
 #include <functional>
+#include "dexode/EventBus.hpp"
+
 #include "Button.h"
 
 class ButtonBuilder {
 private:
     std::unique_ptr<Button> _button = std::unique_ptr<Button>(new Button());
 public:
-    ButtonBuilder &texture(std::shared_ptr<sf::Texture> texture, const sf::IntRect &texCoords);
+    ButtonBuilder &backgroundTexture(std::shared_ptr<sf::Texture> texture, const sf::IntRect &texCoords);
 
-    ButtonBuilder &texture(std::shared_ptr<sf::Texture> texture, const sf::Vector2i &texCoordsPosition,
-                           const sf::Vector2i &texCoordsSize);
+    ButtonBuilder &backgroundTexture(std::shared_ptr<sf::Texture> texture, const sf::Vector2i &texCoordsPosition,
+                                     const sf::Vector2i &texCoordsSize);
 
-    ButtonBuilder &texture(std::shared_ptr<sf::Texture> texture, int x, int y, int dx, int dy);
+    ButtonBuilder &
+    backgroundTexture(std::shared_ptr<sf::Texture> texture, const int x, const int y, const int dx, const int dy);
 
-    ButtonBuilder &hoverTexCoords(const sf::IntRect &texCoords);
+    ButtonBuilder &foregroundTexture(std::shared_ptr<sf::Texture> texture);
 
-    ButtonBuilder &hoverTexCoords(const sf::Vector2i &hoverTexCoordsPos, const sf::Vector2i &hoverTexCoordsSize);
+    ButtonBuilder &hoverBackgroundTexCoords(const sf::IntRect &texCoords);
 
-    ButtonBuilder &hoverTexCoords(int x, int y, int dx, int dy);
+    ButtonBuilder &
+    hoverBackgroundTexCoords(const sf::Vector2i &hoverTexCoordsPos, const sf::Vector2i &hoverTexCoordsSize);
+
+    ButtonBuilder &hoverBackgroundTexCoords(int x, int y, int dx, int dy);
+
+    ButtonBuilder &clickedBackgroundTexCoords(const sf::IntRect &texCoords);
+
+    ButtonBuilder &
+    clickedBackgroundTexCoords(const sf::Vector2i &hoverTexCoordsPos, const sf::Vector2i &hoverTexCoordsSize);
+
+    ButtonBuilder &clickedTexCoords(int x, int y, int dx, int dy);
 
     ButtonBuilder &text(const std::string &text, const std::shared_ptr<sf::Font> &font);
 
@@ -34,8 +47,11 @@ public:
 
     ButtonBuilder &transform(float x, float y, float dx, float dy);
 
-    std::unique_ptr<Button> build();
+    ButtonBuilder &
+    animation(std::shared_ptr<dexode::EventBus> eventBus, const std::string &name, int normalTimeline,
+              int hoveredTimeline, int clickedTimeline);
 
+    std::unique_ptr<Button> build();
 };
 
 

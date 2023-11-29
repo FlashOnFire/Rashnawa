@@ -25,7 +25,6 @@ private:
     unsigned int _current_time = 0; //current time in the current animation
     unsigned int _current_timeline = 1; //index of the timeline in FRAME_PER_TIMELINE
     unsigned int _total_animation_time = 0; //FRAME_TIME * FRAME_PER_TIMELINE.at(0);
-
 };
 
 

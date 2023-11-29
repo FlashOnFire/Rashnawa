@@ -8,13 +8,13 @@
 MainMenuScreen::MainMenuScreen(std::shared_ptr<dexode::EventBus> eventBus, std::shared_ptr<sf::Font> font)
         : BasicScreen(std::move(font)), _eventBus(std::move(eventBus)) {
     if (!backgroundTexture->loadFromFile("../assets/menu/menu_background2.png")) {
-        std::cout << "Can't load menu background texture from file";
+        std::cout << "Can't load menu background backgroundTexture from file";
         exit(EXIT_FAILURE);
     }
     backgroundTexture->setSmooth(true);
 
     if (!buttonTexture->loadFromFile("../assets/menu/button.png")) {
-        std::cout << "Can't load menu button texture from file" << std::endl;
+        std::cout << "Can't load menu button backgroundTexture from file" << std::endl;
         exit(EXIT_FAILURE);
     }
 
@@ -28,8 +28,8 @@ MainMenuScreen::MainMenuScreen(std::shared_ptr<dexode::EventBus> eventBus, std::
                          (int) buttonTexture->getSize().y / 2)};
 
     _buttons.push_back(ButtonBuilder()
-                               .texture(buttonTexture, normalButtonTexCoords)
-                               .hoverTexCoords(hoveredButtonTexCoords)
+                               .backgroundTexture(buttonTexture, normalButtonTexCoords)
+                               .hoverBackgroundTexCoords(hoveredButtonTexCoords)
                                .text("PLAY", _font)
                                .transform(120, 300, 200, 80)
                                .callback([this]() {
@@ -39,8 +39,8 @@ MainMenuScreen::MainMenuScreen(std::shared_ptr<dexode::EventBus> eventBus, std::
                                }).build());
 
     _buttons.push_back(ButtonBuilder()
-                               .texture(buttonTexture, normalButtonTexCoords)
-                               .hoverTexCoords(hoveredButtonTexCoords)
+                               .backgroundTexture(buttonTexture, normalButtonTexCoords)
+                               .hoverBackgroundTexCoords(hoveredButtonTexCoords)
                                .text("OPTIONS", _font)
                                .transform(120, 400, 200, 80)
                                .callback([this]() {
@@ -50,8 +50,8 @@ MainMenuScreen::MainMenuScreen(std::shared_ptr<dexode::EventBus> eventBus, std::
                                }).build());
 
     _buttons.push_back(ButtonBuilder()
-                               .texture(buttonTexture, normalButtonTexCoords)
-                               .hoverTexCoords(hoveredButtonTexCoords)
+                               .backgroundTexture(buttonTexture, normalButtonTexCoords)
+                               .hoverBackgroundTexCoords(hoveredButtonTexCoords)
                                .text("EXIT", _font)
                                .transform(120, 600, 200, 80)
                                .callback([this]() {

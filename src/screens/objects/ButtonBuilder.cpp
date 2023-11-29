@@ -1,41 +1,63 @@
 #include <cassert>
 #include <utility>
 #include "ButtonBuilder.h"
+#include "../../events/Events.h"
 
 ButtonBuilder &
-ButtonBuilder::texture(std::shared_ptr<sf::Texture> texture, const sf::IntRect &texCoords) {
-    assert(_button->_fillMode == FillMode::None);
+ButtonBuilder::backgroundTexture(std::shared_ptr<sf::Texture> texture, const sf::IntRect &texCoords) {
+    _button->setBackgroundTexture(std::move(texture));
 
-    _button->_fillMode = FillMode::Texture;
-    _button->setTexture(std::move(texture));
-
-    _button->_normalStateTexCoords = texCoords;
+    _button->_backgroundNormalStateTexCoords = texCoords;
 
     return *this;
 }
 
-ButtonBuilder &ButtonBuilder::texture(std::shared_ptr<sf::Texture> texture, const sf::Vector2i &texCoordsPosition,
-                                      const sf::Vector2i &texCoordsSize) {
-    return ButtonBuilder::texture(std::move(texture), {texCoordsPosition, texCoordsSize});
+ButtonBuilder &
+ButtonBuilder::backgroundTexture(std::shared_ptr<sf::Texture> texture, const sf::Vector2i &texCoordsPosition,
+                                 const sf::Vector2i &texCoordsSize) {
+    return ButtonBuilder::backgroundTexture(std::move(texture), {texCoordsPosition, texCoordsSize});
 }
 
 ButtonBuilder &
-ButtonBuilder::texture(std::shared_ptr<sf::Texture> texture, const int x, const int y, const int dx, const int dy) {
-    return ButtonBuilder::texture(std::move(texture), sf::Vector2i(x, y), sf::Vector2i(dx, dy));
+ButtonBuilder::backgroundTexture(std::shared_ptr<sf::Texture> texture, const int x, const int y, const int dx,
+                                 const int dy) {
+    return ButtonBuilder::backgroundTexture(std::move(texture), sf::Vector2i(x, y), sf::Vector2i(dx, dy));
 }
 
-ButtonBuilder &ButtonBuilder::hoverTexCoords(const sf::IntRect &texCoords) {
-    _button->_hoverStateTexCoords = texCoords;
+ButtonBuilder &
+ButtonBuilder::foregroundTexture(std::shared_ptr<sf::Texture> texture) {
+    _button->setForegroundTexture(std::move(texture));
+    return *this;
+}
+
+
+ButtonBuilder &ButtonBuilder::hoverBackgroundTexCoords(const sf::IntRect &texCoords) {
+    _button->_backgroundHoverStateTexCoords = texCoords;
     return *this;
 }
 
 ButtonBuilder &
-ButtonBuilder::hoverTexCoords(const sf::Vector2i &hoverTexCoordsPos, const sf::Vector2i &hoverTexCoordsSize) {
-    return ButtonBuilder::hoverTexCoords({hoverTexCoordsPos, hoverTexCoordsSize});
+ButtonBuilder::hoverBackgroundTexCoords(const sf::Vector2i &hoverTexCoordsPos, const sf::Vector2i &hoverTexCoordsSize) {
+    return ButtonBuilder::hoverBackgroundTexCoords({hoverTexCoordsPos, hoverTexCoordsSize});
 }
 
-ButtonBuilder &ButtonBuilder::hoverTexCoords(int x, int y, int dx, int dy) {
-    return ButtonBuilder::hoverTexCoords(sf::Vector2i(x, y), sf::Vector2i(dx, dy));
+ButtonBuilder &ButtonBuilder::hoverBackgroundTexCoords(int x, int y, int dx, int dy) {
+    return ButtonBuilder::hoverBackgroundTexCoords(sf::Vector2i(x, y), sf::Vector2i(dx, dy));
+}
+
+ButtonBuilder &ButtonBuilder::clickedBackgroundTexCoords(const sf::IntRect &texCoords) {
+    _button->_backgroundHoverStateTexCoords = texCoords;
+    return *this;
+}
+
+ButtonBuilder &
+ButtonBuilder::clickedBackgroundTexCoords(const sf::Vector2i &hoverTexCoordsPos,
+                                          const sf::Vector2i &hoverTexCoordsSize) {
+    return ButtonBuilder::hoverBackgroundTexCoords({hoverTexCoordsPos, hoverTexCoordsSize});
+}
+
+ButtonBuilder &ButtonBuilder::clickedTexCoords(int x, int y, int dx, int dy) {
+    return ButtonBuilder::hoverBackgroundTexCoords(sf::Vector2i(x, y), sf::Vector2i(dx, dy));
 }
 
 ButtonBuilder &ButtonBuilder::text(const std::string &text, const std::shared_ptr<sf::Font> &font) {
@@ -61,10 +83,22 @@ ButtonBuilder &ButtonBuilder::transform(const float x, const float y, const floa
     return *this;
 }
 
-std::unique_ptr<Button> ButtonBuilder::build() {
-    assert(_button->_fillMode != FillMode::None);
+ButtonBuilder &
+ButtonBuilder::animation(std::shared_ptr<dexode::EventBus> eventBus, const std::string &name, const int normalTimeline,
+                         const int hoveredTimeline,
+                         const int clickedTimeline) {
 
-    if (_button->_fillMode == FillMode::Texture) {
+    std::weak_ptr<Animation> animation = _button->addAnimation(name, ButtonAnimationTimelines{.normal = normalTimeline, .hovered = hoveredTimeline, .clicked = clickedTimeline});
+    eventBus->postpone<Events::AnimationCreated>({.animation = animation});
+
+    return *this;
+}
+
+std::unique_ptr<Button> ButtonBuilder::build() {
+    assert((_button->_animation.has_value() && _button->_foregroundTexture.has_value()) ||
+           !_button->_animation.has_value());
+
+    if (_button->_backgroundTexture.has_value()) {
         _button->updateTextureRect();
     }
 
