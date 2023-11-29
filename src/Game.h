@@ -11,6 +11,7 @@
 #include "screens/objects/BasicScreen.h"
 #include "audio/MusicManager.h"
 #include "events/KeybindHandler.h"
+#include "graphics/Animations.h"
 
 class Game {
 public:
@@ -35,6 +36,8 @@ private:
     std::shared_ptr<sf::Font> _font = std::make_shared<sf::Font>();
 
     std::shared_ptr<KeybindHandler> _keybindHandler;
+
+    std::vector<std::weak_ptr<Animation>> _animations;
 
     void handleEvents();
 };

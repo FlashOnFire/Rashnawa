@@ -16,14 +16,14 @@ public:
     unsigned int FRAME_TIME;
     unsigned int _current_frame = 0;
     unsigned int _current_time = 0; //current time in the current animation
-    unsigned int _current_timeline = 0; //index of the timeline in FRAME_PER_TIMELINE
+    unsigned int _current_timeline = 1; //index of the timeline in FRAME_PER_TIMELINE
     unsigned int _total_animation_time = 0; //FRAME_TIME * FRAME_PER_TIMELINE.at(0);
 
     std::function<void(sf::Vector2i coords)> _callback;
 
     void setTimeline(unsigned int new_timeline);
 
-    void update(unsigned int deltaTime);
+    void update(int deltaTime);
 };
 
 

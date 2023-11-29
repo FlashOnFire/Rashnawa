@@ -8,6 +8,7 @@
 #include "objects/Slider.h"
 #include "objects/OptionsCategory.h"
 #include "objects/Button.h"
+#include "../graphics/Animations.h"
 
 class OptionsMenuScreen : public BasicScreen {
 public:
@@ -47,6 +48,8 @@ private:
     std::unique_ptr<Button> _soundCategoryBackgroundButton;
     std::unique_ptr<Button> _graphicsCategoryBackgroundButton;
     std::unique_ptr<Button> _otherCategoryBackgroundButton;
+
+    std::shared_ptr<Animation> _animation;
 
     void updateComponentsTransform(const sf::Vector2<unsigned int> &windowSize);
 };

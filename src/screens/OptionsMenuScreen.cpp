@@ -52,10 +52,10 @@ OptionsMenuScreen::OptionsMenuScreen(std::shared_ptr<dexode::EventBus> eventBus,
 
     auto buttonSize = sf::Vector2i((int) _buttonsTexture->getSize().x / 2, (int) _buttonsTexture->getSize().y / 12);
 
-    std::shared_ptr<Animation> animation = std::make_shared<Animation>( "../assets/menu/options/button", [](sf::Vector2i coords){
-        std::cout << coords.x << "   " << coords.y << std::endl;
+    _animation = std::make_shared<Animation>( "../assets/menu/options/button", [](sf::Vector2i coords){
+            std::cout << coords.x << "   " << coords.y << std::endl;
     });
-    _eventBus->postpone<Events::AnimationCreated>({.animation = animation});
+    _eventBus->postpone<Events::AnimationCreated>({.animation = _animation});
 
     _soundCategoryBackgroundButton = ButtonBuilder().texture(_buttonsTexture, sf::Vector2i(0, 0), buttonSize)
             .hoverTexCoords(sf::Vector2i(0, (int) _buttonsTexture->getSize().y / 12), buttonSize)

@@ -40,7 +40,8 @@ void Game::run() {
     dexode::EventBus::Listener changeScreenListener{_eventBus};
     changeScreenListener.listen<Events::ChangeScreen>([this](const Events::ChangeScreen &e) {
         switch (e.to) {
-            using enum Screens;
+            using
+            enum Screens;
 
             case None:
                 _currentScreen.reset();
@@ -54,11 +55,24 @@ void Game::run() {
         }
     });
 
+    dexode::EventBus::Listener AnimationCreated{_eventBus};
+    endGameListener.listen<Events::AnimationCreated>([this](const Events::AnimationCreated& event) {
+        _animations.push_back(event.animation);
+    });
+
     sf::Clock clock;
 
     while (_running) {
-        //int deltaT = clock.restart().asMilliseconds();
+        int deltaTime = clock.restart().asMilliseconds();
 
+        for (int i = 0; i < _animations.size(); i++) {
+            if (auto animation = _animations.at(i).lock()) {
+                animation->update(deltaTime);
+            } else {
+                _animations.erase(_animations.begin() + i);
+                std::cout << "Animation deleted" << std::endl;
+            }
+        }
         _eventBus->process();
         _audioMgr->update();
 

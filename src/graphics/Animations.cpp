@@ -16,14 +16,12 @@ Animation::Animation(const std::string &fileName, const std::function<void(sf::V
     std::getline(file, line);
     int y = std::stoi(line);
     TAILLE = sf::Vector2i(x, y);
-    std::getline(file, line); //to obtain the number of the frame of the first timeline
     while (!file.eof()) {
-        FRAME_PER_TIMELINE.insert(FRAME_PER_TIMELINE.end(), std::stoi(line));
         std::getline(file, line);
+        FRAME_PER_TIMELINE.insert(FRAME_PER_TIMELINE.end(), std::stoi(line));
     }
-    _total_animation_time = FRAME_TIME * FRAME_PER_TIMELINE.at(0);
+    _total_animation_time = FRAME_TIME * FRAME_PER_TIMELINE.at(_current_timeline);
     _callback = callback;
-
 }
 
 void Animation::setTimeline(const unsigned int new_timeline) {
@@ -33,7 +31,7 @@ void Animation::setTimeline(const unsigned int new_timeline) {
     _total_animation_time = FRAME_TIME * FRAME_PER_TIMELINE.at(_current_timeline);
 }
 
-void Animation::update(unsigned int deltaTime) {
+void Animation::update(int deltaTime) {
     if (_total_animation_time != FRAME_TIME) {
         _current_time = (_current_time + deltaTime) % _total_animation_time;
         unsigned int new_frame = _current_time / FRAME_TIME;
