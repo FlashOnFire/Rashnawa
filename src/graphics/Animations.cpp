@@ -1,7 +1,7 @@
 #include "Animations.h"
 #include <fstream>
 
-Animation::Animation(const std::string &fileName, const std::function<void(sf::Vector2i coords)> &callback) {
+Animation::Animation(const std::string &fileName, const std::function<void(sf::Vector2i coords, sf::Vector2i size)> &callback) {
     std::ifstream file("../assets/animations/" + fileName + ".txt");
 
     if (!file.is_open()) {
@@ -37,8 +37,7 @@ void Animation::update(int deltaTime) {
         unsigned int new_frame = _current_time / FRAME_TIME;
         if (new_frame != _current_frame) {
             _current_frame = new_frame;
-            _callback(sf::Vector2i((int) _current_frame * TAILLE.x, (int) _current_timeline * TAILLE.y));
-
+            _callback(sf::Vector2i((int) _current_frame * TAILLE.x, (int) _current_timeline * TAILLE.y), TAILLE);
         }
     }
 }
