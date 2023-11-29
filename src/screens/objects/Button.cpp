@@ -14,6 +14,10 @@ void Button::onMouseMoved(const sf::Event::MouseMoveEvent &e) {
         _hovered = !_hovered;
         updateTextureRect();
     }
+
+    if (_animationTimelines.has_value()) {
+        _animation.value()->setTimeline(_hovered ? _animationTimelines->hovered : _animationTimelines->normal);
+    }
 }
 
 void Button::onMouseButtonPressed(const sf::Event::MouseButtonEvent &e) {
@@ -100,6 +104,8 @@ std::weak_ptr<Animation> Button::addAnimation(const std::string &name, const But
     _animation = std::make_shared<Animation>(name, [this](sf::Vector2i coords, sf::Vector2i size) {
         _foregroundShape.setTextureRect(sf::IntRect(coords, size));
     });
+
+    _animationTimelines = animationTimelines;
 
     return _animation.value();
 }

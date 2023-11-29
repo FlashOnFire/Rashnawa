@@ -106,5 +106,9 @@ std::unique_ptr<Button> ButtonBuilder::build() {
         _button->updateTextTransform();
     }
 
+    if (_button->_animationTimelines.has_value()) {
+        _button->_animation.value()->setTimeline(_button->_animationTimelines->normal);
+    }
+
     return std::move(_button);
 }
