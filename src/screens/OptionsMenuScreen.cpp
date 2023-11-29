@@ -2,6 +2,7 @@
 #include "../events/Events.h"
 #include "SoundOptions.h"
 #include "objects/ButtonBuilder.h"
+#include "../graphics/Animations.h"
 
 #include <utility>
 
@@ -49,10 +50,15 @@ OptionsMenuScreen::OptionsMenuScreen(std::shared_ptr<dexode::EventBus> eventBus,
 
     _optionsBackground.setTexture(_optionsBackgroundTexture.get());
 
-    auto buttonSize = sf::Vector2i((int) _buttonsTexture->getSize().x / 2, (int) _buttonsTexture->getSize().y / 8);
+    auto buttonSize = sf::Vector2i((int) _buttonsTexture->getSize().x / 2, (int) _buttonsTexture->getSize().y / 12);
+
+    std::shared_ptr<Animation> animation = std::make_shared<Animation>( "../assets/menu/options/button", [](sf::Vector2i coords){
+        std::cout << coords.x << "   " << coords.y << std::endl;
+    });
+    _eventBus->postpone<Events::AnimationCreated>({.animation = animation});
 
     _soundCategoryBackgroundButton = ButtonBuilder().texture(_buttonsTexture, sf::Vector2i(0, 0), buttonSize)
-            .hoverTexCoords(sf::Vector2i(0, (int) _buttonsTexture->getSize().y / 8), buttonSize)
+            .hoverTexCoords(sf::Vector2i(0, (int) _buttonsTexture->getSize().y / 12), buttonSize)
             .callback([]() {
                 std::cout << "clicked" << std::endl;
             }).build();
@@ -61,7 +67,7 @@ OptionsMenuScreen::OptionsMenuScreen(std::shared_ptr<dexode::EventBus> eventBus,
                                                                                               (int) (_buttonsTexture->getSize().y /
                                                                                                      4)), buttonSize)
             .hoverTexCoords(
-                    sf::Vector2i(0, (int) (_buttonsTexture->getSize().y / 4 + _buttonsTexture->getSize().y / 8)),
+                    sf::Vector2i(0, (int) (_buttonsTexture->getSize().y / 4 + _buttonsTexture->getSize().y / 12)),
                     buttonSize)
             .callback([]() {
                 std::cout << "clicked" << std::endl;
@@ -71,7 +77,7 @@ OptionsMenuScreen::OptionsMenuScreen(std::shared_ptr<dexode::EventBus> eventBus,
                                                                                            (int) ((_buttonsTexture->getSize().y /
                                                                                                    4) * 2)), buttonSize)
             .hoverTexCoords(
-                    sf::Vector2i(0, (int) (2 * (_buttonsTexture->getSize().y / 4) + _buttonsTexture->getSize().y / 8)),
+                    sf::Vector2i(0, (int) (2 * (_buttonsTexture->getSize().y / 4) + _buttonsTexture->getSize().y / 12)),
                     buttonSize)
             .callback([]() {
                 std::cout << "clicked" << std::endl;

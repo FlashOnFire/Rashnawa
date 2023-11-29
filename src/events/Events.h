@@ -5,6 +5,8 @@
 
 #include "../screens/Screens.h"
 #include "Keybinds.h"
+#include "../graphics/Animations.h"
+#include <memory>
 
 namespace Events {
 
@@ -21,6 +23,10 @@ namespace Events {
 
     struct PlayerAction {
         Keybinds keybinds;
+    };
+
+    struct AnimationCreated {
+        std::weak_ptr<Animation> animation;
     };
 }
 #endif //RASHNAWA_EVENTS_H

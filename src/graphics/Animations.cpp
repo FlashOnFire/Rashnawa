@@ -1,8 +1,7 @@
 #include "Animations.h"
 #include <fstream>
 
-Animation::Animation(const std::string &fileName) {
-    _length_width = sf::Vector2i(0, 0); //to stock length of the frame
+Animation::Animation(const std::string &fileName, const std::function<void(sf::Vector2i coords)> &callback) {
     std::ifstream file(fileName + ".txt");
 
     if (!file.is_open()) {
@@ -23,6 +22,8 @@ Animation::Animation(const std::string &fileName) {
         std::getline(file, line);
     }
     _total_animation_time = FRAME_TIME * FRAME_PER_TIMELINE.at(0);
+    _callback = callback;
+
 }
 
 void Animation::setTimeline(const unsigned int new_timeline) {
@@ -30,16 +31,16 @@ void Animation::setTimeline(const unsigned int new_timeline) {
     _current_time = 0;
     _current_timeline = new_timeline;
     _total_animation_time = FRAME_TIME * FRAME_PER_TIMELINE.at(_current_timeline);
-    _length_width = sf::Vector2i(_length_width.x, _current_timeline * TAILLE.y);
 }
 
 void Animation::update(unsigned int deltaTime) {
     if (_total_animation_time != FRAME_TIME) {
         _current_time = (_current_time + deltaTime) % _total_animation_time;
-        int new_frame = _current_time / FRAME_TIME;
+        unsigned int new_frame = _current_time / FRAME_TIME;
         if (new_frame != _current_frame) {
             _current_frame = new_frame;
-            _length_width = sf::Vector2i(_current_frame * TAILLE.x, _length_width.y);
+            _callback(sf::Vector2i((int) _current_frame * TAILLE.x, (int) _current_timeline * TAILLE.y));
+
         }
     }
 }
