@@ -14,6 +14,8 @@ public:
 
     void onMousePressed(const sf::Event::MouseButtonEvent &event) override;
 
+    void onMouseReleased(const sf::Event::MouseButtonEvent &event) override;
+
     void render(std::shared_ptr<sf::RenderWindow> window) const override;
 
 private:

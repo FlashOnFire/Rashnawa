@@ -60,28 +60,32 @@ OptionsMenuScreen::OptionsMenuScreen(std::shared_ptr<dexode::EventBus> eventBus,
 
     auto buttonNormalCoords = sf::Vector2i(0, 0);
     auto buttonHoveredCoords = sf::Vector2i(0, (int) _buttonsBackgroundTexture->getSize().y / 3);
+    auto buttonClickedCoords = sf::Vector2i(0, ((int) _buttonsBackgroundTexture->getSize().y) * 2 / 3);
 
     _soundCategoryBackgroundButton = ButtonBuilder()
             .backgroundTexture(_buttonsBackgroundTexture, buttonNormalCoords, buttonSize)
             .hoverBackgroundTexCoords(buttonHoveredCoords, buttonSize)
+            .clickedBackgroundTexCoords(buttonClickedCoords, buttonSize)
             .foregroundTexture(_buttonsForegroundTexture)
-                    .animation(_eventBus, "button", 0, 1, 2)
+            .animation(_eventBus, "button", 0, 1, 2)
             .callback([]() {
                 std::cout << "clicked" << std::endl;
             }).build();
 
-    _graphicsCategoryBackgroundButton = ButtonBuilder().backgroundTexture(_buttonsBackgroundTexture, buttonNormalCoords,
-                                                                          buttonSize)
+    _graphicsCategoryBackgroundButton = ButtonBuilder()
+            .backgroundTexture(_buttonsBackgroundTexture, buttonNormalCoords, buttonSize)
             .hoverBackgroundTexCoords(buttonHoveredCoords, buttonSize)
+            .clickedBackgroundTexCoords(buttonClickedCoords, buttonSize)
             .foregroundTexture(_buttonsForegroundTexture)
             .animation(_eventBus, "button", 3, 4, 5)
             .callback([]() {
                 std::cout << "clicked" << std::endl;
             }).build();
 
-    _otherCategoryBackgroundButton = ButtonBuilder().backgroundTexture(_buttonsBackgroundTexture, buttonNormalCoords,
-                                                                       buttonSize)
+    _otherCategoryBackgroundButton = ButtonBuilder()
+            .backgroundTexture(_buttonsBackgroundTexture, buttonNormalCoords, buttonSize)
             .hoverBackgroundTexCoords(buttonHoveredCoords, buttonSize)
+            .clickedBackgroundTexCoords(buttonClickedCoords, buttonSize)
             .foregroundTexture(_buttonsForegroundTexture)
             .animation(_eventBus, "button", 6, 7, 8)
             .callback([]() {
@@ -151,22 +155,25 @@ void OptionsMenuScreen::render(std::shared_ptr<sf::RenderWindow> window) const {
     window->draw(*_currentOptionCategory);
 }
 
-void OptionsMenuScreen::onMouseMove(const sf::Event::MouseMoveEvent &e) {
-    _currentOptionCategory->onMouseMove(e);
-    _soundCategoryBackgroundButton->onMouseMoved(e);
-    _graphicsCategoryBackgroundButton->onMouseMoved(e);
-    _otherCategoryBackgroundButton->onMouseMoved(e);
+void OptionsMenuScreen::onMouseMove(const sf::Event::MouseMoveEvent &event) {
+    _currentOptionCategory->onMouseMove(event);
+    _soundCategoryBackgroundButton->onMouseMoved(event);
+    _graphicsCategoryBackgroundButton->onMouseMoved(event);
+    _otherCategoryBackgroundButton->onMouseMoved(event);
 }
 
-void OptionsMenuScreen::onMousePressed(const sf::Event::MouseButtonEvent &e) {
-    _currentOptionCategory->onMouseButtonPressed(e);
-    _soundCategoryBackgroundButton->onMouseButtonPressed(e);
-    _graphicsCategoryBackgroundButton->onMouseButtonPressed(e);
-    _otherCategoryBackgroundButton->onMouseButtonPressed(e);
+void OptionsMenuScreen::onMousePressed(const sf::Event::MouseButtonEvent &event) {
+    _currentOptionCategory->onMouseButtonPressed(event);
+    _soundCategoryBackgroundButton->onMouseButtonPressed(event);
+    _graphicsCategoryBackgroundButton->onMouseButtonPressed(event);
+    _otherCategoryBackgroundButton->onMouseButtonPressed(event);
 }
 
 void OptionsMenuScreen::onMouseReleased(const sf::Event::MouseButtonEvent &event) {
     _currentOptionCategory->onMouseButtonReleased(event);
+    _soundCategoryBackgroundButton->onMouseButtonReleased(event);
+    _graphicsCategoryBackgroundButton->onMouseButtonReleased(event);
+    _otherCategoryBackgroundButton->onMouseButtonReleased(event);
 }
 
 void OptionsMenuScreen::onWindowResize(const sf::Event::SizeEvent &event) {

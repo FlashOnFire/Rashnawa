@@ -24,6 +24,8 @@ public:
 
     void onMouseButtonPressed(const sf::Event::MouseButtonEvent &e);
 
+    void onMouseButtonReleased(const sf::Event::MouseButtonEvent &event);
+
     void updateTextureRect();
 
     [[nodiscard]] bool isHovered() const;
@@ -61,6 +63,7 @@ private:
     std::optional<std::function<void()>> _callback;
 
     bool _hovered = false;
+    bool _clicked = false;
 
     std::weak_ptr<Animation> addAnimation(const std::string &name, const ButtonAnimationTimelines &animationTimelines);
 

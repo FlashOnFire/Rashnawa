@@ -46,18 +46,18 @@ ButtonBuilder &ButtonBuilder::hoverBackgroundTexCoords(int x, int y, int dx, int
 }
 
 ButtonBuilder &ButtonBuilder::clickedBackgroundTexCoords(const sf::IntRect &texCoords) {
-    _button->_backgroundHoverStateTexCoords = texCoords;
+    _button->_backgroundClickedStateTexCoords = texCoords;
     return *this;
 }
 
 ButtonBuilder &
 ButtonBuilder::clickedBackgroundTexCoords(const sf::Vector2i &hoverTexCoordsPos,
                                           const sf::Vector2i &hoverTexCoordsSize) {
-    return ButtonBuilder::hoverBackgroundTexCoords({hoverTexCoordsPos, hoverTexCoordsSize});
+    return ButtonBuilder::clickedBackgroundTexCoords({hoverTexCoordsPos, hoverTexCoordsSize});
 }
 
 ButtonBuilder &ButtonBuilder::clickedTexCoords(int x, int y, int dx, int dy) {
-    return ButtonBuilder::hoverBackgroundTexCoords(sf::Vector2i(x, y), sf::Vector2i(dx, dy));
+    return ButtonBuilder::clickedBackgroundTexCoords(sf::Vector2i(x, y), sf::Vector2i(dx, dy));
 }
 
 ButtonBuilder &ButtonBuilder::text(const std::string &text, const std::shared_ptr<sf::Font> &font) {

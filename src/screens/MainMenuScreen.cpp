@@ -74,6 +74,12 @@ void MainMenuScreen::onMousePressed(const sf::Event::MouseButtonEvent &event) {
     }
 }
 
+void MainMenuScreen::onMouseReleased(const sf::Event::MouseButtonEvent &event) {
+    for (const auto &button: _buttons) {
+        button->onMouseButtonReleased(event);
+    }
+}
+
 void MainMenuScreen::render(std::shared_ptr<sf::RenderWindow> window) const {
     sf::Vector2 wSize = window->getSize();
 
