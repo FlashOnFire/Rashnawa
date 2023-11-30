@@ -6,7 +6,6 @@
 ButtonBuilder &
 ButtonBuilder::backgroundTexture(std::shared_ptr<sf::Texture> texture, const sf::IntRect &texCoords) {
     _button->setBackgroundTexture(std::move(texture));
-
     _button->_backgroundNormalStateTexCoords = texCoords;
 
     return *this;
@@ -84,11 +83,13 @@ ButtonBuilder &ButtonBuilder::transform(const float x, const float y, const floa
 }
 
 ButtonBuilder &
-ButtonBuilder::animation(const std::shared_ptr<dexode::EventBus>& eventBus, const std::string &name, const int normalTimeline,
+ButtonBuilder::animation(const std::shared_ptr<dexode::EventBus> &eventBus, const std::string &name,
+                         const int normalTimeline,
                          const int hoveredTimeline,
                          const int clickedTimeline) {
 
-    std::weak_ptr<Animation> animation = _button->addAnimation(name, ButtonAnimationTimelines{.normal = normalTimeline, .hovered = hoveredTimeline, .clicked = clickedTimeline});
+    std::weak_ptr<Animation> animation = _button->addAnimation(name,
+                                                               ButtonAnimationTimelines{.normal = normalTimeline, .hovered = hoveredTimeline, .clicked = clickedTimeline});
     eventBus->postpone<Events::AnimationCreated>({.animation = animation});
 
     return *this;

@@ -48,7 +48,7 @@ public:
     ButtonBuilder &transform(float x, float y, float dx, float dy);
 
     ButtonBuilder &
-    animation(const std::shared_ptr<dexode::EventBus>& eventBus, const std::string &name, int normalTimeline,
+    animation(const std::shared_ptr<dexode::EventBus> &eventBus, const std::string &name, int normalTimeline,
               int hoveredTimeline, int clickedTimeline);
 
     std::unique_ptr<Button> build();

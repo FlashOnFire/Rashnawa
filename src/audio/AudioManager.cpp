@@ -42,7 +42,8 @@ namespace Audio {
     AudioManager::createEventInstance(const std::string &path) {
         FMOD::Studio::EventInstance *instance;
         getEventDescription(path).lock()->createInstance(&instance);
-        std::unique_ptr<FMOD::Studio::EventInstance, EventInstanceDeleter> ptrInstance(instance, EventInstanceDeleter());
+        std::unique_ptr<FMOD::Studio::EventInstance, EventInstanceDeleter> ptrInstance(instance,
+                                                                                       EventInstanceDeleter());
 
         return std::make_unique<Audio::EventInstance>(std::move(ptrInstance));
     }
@@ -59,9 +60,9 @@ namespace Audio {
             }
 
             auto eventPtr = std::shared_ptr<FMOD::Studio::EventDescription>(event,
-                                                                      [](FMOD::Studio::EventDescription *evt) {
-                                                                          evt->releaseAllInstances();
-                                                                      });
+                                                                            [](FMOD::Studio::EventDescription *evt) {
+                                                                                evt->releaseAllInstances();
+                                                                            });
 
             eventDescriptions.insert(std::pair(path, eventPtr));
 

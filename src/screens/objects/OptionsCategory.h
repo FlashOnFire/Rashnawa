@@ -12,6 +12,7 @@
 class OptionsCategory : public sf::Drawable {
 public:
     OptionsCategory() = default;
+
     ~OptionsCategory() override = default;
 
     [[nodiscard]] const sf::Vector2f &getPosition() const;

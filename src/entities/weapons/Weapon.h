@@ -5,6 +5,7 @@
 class Weapon {
 public:
     virtual ~Weapon() = default;
+
     virtual void attack() = 0;
 
 private:

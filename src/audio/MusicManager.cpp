@@ -11,7 +11,8 @@ namespace Audio {
                                                                                                     _eventBus)) {
 
         _eventListener.listen<Events::ChangeScreen>([this](const Events::ChangeScreen &e) {
-            using enum Screens;
+            using
+            enum Screens;
 
             if (e.from == None && e.to == MainMenu) {
                 _musicInstance = _audioManager->createEventInstance("event:/tension");

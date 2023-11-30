@@ -41,7 +41,7 @@ void Animation::setPaused(bool isPaused) {
 }
 
 void Animation::setTimeline(const unsigned int new_timeline) {
-    assert(new_timeline<_nb_frame); //button.txt hasn't the true number of frame
+    assert(new_timeline < _nb_frame); //button.txt hasn't the true number of frame
 
     if (new_timeline != _current_timeline) {
         resetTimeline();
