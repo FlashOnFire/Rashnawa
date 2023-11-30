@@ -73,6 +73,8 @@ OptionsMenuScreen::OptionsMenuScreen(std::shared_ptr<dexode::EventBus> eventBus,
     _graphicsCategoryBackgroundButton = ButtonBuilder().backgroundTexture(_buttonsBackgroundTexture, buttonNormalCoords,
                                                                           buttonSize)
             .hoverBackgroundTexCoords(buttonHoveredCoords, buttonSize)
+            .foregroundTexture(_buttonsForegroundTexture)
+            .animation(_eventBus, "button", 3, 4, 5)
             .callback([]() {
                 std::cout << "clicked" << std::endl;
             }).build();
@@ -80,6 +82,8 @@ OptionsMenuScreen::OptionsMenuScreen(std::shared_ptr<dexode::EventBus> eventBus,
     _otherCategoryBackgroundButton = ButtonBuilder().backgroundTexture(_buttonsBackgroundTexture, buttonNormalCoords,
                                                                        buttonSize)
             .hoverBackgroundTexCoords(buttonHoveredCoords, buttonSize)
+            .foregroundTexture(_buttonsForegroundTexture)
+            .animation(_eventBus, "button", 6, 7, 8)
             .callback([]() {
                 std::cout << "clicked" << std::endl;
             }).build();

@@ -84,7 +84,7 @@ ButtonBuilder &ButtonBuilder::transform(const float x, const float y, const floa
 }
 
 ButtonBuilder &
-ButtonBuilder::animation(std::shared_ptr<dexode::EventBus> eventBus, const std::string &name, const int normalTimeline,
+ButtonBuilder::animation(const std::shared_ptr<dexode::EventBus>& eventBus, const std::string &name, const int normalTimeline,
                          const int hoveredTimeline,
                          const int clickedTimeline) {
 
