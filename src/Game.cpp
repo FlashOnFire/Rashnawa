@@ -56,7 +56,7 @@ void Game::run() {
     });
 
     dexode::EventBus::Listener AnimationCreated{_eventBus};
-    endGameListener.listen<Events::AnimationCreated>([this](const Events::AnimationCreated& event) {
+    AnimationCreated.listen<Events::AnimationCreated>([this](const Events::AnimationCreated& event) {
         _animations.push_back(event.animation);
     });
 
