@@ -1,5 +1,6 @@
 #include "Animations.h"
 #include <fstream>
+#include <cassert>
 
 Animation::Animation(const std::string &fileName,
                      const std::function<void(sf::Vector2i coords, sf::Vector2i size)> &callback) {
@@ -17,9 +18,13 @@ Animation::Animation(const std::string &fileName,
     std::getline(file, line);
     int y = std::stoi(line);
     TAILLE = sf::Vector2i(x, y);
-    while (!file.eof()) {
+    std::getline(file, line);
+    _nb_frame = std::stoi(line);
+    int i = 0;
+    while (!file.eof() && (i < _nb_frame)) {
         std::getline(file, line);
         FRAME_PER_TIMELINE.insert(FRAME_PER_TIMELINE.end(), std::stoi(line));
+        i++;
     }
     _total_animation_time = FRAME_TIME * FRAME_PER_TIMELINE.at(_current_timeline);
     _callback = callback;
@@ -32,11 +37,13 @@ void Animation::resetTimeline() {
 }
 
 void Animation::setPaused(bool isPaused) {
-    _isPaused=isPaused;
+    _isPaused = isPaused;
 }
 
 void Animation::setTimeline(const unsigned int new_timeline) {
-    if (new_timeline!=_current_timeline) {
+    assert(new_timeline<_nb_frame); //button.txt hasn't the true number of frame
+
+    if (new_timeline != _current_timeline) {
         resetTimeline();
         _current_timeline = new_timeline;
         _total_animation_time = FRAME_TIME * FRAME_PER_TIMELINE.at(_current_timeline);

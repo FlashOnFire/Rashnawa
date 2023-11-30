@@ -31,6 +31,7 @@ private:
     std::vector<unsigned int> FRAME_PER_TIMELINE;
     sf::Vector2i TAILLE;
     unsigned int FRAME_TIME;
+    unsigned int _nb_frame;
     unsigned int _current_frame = 0;
     unsigned int _current_time = 0; //current time in the current animation
     unsigned int _current_timeline = 0; //index of the timeline in FRAME_PER_TIMELINE
