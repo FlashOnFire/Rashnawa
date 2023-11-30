@@ -66,3 +66,7 @@ void Animation::triggerCallback() {
 unsigned int Animation::getTimeline() const {
     return _current_timeline;
 }
+
+bool Animation::getPaused() const {
+    return _isPaused;
+}
