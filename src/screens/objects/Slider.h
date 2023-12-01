@@ -5,13 +5,14 @@
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
+#include <functional>
 #include "OptionComponent.h"
 
 class Slider : public OptionComponent {
 public:
     Slider() = delete;
 
-    Slider(std::shared_ptr<sf::Texture> sliderTexture, std::shared_ptr<sf::Texture> sliderKnobTexture, float value = 0);
+    Slider(std::shared_ptr<sf::Texture> sliderTexture, std::shared_ptr<sf::Texture> sliderKnobTexture, std::function<void(const float value)> callback, float value = 0);
 
     [[nodiscard]] float getValue() const;
 
@@ -35,6 +36,8 @@ private:
     sf::RectangleShape visu;
     sf::RectangleShape _slider;
     sf::RectangleShape _sliderKnob;
+
+    std::function<void(const float value)> _callback;
 
     void updateKnobPlacement();
 

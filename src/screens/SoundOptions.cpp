@@ -1,13 +1,22 @@
 #include "SoundOptions.h"
 #include "objects/Slider.h"
 #include <SFML/Graphics/RenderTarget.hpp>
+#include <iostream>
 
 SoundOptions::SoundOptions(std::shared_ptr<sf::Texture> sliderTexture, std::shared_ptr<sf::Texture> sliderKnobTexture)
         : _sliderTexture(std::move(sliderTexture)), _sliderKnobTexture(std::move(sliderKnobTexture)) {
-    _components.push_back(std::make_unique<Slider>(_sliderTexture, _sliderKnobTexture, 1));
-    _components.push_back(std::make_unique<Slider>(_sliderTexture, _sliderKnobTexture, 0.25));
-    _components.push_back(std::make_unique<Slider>(_sliderTexture, _sliderKnobTexture, 0.5));
-    _components.push_back(std::make_unique<Slider>(_sliderTexture, _sliderKnobTexture, 1));
+    _components.push_back(std::make_unique<Slider>(_sliderTexture, _sliderKnobTexture, [](const float value){
+            std::cout << "value: " << value<< std::endl;
+        }, 1));
+    _components.push_back(std::make_unique<Slider>(_sliderTexture, _sliderKnobTexture, [](const float value){
+        std::cout << "value: " << value<< std::endl;
+    },  0.25));
+    _components.push_back(std::make_unique<Slider>(_sliderTexture, _sliderKnobTexture, [](const float value){
+        std::cout << "value: " << value<< std::endl;
+    }, 0.5));
+    _components.push_back(std::make_unique<Slider>(_sliderTexture, _sliderKnobTexture, [](const float value){
+        std::cout << "value: " << value<< std::endl;
+    }, 1));
 }
 
 void SoundOptions::draw(sf::RenderTarget &target, sf::RenderStates states) const {

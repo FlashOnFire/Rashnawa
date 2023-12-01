@@ -7,8 +7,10 @@
 #include <SFML/Graphics/RenderStates.hpp>
 
 Slider::Slider(std::shared_ptr<sf::Texture> sliderTexture, std::shared_ptr<sf::Texture> sliderKnobTexture,
+               std::function<void(float value)> callback,
                float value) : _sliderTexture(std::move(sliderTexture)),
-                              _sliderKnobTexture(std::move(sliderKnobTexture)), _value(value) {
+                              _sliderKnobTexture(std::move(sliderKnobTexture)), _value(value),
+                              _callback(std::move(callback)) {
 
     _slider.setTexture(_sliderTexture.get());
     _slider.setSize(sf::Vector2f(_sliderTexture->getSize()));
@@ -24,12 +26,6 @@ float Slider::getValue() const {
 
 void Slider::setValue(const float value) {
     _value = value;
-}
-
-void Slider::draw(sf::RenderTarget &target, sf::RenderStates states) const {
-    target.draw(visu);
-    target.draw(_slider);
-    target.draw(_sliderKnob);
 }
 
 void Slider::updateComponentTransform() {
@@ -75,6 +71,8 @@ void Slider::onMouseMove(const sf::Event::MouseMoveEvent &e) {
 
         _value = std::clamp(invLerp, 0.0f, 1.0f);
         updateKnobPlacement();
+
+        _callback(_value);
     }
 }
 
@@ -87,4 +85,10 @@ void Slider::onMousePressed(const sf::Event::MouseButtonEvent &event) {
 void Slider::onMouseReleased(const sf::Event::MouseButtonEvent &event) {
     if (_grabbed)
         _grabbed = false;
+}
+
+void Slider::draw(sf::RenderTarget &target, sf::RenderStates states) const {
+    target.draw(visu);
+    target.draw(_slider);
+    target.draw(_sliderKnob);
 }
