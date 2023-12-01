@@ -1,8 +1,6 @@
 #ifndef RASHNAWA_MUSICMANAGER_H
 #define RASHNAWA_MUSICMANAGER_H
 
-#include <functional>
-
 #include "dexode/EventBus.hpp"
 #include "AudioManager.h"
 
@@ -10,15 +8,15 @@ namespace Audio {
 
     class MusicManager {
     public:
-        MusicManager(std::shared_ptr<dexode::EventBus> eventBus, std::shared_ptr<Audio::AudioManager> audioManager);
+        MusicManager(std::shared_ptr<dexode::EventBus> event_bus, std::shared_ptr<Audio::AudioManager> audio_manager);
 
     private:
-        const std::shared_ptr<dexode::EventBus> _eventBus;
-        const std::shared_ptr<Audio::AudioManager> _audioManager;
+        const std::shared_ptr<dexode::EventBus> event_bus_;
+        const std::shared_ptr<Audio::AudioManager> audio_manager_;
 
-        dexode::EventBus::Listener _eventListener;
+        dexode::EventBus::Listener event_listener_;
 
-        std::unique_ptr<Audio::EventInstance> _musicInstance;
+        std::unique_ptr<Audio::EventInstance> music_instance_;
     };
 
 } // Audio

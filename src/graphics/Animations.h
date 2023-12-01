@@ -9,12 +9,14 @@
 
 class Animation {
 public:
-    explicit Animation(const std::string &fileName, const std::function<void(sf::Vector2i coords,
-                                                                             sf::Vector2i size)> &callback); // fileName must be the path without the extension of the file at the end
+    explicit Animation(const std::string& fileName, const std::function<void(sf::Vector2i coords,
+                                                                             sf::Vector2i size)>& callback);
 
-    [[nodiscard]] bool getPaused() const;
+    // fileName must be the path without the extension of the file at the end
 
-    void setPaused(bool isPaused);
+    [[nodiscard]] bool paused() const;
+
+    void setPaused(bool paused);
 
     [[nodiscard]] unsigned int getTimeline() const;
 
@@ -24,18 +26,18 @@ public:
 
     void update(int deltaTime);
 
-    void triggerCallback();
+    void triggerCallback() const;
 
 private:
-    bool _isPaused = false;
-    std::vector<unsigned int> FRAME_PER_TIMELINE;
-    sf::Vector2i TAILLE;
-    unsigned int FRAME_TIME;
-    unsigned int _nb_frame;
-    unsigned int _current_frame = 0;
-    unsigned int _current_time = 0; //current time in the current animation
-    unsigned int _current_timeline = 0; //index of the timeline in FRAME_PER_TIMELINE
-    unsigned int _total_animation_time = 0; //FRAME_TIME * FRAME_PER_TIMELINE.at(0);
+    bool paused_ = false;
+    std::vector<unsigned int> frames_per_timeline_;
+    sf::Vector2i size_;
+    unsigned int frame_time_;
+    unsigned int nb_frames_;
+    unsigned int current_frame_ = 0;
+    unsigned int current_time_ = 0; //current time in the current animation
+    unsigned int current_timeline_ = 0; //index of the timeline in FRAME_PER_TIMELINE
+    unsigned int total_animation_time_ = 0; //FRAME_TIME * FRAME_PER_TIMELINE.at(0);
     std::function<void(sf::Vector2i coords, sf::Vector2i size)> _callback;
 };
 

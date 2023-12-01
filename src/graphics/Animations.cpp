@@ -2,78 +2,89 @@
 #include <fstream>
 #include <cassert>
 
-Animation::Animation(const std::string &fileName,
-                     const std::function<void(sf::Vector2i coords, sf::Vector2i size)> &callback) {
+Animation::Animation(const std::string& fileName,
+                     const std::function<void(sf::Vector2i coords, sf::Vector2i size)>& callback) {
     std::ifstream file("../assets/animations/" + fileName + ".txt");
 
     if (!file.is_open()) {
         std::cout << "cannot open file " << fileName << std::endl;
         return;
     }
+
     std::string line;
+
     std::getline(file, line);
-    FRAME_TIME = std::stoi(line);
+    frame_time_ = std::stoi(line);
+
     std::getline(file, line);
     int x = std::stoi(line);
+
     std::getline(file, line);
     int y = std::stoi(line);
-    TAILLE = sf::Vector2i(x, y);
+
+    size_ = sf::Vector2i(x, y);
+
     std::getline(file, line);
-    _nb_frame = std::stoi(line);
+    nb_frames_ = std::stoi(line);
+
     int i = 0;
-    while (!file.eof() && (i < _nb_frame)) {
+    while (!file.eof() && (i < nb_frames_)) {
         std::getline(file, line);
-        FRAME_PER_TIMELINE.insert(FRAME_PER_TIMELINE.end(), std::stoi(line));
+        frames_per_timeline_.insert(frames_per_timeline_.end(), std::stoi(line));
         i++;
     }
-    _total_animation_time = FRAME_TIME * FRAME_PER_TIMELINE.at(_current_timeline);
+
+    total_animation_time_ = frame_time_ * frames_per_timeline_.at(current_timeline_);
+
     _callback = callback;
-    triggerCallback();  //To set correctly the first frame
+
+    triggerCallback(); //To set correctly the first frame
 }
 
 void Animation::resetTimeline() {
-    _current_frame = 0;
-    _current_time = 0;
+    current_frame_ = 0;
+    current_time_ = 0;
 }
 
-void Animation::setPaused(bool isPaused) {
-    _isPaused = isPaused;
+void Animation::setPaused(bool paused) {
+    paused_ = paused;
 }
 
 void Animation::setTimeline(const unsigned int new_timeline) {
-    assert(new_timeline < _nb_frame); //button.txt hasn't the true number of frame
+    assert(new_timeline < nb_frames_); //button.txt hasn't the true number of frame
 
-    if (new_timeline != _current_timeline) {
+    if (new_timeline != current_timeline_) {
         resetTimeline();
-        _current_timeline = new_timeline;
-        _total_animation_time = FRAME_TIME * FRAME_PER_TIMELINE.at(_current_timeline);
+        current_timeline_ = new_timeline;
+        total_animation_time_ = frame_time_ * frames_per_timeline_.at(current_timeline_);
 
         triggerCallback();
     }
 }
 
 void Animation::update(int deltaTime) {
-    if (_isPaused) {
+    if (paused_) {
         return;
     }
-    if (_total_animation_time != FRAME_TIME) {
-        _current_time = (_current_time + deltaTime) % _total_animation_time;
-        unsigned int new_frame = _current_time / FRAME_TIME;
-        if (new_frame != _current_frame) {
-            _current_frame = new_frame;
+    if (total_animation_time_ != frame_time_) {
+        current_time_ = (current_time_ + deltaTime) % total_animation_time_;
+        unsigned int new_frame = current_time_ / frame_time_;
+        if (new_frame != current_frame_) {
+            current_frame_ = new_frame;
             triggerCallback();
         }
     }
 }
 
-void Animation::triggerCallback() {
-    _callback(sf::Vector2i((int) _current_frame * TAILLE.x, (int) _current_timeline * TAILLE.y), TAILLE);
+void Animation::triggerCallback() const {
+    _callback(sf::Vector2i(static_cast<int>(current_frame_) * size_.x, static_cast<int>(current_timeline_) * size_.y),
+              size_);
 }
 
 unsigned int Animation::getTimeline() const {
-    return _current_timeline;
+    return current_timeline_;
 }
 
-bool Animation::getPaused() const {
-    return _isPaused;
+bool Animation::paused() const {
+    return paused_;
 }

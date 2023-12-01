@@ -8,15 +8,15 @@
 
 class SoundOptions : public OptionsCategory {
 public:
-    SoundOptions(std::shared_ptr<sf::Texture> sliderTexture, std::shared_ptr<sf::Texture> sliderKnobTexture);
+    SoundOptions(std::shared_ptr<sf::Texture> slider_texture, std::shared_ptr<sf::Texture> slider_knob_texture);
 
     void updateComponentsTransform() override;
 
 private:
-    const std::shared_ptr<sf::Texture> _sliderTexture;
-    const std::shared_ptr<sf::Texture> _sliderKnobTexture;
+    const std::shared_ptr<sf::Texture> slider_texture_;
+    const std::shared_ptr<sf::Texture> slider_knob_texture_;
 
-    void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };
 
 

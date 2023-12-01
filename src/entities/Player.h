@@ -26,13 +26,13 @@ public:
     [[nodiscard]] bool isUsingWeapon() const;
 
 private:
-    bool _onGround = false;
-    bool _isJumping = false;
-    bool _isCrouching = false;
-    bool _facingLeft = false;
-    bool _dashing = false;
-    bool _hasDashed = false;
-    bool _usingWeapon = false;
+    bool on_ground_ = false;
+    bool is_jumping_ = false;
+    bool is_crouching_ = false;
+    bool facing_left_ = false;
+    bool dashing_ = false;
+    bool has_dashed_ = false;
+    bool using_weapon_ = false;
     std::unique_ptr<Weapon> weapon;
 };
 

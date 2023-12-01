@@ -6,89 +6,90 @@
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/RenderStates.hpp>
 
-Slider::Slider(std::shared_ptr<sf::Texture> sliderTexture, std::shared_ptr<sf::Texture> sliderKnobTexture,
+Slider::Slider(std::shared_ptr<sf::Texture> sliderTexture, std::shared_ptr<sf::Texture> slider_knob_texture,
                std::function<void(float value)> callback,
-               float value) : _sliderTexture(std::move(sliderTexture)),
-                              _sliderKnobTexture(std::move(sliderKnobTexture)), _value(value),
-                              _callback(std::move(callback)) {
+               const float value) : slider_texture_(std::move(sliderTexture)),
+                                    slider_knob_slider_knob_texture_(std::move(slider_knob_texture)), value_(value),
+                                    callback_(std::move(callback)) {
+    slider_.setTexture(slider_texture_.get());
+    slider_.setSize(sf::Vector2f(slider_texture_->getSize()));
+    slider_knob_.setTexture(slider_knob_slider_knob_texture_.get());
+    slider_knob_.setSize(sf::Vector2f(slider_knob_slider_knob_texture_->getSize()));
 
-    _slider.setTexture(_sliderTexture.get());
-    _slider.setSize(sf::Vector2f(_sliderTexture->getSize()));
-    _sliderKnob.setTexture(_sliderKnobTexture.get());
-    _sliderKnob.setSize(sf::Vector2f(_sliderKnobTexture->getSize()));
-
-    visu.setFillColor(sf::Color(30, 30, 30, 180));
+    visu_.setFillColor(sf::Color(30, 30, 30, 180));
 }
 
 float Slider::getValue() const {
-    return _value;
+    return value_;
 }
 
 void Slider::setValue(const float value) {
-    _value = value;
+    value_ = value;
 }
 
 void Slider::updateComponentTransform() {
-    const auto paddingX = _size.x * 0.1f;
+    const auto paddingX = size_.x * 0.1f;
 
-    _scale = (_size.x - 2.0f * paddingX) / (float) _sliderTexture->getSize().x;
+    scale_ = (size_.x - 2.0f * paddingX) / static_cast<float>(slider_texture_->getSize().x);
 
-    _slider.setScale(_scale, _scale);
+    slider_.setScale(scale_, scale_);
 
-    _slider.setPosition(sf::Vector2f(_position.x + paddingX, _position.y + _size.y * 0.5f -
-                                                             (float) _sliderTexture->getSize().y * _scale * 0.5f));
+    slider_.setPosition(sf::Vector2f(position_.x + paddingX, position_.y + size_.y * 0.5f -
+                                                             static_cast<float>(slider_texture_->getSize().y)
+                                                             * scale_ * 0.5f));
 
-    visu.setPosition(_position);
-    visu.setSize(_size);
+    visu_.setPosition(position_);
+    visu_.setSize(size_);
 
-    _sliderKnob.setScale(_scale, _scale);
+    slider_knob_.setScale(scale_, scale_);
 
-    _minKnobX = _slider.getPosition().x - (_sliderKnob.getSize().x * _scale * 0.5f);
-    _maxKnobX =
-            _slider.getPosition().x + (_slider.getSize().x * _scale) - (_sliderKnob.getSize().x * _scale * 0.5f);
+    min_knob_x_ = slider_.getPosition().x - (slider_knob_.getSize().x * scale_ * 0.5f);
+    max_knob_x_ =
+            slider_.getPosition().x + (slider_.getSize().x * scale_) - (slider_knob_.getSize().x * scale_ * 0.5f);
 
-    _sliderKnob.setPosition(0,
-                            _slider.getPosition().y + _slider.getSize().y * _scale * 0.5f -
-                            _sliderKnob.getSize().y * _scale * 0.5f);
+    slider_knob_.setPosition(0,
+                             slider_.getPosition().y + slider_.getSize().y * scale_ * 0.5f -
+                             slider_knob_.getSize().y * scale_ * 0.5f);
 
     updateKnobPlacement();
 }
 
 void Slider::updateKnobPlacement() {
-    const auto posX = std::lerp(_minKnobX, _maxKnobX, _value);
-    _sliderKnob.setPosition(posX, _sliderKnob.getPosition().y);
+    const auto posX = std::lerp(min_knob_x_, max_knob_x_, value_);
+    slider_knob_.setPosition(posX, slider_knob_.getPosition().y);
 }
 
-void Slider::onMouseMove(const sf::Event::MouseMoveEvent &e) {
-    _hovered = (float) e.x > _sliderKnob.getPosition().x &&
-               (float) e.x < (_sliderKnob.getPosition().x + (_sliderKnob.getSize().x) * _scale)
-               && (float) e.y > _sliderKnob.getPosition().y &&
-               (float) e.y < (_sliderKnob.getPosition().y + (_sliderKnob.getSize().y) * _scale);
+void Slider::onMouseMove(const sf::Event::MouseMoveEvent& event) {
+    hovered_ = static_cast<float>(event.x) > slider_knob_.getPosition().x &&
+               static_cast<float>(event.x) < (slider_knob_.getPosition().x + (slider_knob_.getSize().x) * scale_)
+               && static_cast<float>(event.y) > slider_knob_.getPosition().y &&
+               static_cast<float>(event.y) < (slider_knob_.getPosition().y + (slider_knob_.getSize().y) * scale_);
 
-    if (_grabbed) {
+    if (grabbed_) {
         const float invLerp =
-                (((float) e.x - _sliderKnob.getSize().x * _scale * 0.5f) - _minKnobX) / (_maxKnobX - _minKnobX);
+                ((static_cast<float>(event.x) - slider_knob_.getSize().x * scale_ * 0.5f) - min_knob_x_)
+                / (max_knob_x_ - min_knob_x_);
 
-        _value = std::clamp(invLerp, 0.0f, 1.0f);
+        value_ = std::clamp(invLerp, 0.0f, 1.0f);
         updateKnobPlacement();
 
-        _callback(_value);
+        callback_(value_);
     }
 }
 
-void Slider::onMousePressed(const sf::Event::MouseButtonEvent &event) {
-    if (_hovered) {
-        _grabbed = true;
+void Slider::onMousePressed(const sf::Event::MouseButtonEvent& event) {
+    if (hovered_) {
+        grabbed_ = true;
     }
 }
 
-void Slider::onMouseReleased(const sf::Event::MouseButtonEvent &event) {
-    if (_grabbed)
-        _grabbed = false;
+void Slider::onMouseReleased(const sf::Event::MouseButtonEvent& event) {
+    if (grabbed_)
+        grabbed_ = false;
 }
 
-void Slider::draw(sf::RenderTarget &target, sf::RenderStates states) const {
-    target.draw(visu);
-    target.draw(_slider);
-    target.draw(_sliderKnob);
+void Slider::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+    target.draw(visu_);
+    target.draw(slider_);
+    target.draw(slider_knob_);
 }

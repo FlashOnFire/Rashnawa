@@ -12,7 +12,7 @@ public:
     void setHitbox(const Hitbox &hitbox);
 
 private:
-    Hitbox _hitbox;
+    Hitbox hitbox_;
 };
 
 

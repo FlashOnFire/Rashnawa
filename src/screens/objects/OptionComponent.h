@@ -24,8 +24,8 @@ public:
     virtual void onMouseReleased(const sf::Event::MouseButtonEvent &event);
 
 protected:
-    sf::Vector2f _position;
-    sf::Vector2f _size;
+    sf::Vector2f position_;
+    sf::Vector2f size_;
 
     void draw(sf::RenderTarget &target, sf::RenderStates states) const override = 0;
 };

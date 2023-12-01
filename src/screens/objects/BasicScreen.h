@@ -20,7 +20,7 @@ public:
     virtual void render(std::shared_ptr<sf::RenderWindow> window) const = 0;
 
 protected:
-    std::shared_ptr<sf::Font> _font;
+    std::shared_ptr<sf::Font> font_;
 
     explicit BasicScreen(std::shared_ptr<sf::Font> font);
 };

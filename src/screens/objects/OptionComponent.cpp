@@ -1,16 +1,16 @@
 #include "OptionComponent.h"
 
 const sf::Vector2f &OptionComponent::getPosition() const {
-    return _position;
+    return position_;
 }
 
 const sf::Vector2f &OptionComponent::getSize() const {
-    return _size;
+    return size_;
 }
 
 void OptionComponent::setTransform(const sf::Vector2f &position, const sf::Vector2f &size) {
-    _position = position;
-    _size = size;
+    position_ = position;
+    size_ = size;
 
     updateComponentTransform();
 }

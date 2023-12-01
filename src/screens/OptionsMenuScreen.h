@@ -13,44 +13,44 @@
 class OptionsMenuScreen : public BasicScreen {
 public:
     explicit OptionsMenuScreen(std::shared_ptr<dexode::EventBus> eventBus, std::shared_ptr<sf::Font> font,
-                               const sf::Vector2<unsigned int> &windowSize);
+                               const sf::Vector2<unsigned int>& windowSize);
 
-    void onMouseMove(const sf::Event::MouseMoveEvent &event) override;
+    void onMouseMove(const sf::Event::MouseMoveEvent& event) override;
 
-    void onMousePressed(const sf::Event::MouseButtonEvent &event) override;
+    void onMousePressed(const sf::Event::MouseButtonEvent& event) override;
 
-    void onMouseReleased(const sf::Event::MouseButtonEvent &event) override;
+    void onMouseReleased(const sf::Event::MouseButtonEvent& event) override;
 
-    void onWindowResize(const sf::Event::SizeEvent &event) override;
+    void onWindowResize(const sf::Event::SizeEvent& event) override;
 
     void render(std::shared_ptr<sf::RenderWindow> window) const override;
 
 private:
-    const std::shared_ptr<dexode::EventBus> _eventBus;
+    const std::shared_ptr<dexode::EventBus> event_bus_;
 
-    std::unique_ptr<dexode::EventBus::Listener> _eventListener;
+    std::unique_ptr<dexode::EventBus::Listener> event_listener_;
 
-    const std::unique_ptr<sf::Texture> _backgroundTexture = std::make_unique<sf::Texture>();
+    const std::unique_ptr<sf::Texture> background_texture_ = std::make_unique<sf::Texture>();
 
-    const std::unique_ptr<sf::Texture> _titleBackground = std::make_unique<sf::Texture>();
-    const std::unique_ptr<sf::Texture> _optionsBackgroundTexture = std::make_unique<sf::Texture>();
-    const std::shared_ptr<sf::Texture> _buttonsBackgroundTexture = std::make_shared<sf::Texture>();
-    const std::shared_ptr<sf::Texture> _buttonsForegroundTexture = std::make_shared<sf::Texture>();
+    const std::unique_ptr<sf::Texture> title_background_ = std::make_unique<sf::Texture>();
+    const std::unique_ptr<sf::Texture> options_background_texture_ = std::make_unique<sf::Texture>();
+    const std::shared_ptr<sf::Texture> buttons_background_texture_ = std::make_shared<sf::Texture>();
+    const std::shared_ptr<sf::Texture> buttons_foreground_texture_ = std::make_shared<sf::Texture>();
 
-    const std::shared_ptr<sf::Texture> _sliderTexture = std::make_shared<sf::Texture>();
-    const std::shared_ptr<sf::Texture> _sliderKnobTexture = std::make_shared<sf::Texture>();
+    const std::shared_ptr<sf::Texture> slider_texture_ = std::make_shared<sf::Texture>();
+    const std::shared_ptr<sf::Texture> slider_knob_texture_ = std::make_shared<sf::Texture>();
 
-    sf::Text _titleText;
-    sf::RectangleShape _background;
-    sf::RectangleShape _optionsBackground;
+    sf::Text title_text_;
+    sf::RectangleShape background_;
+    sf::RectangleShape options_background_;
 
-    std::unique_ptr<OptionsCategory> _currentOptionCategory;
+    std::unique_ptr<OptionsCategory> current_option_category_;
 
-    std::unique_ptr<Button> _soundCategoryBackgroundButton;
-    std::unique_ptr<Button> _graphicsCategoryBackgroundButton;
-    std::unique_ptr<Button> _otherCategoryBackgroundButton;
+    std::unique_ptr<Button> sound_category_background_button_;
+    std::unique_ptr<Button> graphics_category_background_button_;
+    std::unique_ptr<Button> other_category_background_button_;
 
-    void updateComponentsTransform(const sf::Vector2<unsigned int> &windowSize);
+    void updateComponentsTransform(const sf::Vector2<unsigned int>& windowSize);
 };
 
 

@@ -2,34 +2,29 @@
 #include "../events/Events.h"
 
 namespace Audio {
-    MusicManager::MusicManager(std::shared_ptr<dexode::EventBus> eventBus,
-                               std::shared_ptr<Audio::AudioManager> audioManager) : _eventBus(std::move(eventBus)),
-                                                                                    _audioManager(
-                                                                                            std::move(audioManager)),
-                                                                                    _eventListener(
-                                                                                            dexode::EventBus::Listener(
-                                                                                                    _eventBus)) {
-
-        _eventListener.listen<Events::ChangeScreen>([this](const Events::ChangeScreen &e) {
-            using
-            enum Screens;
+    MusicManager::MusicManager(std::shared_ptr<dexode::EventBus> event_bus,
+                               std::shared_ptr<Audio::AudioManager> audio_manager)
+        : event_bus_(std::move(event_bus)),
+          audio_manager_(std::move(audio_manager)),
+          event_listener_(dexode::EventBus::Listener(event_bus_)) {
+        event_listener_.listen<Events::ChangeScreen>([this](const Events::ChangeScreen& e) {
+            using enum Screens;
 
             if (e.from == None && e.to == MainMenu) {
-                _musicInstance = _audioManager->createEventInstance("event:/tension");
-                _musicInstance->setVolume(0.2f);
-                _musicInstance->start();
+                music_instance_ = audio_manager_->createEventInstance("event:/tension");
+                music_instance_->setVolume(0.2f);
+                music_instance_->start();
             } else if (e.to == None) {
-                _musicInstance->stop(FMOD_STUDIO_STOP_MODE::FMOD_STUDIO_STOP_ALLOWFADEOUT);
+                music_instance_->stop(FMOD_STUDIO_STOP_MODE::FMOD_STUDIO_STOP_ALLOWFADEOUT);
             }
 
             if (e.to == OptionsMenu) {
-                _musicInstance->setParameterByName("midhigh", 0, false);
+                music_instance_->setParameterByName("midhigh", 0, false);
             } else if (e.to == MainMenu) {
-                _musicInstance->setParameterByName("midhigh", 1, false);
+                music_instance_->setParameterByName("midhigh", 1, false);
             }
         });
 
         std::cout << "Created MusicManager!" << std::endl;
     }
-
 } // Audio

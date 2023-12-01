@@ -1,29 +1,29 @@
 #include "Player.h"
 
 bool Player::isOnGround() const {
-    return _onGround;
+    return on_ground_;
 }
 
 bool Player::isJumping() const {
-    return _isJumping;
+    return is_jumping_;
 }
 
 bool Player::isCrouching() const {
-    return _isCrouching;
+    return is_crouching_;
 }
 
 bool Player::isFacingLeft() const {
-    return _facingLeft;
+    return facing_left_;
 }
 
 bool Player::isDashing() const {
-    return _dashing;
+    return dashing_;
 }
 
 bool Player::hasDashed() const {
-    return _hasDashed;
+    return has_dashed_;
 }
 
 bool Player::isUsingWeapon() const {
-    return _usingWeapon;
+    return using_weapon_;
 }

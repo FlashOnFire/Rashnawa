@@ -68,7 +68,7 @@ namespace Audio {
         bool isValid() const;
 
     private:
-        std::unique_ptr<FMOD::Studio::EventInstance, EventInstanceDeleter> _instance;
+        std::unique_ptr<FMOD::Studio::EventInstance, EventInstanceDeleter> instance_;
     };
 
 } // Audio

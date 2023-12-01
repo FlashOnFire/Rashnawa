@@ -1,15 +1,14 @@
 #ifndef RASHNAWA_EVENTS_H
 #define RASHNAWA_EVENTS_H
 
-#include <SFML/Window/Event.hpp>
+
+#include <memory>
 
 #include "../screens/Screens.h"
 #include "Keybinds.h"
 #include "../graphics/Animations.h"
-#include <memory>
 
 namespace Events {
-
     struct CloseGame {
     };
 
@@ -29,4 +28,6 @@ namespace Events {
         std::weak_ptr<Animation> animation;
     };
 }
+
+
 #endif //RASHNAWA_EVENTS_H

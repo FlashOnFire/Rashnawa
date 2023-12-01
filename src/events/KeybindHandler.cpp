@@ -4,14 +4,14 @@
 #include <utility>
 #include <iostream>
 
-KeybindHandler::KeybindHandler(std::shared_ptr<dexode::EventBus> eventBus) : _eventBus(std::move(eventBus)) {
+KeybindHandler::KeybindHandler(std::shared_ptr<dexode::EventBus> eventBus) : event_bus_(std::move(eventBus)) {
     std::cout << "Created KeybindHandler!" << std::endl;
 }
 
 void KeybindHandler::handleEvent(const sf::Event::KeyEvent &event) const {
-    for (const auto &[key, value]: _keymap) {
+    for (const auto &[key, value]: keymap_) {
         if (value == event.code) {
-            _eventBus->postpone<Events::PlayerAction>({key});
+            event_bus_->postpone<Events::PlayerAction>({key});
         }
     }
 }

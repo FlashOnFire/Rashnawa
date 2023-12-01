@@ -24,9 +24,9 @@ namespace Audio {
         std::unique_ptr<EventInstance> createEventInstance(const std::string &path);
 
     private:
-        std::shared_ptr<FMOD::Studio::System> _system;
-        std::vector<std::shared_ptr<FMOD::Studio::Bank>> _banks;
-        std::map<const std::string, std::shared_ptr<FMOD::Studio::EventDescription>> eventDescriptions;
+        std::shared_ptr<FMOD::Studio::System> system_;
+        std::vector<std::shared_ptr<FMOD::Studio::Bank>> banks_;
+        std::map<const std::string, std::shared_ptr<FMOD::Studio::EventDescription>> event_descriptions_;
 
         std::weak_ptr<FMOD::Studio::EventDescription> getEventDescription(const std::string &path);
     };

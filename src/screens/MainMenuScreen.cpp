@@ -5,105 +5,110 @@
 #include "MainMenuScreen.h"
 #include "objects/ButtonBuilder.h"
 
-MainMenuScreen::MainMenuScreen(std::shared_ptr<dexode::EventBus> eventBus, std::shared_ptr<sf::Font> font)
-        : BasicScreen(std::move(font)), _eventBus(std::move(eventBus)) {
-    if (!backgroundTexture->loadFromFile("../assets/menu/menu_background2.png")) {
+MainMenuScreen::MainMenuScreen(std::shared_ptr<dexode::EventBus> event_bus, std::shared_ptr<sf::Font> font)
+    : BasicScreen(std::move(font)), event_bus_(std::move(event_bus)) {
+    if (!background_texture_->loadFromFile("../assets/menu/menu_background2.png")) {
         std::cout << "Can't load menu background backgroundTexture from file";
         exit(EXIT_FAILURE);
     }
-    backgroundTexture->setSmooth(true);
+    background_texture_->setSmooth(true);
 
-    if (!buttonTexture->loadFromFile("../assets/menu/button.png")) {
+    if (!button_texture_->loadFromFile("../assets/menu/button.png")) {
         std::cout << "Can't load menu button backgroundTexture from file" << std::endl;
         exit(EXIT_FAILURE);
     }
 
-    sf::IntRect normalButtonTexCoords = {sf::Vector2i(0, 0),
-                                         sf::Vector2i((int) buttonTexture->getSize().x,
-                                                      (int) buttonTexture->getSize().y / 2)};
+    const sf::IntRect normal_button_tex_coords = {
+        sf::Vector2i(0, 0),
+        sf::Vector2i(static_cast<int>(button_texture_->getSize().x),
+                     static_cast<int>(button_texture_->getSize().y) / 2)
+    };
 
-    sf::IntRect hoveredButtonTexCoords = {
-            sf::Vector2i(0, (int) buttonTexture->getSize().y / 2),
-            sf::Vector2i((int) buttonTexture->getSize().x,
-                         (int) buttonTexture->getSize().y / 2)};
+    const sf::IntRect hovered_button_tex_coords = {
+        sf::Vector2i(0, static_cast<int>(button_texture_->getSize().y) / 2),
+        sf::Vector2i(static_cast<int>(button_texture_->getSize().x),
+                     static_cast<int>(button_texture_->getSize().y) / 2)
+    };
 
-    _buttons.push_back(ButtonBuilder()
-                               .backgroundTexture(buttonTexture, normalButtonTexCoords)
-                               .hoverBackgroundTexCoords(hoveredButtonTexCoords)
-                               .text("PLAY", _font)
-                               .transform(120, 300, 200, 80)
-                               .callback([this]() {
-                                   std::cout << "Play" << std::endl;
-                                   _eventBus->postpone(
-                                           Events::ChangeScreen{.from = Screens::MainMenu, .to = Screens::None});
-                               }).build());
+    buttons_.push_back(ButtonBuilder()
+        .backgroundTexture(button_texture_, normal_button_tex_coords)
+        .hoverBackgroundTexCoords(hovered_button_tex_coords)
+        .text("PLAY", font_)
+        .transform(120, 300, 200, 80)
+        .callback([this]() {
+            std::cout << "Play" << std::endl;
+            event_bus_->postpone(
+                Events::ChangeScreen{.from = Screens::MainMenu, .to = Screens::None});
+        }).build());
 
-    _buttons.push_back(ButtonBuilder()
-                               .backgroundTexture(buttonTexture, normalButtonTexCoords)
-                               .hoverBackgroundTexCoords(hoveredButtonTexCoords)
-                               .text("OPTIONS", _font)
-                               .transform(120, 400, 200, 80)
-                               .callback([this]() {
-                                   std::cout << "Options" << std::endl;
-                                   _eventBus->postpone(
-                                           Events::ChangeScreen{.from = Screens::MainMenu, .to = Screens::OptionsMenu});
-                               }).build());
+    buttons_.push_back(ButtonBuilder()
+        .backgroundTexture(button_texture_, normal_button_tex_coords)
+        .hoverBackgroundTexCoords(hovered_button_tex_coords)
+        .text("OPTIONS", font_)
+        .transform(120, 400, 200, 80)
+        .callback([this]() {
+            std::cout << "Options" << std::endl;
+            event_bus_->postpone(
+                Events::ChangeScreen{.from = Screens::MainMenu, .to = Screens::OptionsMenu});
+        }).build());
 
-    _buttons.push_back(ButtonBuilder()
-                               .backgroundTexture(buttonTexture, normalButtonTexCoords)
-                               .hoverBackgroundTexCoords(hoveredButtonTexCoords)
-                               .text("EXIT", _font)
-                               .transform(120, 600, 200, 80)
-                               .callback([this]() {
-                                   std::cout << "Exit" << std::endl;
-                                   _eventBus->postpone(Events::CloseGame{});
-                               }).build());
+    buttons_.push_back(ButtonBuilder()
+        .backgroundTexture(button_texture_, normal_button_tex_coords)
+        .hoverBackgroundTexCoords(hovered_button_tex_coords)
+        .text("EXIT", font_)
+        .transform(120, 600, 200, 80)
+        .callback([this]() {
+            std::cout << "Exit" << std::endl;
+            event_bus_->postpone(Events::CloseGame{});
+        }).build());
 
     std::cout << "Created MainMenuScreen!" << std::endl;
 }
 
-void MainMenuScreen::onMouseMove(const sf::Event::MouseMoveEvent &event) {
-    for (const auto &button: _buttons) {
+void MainMenuScreen::onMouseMove(const sf::Event::MouseMoveEvent& event) {
+    for (const auto& button: buttons_) {
         button->onMouseMoved(event);
     }
 }
 
-void MainMenuScreen::onMousePressed(const sf::Event::MouseButtonEvent &event) {
-    for (const auto &button: _buttons) {
+void MainMenuScreen::onMousePressed(const sf::Event::MouseButtonEvent& event) {
+    for (const auto& button: buttons_) {
         button->onMouseButtonPressed(event);
     }
 }
 
-void MainMenuScreen::onMouseReleased(const sf::Event::MouseButtonEvent &event) {
-    for (const auto &button: _buttons) {
+void MainMenuScreen::onMouseReleased(const sf::Event::MouseButtonEvent& event) {
+    for (const auto& button: buttons_) {
         button->onMouseButtonReleased(event);
     }
 }
 
 void MainMenuScreen::render(std::shared_ptr<sf::RenderWindow> window) const {
-    sf::Vector2 wSize = window->getSize();
+    sf::Vector2 window_size = window->getSize();
 
-    auto background = sf::RectangleShape(sf::Vector2f(wSize));
-    background.setTexture(backgroundTexture.get());
+    auto background = sf::RectangleShape(sf::Vector2f(window_size));
+    background.setTexture(background_texture_.get());
     window->draw(background);
 
     sf::Text mainText;
-    mainText.setFont(*_font);
+    mainText.setFont(*font_);
     mainText.setString("RASHNAWA");
     mainText.setFillColor(sf::Color::Black);
     mainText.setStyle(sf::Text::Style::Bold);
     mainText.setCharacterSize(100);
 
     float x =
-            (float) wSize.x / 2.0f - (mainText.getLocalBounds().width / 2.0f) - (mainText.getLocalBounds().left / 2.0f);
+            static_cast<float>(window_size.x) / 2.0f - (mainText.getLocalBounds().width / 2.0f)
+            - (mainText.getLocalBounds().left / 2.0f);
     float y =
-            (float) wSize.y / 7.0f - (mainText.getLocalBounds().height / 2.0f) - (mainText.getLocalBounds().top / 2.0f);
+            static_cast<float>(window_size.y) / 7.0f - (mainText.getLocalBounds().height / 2.0f)
+            - (mainText.getLocalBounds().top / 2.0f);
 
     mainText.setPosition(x, y);
 
     window->draw(mainText);
 
-    for (const auto &button: _buttons) {
+    for (const auto& button: buttons_) {
         window->draw(*button);
     }
 }

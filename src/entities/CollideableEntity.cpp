@@ -1,9 +1,9 @@
 #include "CollideableEntity.h"
 
 const Hitbox &CollideableEntity::getHitbox() const {
-    return _hitbox;
+    return hitbox_;
 }
 
 void CollideableEntity::setHitbox(const Hitbox &hitbox) {
-    _hitbox = hitbox;
+    hitbox_ = hitbox;
 }

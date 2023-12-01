@@ -14,7 +14,7 @@ namespace Graphics {
         void render();
 
     private:
-        std::shared_ptr<sf::RenderWindow> _window;
+        std::shared_ptr<sf::RenderWindow> window_;
     };
 
 } // Graphics

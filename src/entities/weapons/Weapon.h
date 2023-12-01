@@ -9,8 +9,8 @@ public:
     virtual void attack() = 0;
 
 private:
-    float _windupTime = 0;
-    float _damage = 0;
+    float windup_time_ = 0;
+    float damage_ = 0;
 };
 
 

@@ -5,56 +5,56 @@
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/Texture.hpp>
 
-void Button::onMouseMoved(const sf::Event::MouseMoveEvent &e) {
-    const auto pos = sf::Vector2i(_backgroundShape.getPosition());
+void Button::onMouseMoved(const sf::Event::MouseMoveEvent& e) {
+    const auto pos = sf::Vector2i(background_shape_.getPosition());
 
-    bool inside = (e.x > pos.x && e.x < (pos.x + (int) _backgroundShape.getSize().x)
-                   && e.y > pos.y && e.y < (pos.y + (int) _backgroundShape.getSize().y));
+    const bool inside = (e.x > pos.x && e.x < (pos.x + static_cast<int>(background_shape_.getSize().x))
+                         && e.y > pos.y && e.y < (pos.y + static_cast<int>(background_shape_.getSize().y)));
 
-    if (!_hovered && inside) {
-        _hovered = true;
+    if (!hovered_ && inside) {
+        hovered_ = true;
 
-        if (_animationTimelines.has_value()) {
-            _animation.value()->setTimeline(_clicked ? _animationTimelines->clicked : _animationTimelines->hovered);
+        if (animation_timelines_.has_value()) {
+            animation_.value()->setTimeline(clicked_ ? animation_timelines_->clicked : animation_timelines_->hovered);
         }
 
         updateTextureRect();
-    } else if (_hovered && !inside) {
-        _hovered = false;
+    } else if (hovered_ && !inside) {
+        hovered_ = false;
 
-        if (_animationTimelines.has_value()) {
-            _animation.value()->setTimeline(_animationTimelines->normal);
+        if (animation_timelines_.has_value()) {
+            animation_.value()->setTimeline(animation_timelines_->normal);
         }
 
         updateTextureRect();
     }
 }
 
-void Button::onMouseButtonPressed(const sf::Event::MouseButtonEvent &e) {
-    if (e.button != sf::Mouse::Button::Left)
+void Button::onMouseButtonPressed(const sf::Event::MouseButtonEvent& event) {
+    if (event.button != sf::Mouse::Button::Left)
         return;
 
-    if (_hovered) {
-        _clicked = true;
+    if (hovered_) {
+        clicked_ = true;
 
-        if (_animationTimelines.has_value()) {
-            _animation.value()->setTimeline(_animationTimelines->clicked);
+        if (animation_timelines_.has_value()) {
+            animation_.value()->setTimeline(animation_timelines_->clicked);
         }
 
         updateTextureRect();
 
-        if (_callback.has_value()) {
-            _callback.value()();
+        if (callback_.has_value()) {
+            callback_.value()();
         }
     }
 }
 
-void Button::onMouseButtonReleased(const sf::Event::MouseButtonEvent &) {
-    if (_clicked) {
-        _clicked = false;
+void Button::onMouseButtonReleased(const sf::Event::MouseButtonEvent&) {
+    if (clicked_) {
+        clicked_ = false;
 
-        if (_animationTimelines.has_value()) {
-            _animation.value()->setTimeline(_hovered ? _animationTimelines->hovered : _animationTimelines->normal);
+        if (animation_timelines_.has_value()) {
+            animation_.value()->setTimeline(hovered_ ? animation_timelines_->hovered : animation_timelines_->normal);
         }
 
         updateTextureRect();
@@ -62,83 +62,82 @@ void Button::onMouseButtonReleased(const sf::Event::MouseButtonEvent &) {
 }
 
 void Button::updateTextureRect() {
-    if (_backgroundTexture.has_value()) {
-        if (_clicked) {
-            if (_backgroundClickedStateTexCoords.has_value()) {
-                _backgroundShape.setTextureRect(_backgroundClickedStateTexCoords.value());
+    if (background_texture_.has_value()) {
+        if (clicked_) {
+            if (background_clicked_state_tex_coords_.has_value()) {
+                background_shape_.setTextureRect(background_clicked_state_tex_coords_.value());
             }
-        } else if (_hovered) {
-            if (_backgroundHoverStateTexCoords.has_value()) {
-                _backgroundShape.setTextureRect(_backgroundHoverStateTexCoords.value());
+        } else if (hovered_) {
+            if (background_hover_state_tex_coords_.has_value()) {
+                background_shape_.setTextureRect(background_hover_state_tex_coords_.value());
             }
-        } else { // no check needed for normalTexCoords.hasValue() because if background texture has a value, normalTexCoords must also have a value
-            _backgroundShape.setTextureRect(_backgroundNormalStateTexCoords.value());
+        } else {
+            // no check needed for normalTexCoords.hasValue() because if background texture has a value, normalTexCoords must also have a value
+            background_shape_.setTextureRect(background_normal_state_tex_coords_.value());
         }
     }
 }
 
 void Button::updateTextTransform() {
-    float fontX = _backgroundShape.getPosition().x + _backgroundShape.getSize().x / 2.0f -
-                  (_text.value().getLocalBounds().width / 2.0f) -
-                  _text.value().getLocalBounds().left;
-    float fontY = _backgroundShape.getPosition().y + _backgroundShape.getSize().y / 2.0f -
-                  (_text.value().getLocalBounds().height / 2.0f) -
-                  _text.value().getLocalBounds().top;
+    const float font_x = background_shape_.getPosition().x + background_shape_.getSize().x / 2.0f - (
+                             text_.value().getLocalBounds().width / 2.0f) - text_.value().getLocalBounds().left;
+    const float font_y = background_shape_.getPosition().y + background_shape_.getSize().y / 2.0f - (
+                             text_.value().getLocalBounds().height / 2.0f) - text_.value().getLocalBounds().top;
 
-    _text.value().setPosition(sf::Vector2f(fontX, fontY));
+    text_.value().setPosition(sf::Vector2f(font_x, font_y));
 
     //TODO: set characterSize
 }
 
 bool Button::isHovered() const {
-    return _hovered;
+    return hovered_;
 }
 
 sf::Vector2f Button::getPosition() const {
-    return _backgroundShape.getPosition();
+    return background_shape_.getPosition();
 }
 
 sf::Vector2f Button::getSize() const {
-    return _backgroundShape.getSize();
+    return background_shape_.getSize();
 }
 
 void Button::setBackgroundTexture(std::shared_ptr<sf::Texture> texture) {
-    _backgroundTexture = std::move(texture);
-    _backgroundShape.setTexture(_backgroundTexture.value().get());
+    background_texture_ = std::move(texture);
+    background_shape_.setTexture(background_texture_.value().get());
 }
 
 void Button::setForegroundTexture(std::shared_ptr<sf::Texture> texture) {
-    _foregroundTexture = std::move(texture);
-    _foregroundShape.setTexture(_foregroundTexture.value().get());
+    foreground_texture_ = std::move(texture);
+    foreground_shape_.setTexture(foreground_texture_.value().get());
 }
 
-void Button::setTransform(const sf::Vector2f &pos, const sf::Vector2f &size) {
-    _backgroundShape.setPosition(pos);
-    _backgroundShape.setSize(size);
+void Button::setTransform(const sf::Vector2f& pos, const sf::Vector2f& size) {
+    background_shape_.setPosition(pos);
+    background_shape_.setSize(size);
 
-    _foregroundShape.setPosition(pos);
-    _foregroundShape.setSize(size);
+    foreground_shape_.setPosition(pos);
+    foreground_shape_.setSize(size);
 }
 
-void Button::draw(sf::RenderTarget &target, sf::RenderStates states) const {
-    if (_backgroundTexture.has_value())
-        target.draw(_backgroundShape);
+void Button::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+    if (background_texture_.has_value())
+        target.draw(background_shape_);
 
-    if (_foregroundTexture.has_value())
-        target.draw(_foregroundShape);
+    if (foreground_texture_.has_value())
+        target.draw(foreground_shape_);
 
-    if (_text.has_value()) {
-        target.draw(_text.value());
+    if (text_.has_value()) {
+        target.draw(text_.value());
     }
 }
 
 std::weak_ptr<Animation>
-Button::addAnimation(const std::string &name, const ButtonAnimationTimelines &animationTimelines) {
-    _animation = std::make_shared<Animation>(name, [this](sf::Vector2i coords, sf::Vector2i size) {
-        _foregroundShape.setTextureRect(sf::IntRect(coords, size));
+Button::addAnimation(const std::string& name, const ButtonAnimationTimelines& animation_timelines) {
+    animation_ = std::make_shared<Animation>(name, [this](const sf::Vector2i coords, const sf::Vector2i size) {
+        foreground_shape_.setTextureRect(sf::IntRect(coords, size));
     });
 
-    _animationTimelines = animationTimelines;
+    animation_timelines_ = animation_timelines;
 
-    return _animation.value();
+    return animation_.value();
 }

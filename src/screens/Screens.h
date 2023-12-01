@@ -2,7 +2,9 @@
 #define RASHNAWA_SCREENS_H
 
 enum class Screens {
-    None, MainMenu, OptionsMenu,
+    None,
+    MainMenu,
+    OptionsMenu,
 };
 
 #endif //RASHNAWA_SCREENS_H

@@ -30,10 +30,10 @@ public:
     virtual void onMouseButtonReleased(const sf::Event::MouseButtonEvent &event);
 
 protected:
-    sf::Vector2f _position;
-    sf::Vector2f _size;
+    sf::Vector2f position_;
+    sf::Vector2f size_;
 
-    std::vector<std::unique_ptr<OptionComponent>> _components;
+    std::vector<std::unique_ptr<OptionComponent>> components_;
 
     void draw(sf::RenderTarget &target, sf::RenderStates states) const override = 0;
 };
