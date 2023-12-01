@@ -6,135 +6,136 @@
 #include "events/Events.h"
 
 Game::Game() {
-    _eventBus = std::make_shared<dexode::EventBus>();
+    event_bus_ = std::make_shared<dexode::EventBus>();
 
-    _window = std::make_shared<sf::RenderWindow>(sf::VideoMode(1920, 1080), "Rashnawa");
-    _window->setFramerateLimit(240);
+    window_ = std::make_shared<sf::RenderWindow>(sf::VideoMode(1920, 1080), "Rashnawa");
+    window_->setFramerateLimit(240);
 
-    options_manager_ = std::make_shared<OptionsManager>(_eventBus);
+    options_manager_ = std::make_shared<OptionsManager>(event_bus_);
 
-    _audioMgr = std::make_shared<Audio::AudioManager>();
-    _musicManager = std::make_unique<Audio::MusicManager>(_eventBus, _audioMgr, options_manager_);
+    audio_manager_ = std::make_shared<Audio::AudioManager>();
+    music_manager_ = std::make_unique<Audio::MusicManager>(event_bus_, audio_manager_, options_manager_);
 
-    _renderer = std::make_unique<Graphics::Renderer>(_window);
+    renderer_ = std::make_unique<Graphics::Renderer>(window_);
 
-    _keybindHandler = std::make_unique<KeybindHandler>(_eventBus);
+    keybind_handler_ = std::make_unique<KeybindHandler>(event_bus_);
 
-    _audioMgr->initialize();
-    _audioMgr->loadBank("../assets/audio/Master.bank");
-    _audioMgr->loadBank("../assets/audio/Master.strings.bank");
+    audio_manager_->initialize();
+    audio_manager_->loadBank("../assets/audio/Master.bank");
+    audio_manager_->loadBank("../assets/audio/Master.strings.bank");
 
-    _eventBus->postpone<Events::ChangeScreen>({.from = Screens::None, .to = Screens::MainMenu});
+    event_bus_->postpone<Events::ChangeScreen>({.from = Screens::None, .to = Screens::MainMenu});
 
-    if (!_font->loadFromFile("../assets/fonts/Unitblock.ttf")) {
+    if (!font_->loadFromFile("../assets/fonts/Unitblock.ttf")) {
         std::cout << "Error: can't load font!" << std::endl;
         exit(EXIT_FAILURE);
     }
 }
 
 void Game::run() {
-    dexode::EventBus::Listener endGameListener{_eventBus};
-    endGameListener.listen<Events::CloseGame>([this](const Events::CloseGame) {
-        _running = false;
+    dexode::EventBus::Listener end_game_listener{event_bus_};
+    end_game_listener.listen<Events::CloseGame>([this](const Events::CloseGame) {
+        running_ = false;
     });
 
-    dexode::EventBus::Listener changeScreenListener{_eventBus};
-    changeScreenListener.listen<Events::ChangeScreen>([this](const Events::ChangeScreen& e) {
+    dexode::EventBus::Listener change_screen_listener{event_bus_};
+    change_screen_listener.listen<Events::ChangeScreen>([this](const Events::ChangeScreen& e) {
         switch (e.to) {
                 using
                         enum Screens;
 
             case None:
-                _currentScreen.reset();
+                current_screen_.reset();
                 break;
             case MainMenu:
-                _currentScreen = std::make_unique<MainMenuScreen>(_eventBus, _font);
+                current_screen_ = std::make_unique<MainMenuScreen>(event_bus_, font_);
                 break;
             case OptionsMenu:
-                _currentScreen = std::make_unique<OptionsMenuScreen>(_eventBus, options_manager_, _font,
-                                                                     _window->getSize());
+                current_screen_ = std::make_unique<OptionsMenuScreen>(event_bus_, options_manager_, font_,
+                                                                      window_->getSize());
                 break;
         }
     });
 
-    dexode::EventBus::Listener AnimationCreated{_eventBus};
-    AnimationCreated.listen<Events::AnimationCreated>([this](const Events::AnimationCreated& event) {
-        _animations.push_back(event.animation);
+    dexode::EventBus::Listener animation_created_listener{event_bus_};
+    animation_created_listener.listen<Events::AnimationCreated>([this](const Events::AnimationCreated& event) {
+        animations_.push_back(event.animation);
     });
 
     sf::Clock clock;
 
-    while (_running) {
-        int deltaTime = clock.restart().asMilliseconds();
+    while (running_) {
+        const int delta_time = clock.restart().asMilliseconds();
 
-        for (int i = 0; i < _animations.size(); i++) {
-            if (auto animation = _animations.at(i).lock()) {
-                animation->update(deltaTime);
+        for (int i = 0; i < animations_.size(); i++) {
+            if (const auto animation = animations_.at(i).lock()) {
+                animation->update(delta_time);
             } else {
-                _animations.erase(_animations.begin() + i);
+                animations_.erase(animations_.begin() + i);
                 std::cout << "Animation deleted" << std::endl;
             }
         }
-        _eventBus->process();
-        _audioMgr->update();
+        event_bus_->process();
+        audio_manager_->update();
 
         handleEvents();
 
-        _window->clear(sf::Color::White);
+        window_->clear(sf::Color::White);
 
-        if (_currentScreen.has_value()) {
-            _currentScreen.value()->render(_window);
+        if (current_screen_.has_value()) {
+            current_screen_.value()->render(window_);
         } else {
-            _renderer->render();
+            renderer_->render();
         }
 
-        _window->display();
+        window_->display();
     }
 }
 
 void Game::handleEvents() {
     sf::Event event{};
-    while (_window->pollEvent(event)) {
+    while (window_->pollEvent(event)) {
         switch (event.type) {
             case sf::Event::Closed:
-                _eventBus->postpone(Events::CloseGame{});
+                event_bus_->postpone(Events::CloseGame{});
                 break;
             case sf::Event::Resized:
-                _window->setView(sf::View(sf::FloatRect(0, 0, (float) event.size.width, (float) event.size.height)));
+                window_->setView(sf::View(sf::FloatRect(0, 0, static_cast<float>(event.size.width),
+                                                        static_cast<float>(event.size.height))));
 
-                if (_currentScreen.has_value()) {
-                    _currentScreen.value()->onWindowResize(event.size);
+                if (current_screen_.has_value()) {
+                    current_screen_.value()->onWindowResize(event.size);
                 }
                 break;
             case sf::Event::KeyPressed:
-                _keybindHandler->handleEvent(event.key);
+                keybind_handler_->handleEvent(event.key);
                 switch (event.key.code) {
                     case sf::Keyboard::Escape:
-                        _eventBus->postpone(Events::EscapeBtn{});
+                        event_bus_->postpone(Events::EscapeBtn{});
                         break;
                     default:
                         break;
                 }
                 break;
             case sf::Event::MouseMoved:
-                if (_currentScreen.has_value()) {
-                    _currentScreen.value()->onMouseMove(event.mouseMove);
+                if (current_screen_.has_value()) {
+                    current_screen_.value()->onMouseMove(event.mouseMove);
                 }
                 break;
             case sf::Event::MouseButtonPressed:
                 if (event.mouseButton.button != sf::Mouse::Button::Left)
                     continue;
 
-                if (_currentScreen.has_value()) {
-                    _currentScreen.value()->onMousePressed(event.mouseButton);
+                if (current_screen_.has_value()) {
+                    current_screen_.value()->onMousePressed(event.mouseButton);
                 }
                 break;
             case sf::Event::MouseButtonReleased:
                 if (event.mouseButton.button != sf::Mouse::Button::Left)
                     continue;
 
-                if (_currentScreen.has_value()) {
-                    _currentScreen.value()->onMouseReleased(event.mouseButton);
+                if (current_screen_.has_value()) {
+                    current_screen_.value()->onMouseReleased(event.mouseButton);
                 }
                 break;
             default:

@@ -21,26 +21,26 @@ public:
     void run();
 
 private:
-    bool _running = true;
+    bool running_ = true;
 
-    std::shared_ptr<dexode::EventBus> _eventBus;
+    std::shared_ptr<dexode::EventBus> event_bus_;
 
-    std::shared_ptr<sf::RenderWindow> _window;
+    std::shared_ptr<sf::RenderWindow> window_;
 
     std::shared_ptr<OptionsManager> options_manager_;
 
-    std::shared_ptr<Audio::AudioManager> _audioMgr;
-    std::unique_ptr<Audio::MusicManager> _musicManager;
+    std::shared_ptr<Audio::AudioManager> audio_manager_;
+    std::unique_ptr<Audio::MusicManager> music_manager_;
 
-    std::unique_ptr<Graphics::Renderer> _renderer;
+    std::unique_ptr<Graphics::Renderer> renderer_;
 
-    std::optional<std::unique_ptr<BasicScreen>> _currentScreen;
+    std::optional<std::unique_ptr<BasicScreen>> current_screen_;
 
-    std::shared_ptr<sf::Font> _font = std::make_shared<sf::Font>();
+    std::shared_ptr<sf::Font> font_ = std::make_shared<sf::Font>();
 
-    std::shared_ptr<KeybindHandler> _keybindHandler;
+    std::shared_ptr<KeybindHandler> keybind_handler_;
 
-    std::vector<std::weak_ptr<Animation>> _animations;
+    std::vector<std::weak_ptr<Animation>> animations_;
 
     void handleEvents();
 };
