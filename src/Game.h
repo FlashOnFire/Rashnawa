@@ -12,6 +12,7 @@
 #include "audio/MusicManager.h"
 #include "events/KeybindHandler.h"
 #include "graphics/Animations.h"
+#include "storage/OptionsManager.h"
 
 class Game {
 public:
@@ -25,6 +26,8 @@ private:
     std::shared_ptr<dexode::EventBus> _eventBus;
 
     std::shared_ptr<sf::RenderWindow> _window;
+
+    std::shared_ptr<OptionsManager> options_manager_;
 
     std::shared_ptr<Audio::AudioManager> _audioMgr;
     std::unique_ptr<Audio::MusicManager> _musicManager;

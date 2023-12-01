@@ -2,19 +2,30 @@
 #include "objects/Slider.h"
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <iostream>
+#include <utility>
 
-SoundOptions::SoundOptions(std::shared_ptr<sf::Texture> slider_texture,
+#include "../events/Events.h"
+
+SoundOptions::SoundOptions(std::shared_ptr<OptionsManager> options_manager,
+                           std::shared_ptr<sf::Texture> slider_texture,
                            std::shared_ptr<sf::Texture> slider_knob_texture)
-    : slider_texture_(std::move(slider_texture)), slider_knob_texture_(std::move(slider_knob_texture)) {
-    components_.push_back(std::make_unique<Slider>(slider_texture_, slider_knob_texture_, [](const float value) {
-        std::cout << "value: " << value << std::endl;
-    }, 1));
-    components_.push_back(std::make_unique<Slider>(slider_texture_, slider_knob_texture_, [](const float value) {
-        std::cout << "value: " << value << std::endl;
-    }, 0.25));
-    components_.push_back(std::make_unique<Slider>(slider_texture_, slider_knob_texture_, [](const float value) {
-        std::cout << "value: " << value << std::endl;
-    }, 0.5));
+    : options_manager_(std::move(options_manager)), slider_texture_(std::move(slider_texture)),
+      slider_knob_texture_(std::move(slider_knob_texture)) {
+    components_.push_back(std::make_unique<Slider>(slider_texture_, slider_knob_texture_, [this](const float value) {
+        std::cout << "master volume value: " << value << std::endl;
+        options_manager_->setSoundOption(SoundOptionType::MASTER_VOLUME, GenericOption(value));
+    }, options_manager_->getSoundOption(SoundOptionType::MASTER_VOLUME)._float));
+
+    components_.push_back(std::make_unique<Slider>(slider_texture_, slider_knob_texture_, [this](const float value) {
+        std::cout << "music volume value: " << value << std::endl;
+        options_manager_->setSoundOption(SoundOptionType::MUSIC_VOLUME, GenericOption(value));
+    }, options_manager_->getSoundOption(SoundOptionType::MUSIC_VOLUME)._float));
+
+    components_.push_back(std::make_unique<Slider>(slider_texture_, slider_knob_texture_, [this](const float value) {
+        std::cout << "effects volume value: " << value << std::endl;
+        options_manager_->setSoundOption(SoundOptionType::EFFECTS_VOLUME, GenericOption(value));
+    }, options_manager_->getSoundOption(SoundOptionType::EFFECTS_VOLUME)._float));
+
     components_.push_back(std::make_unique<Slider>(slider_texture_, slider_knob_texture_, [](const float value) {
         std::cout << "value: " << value << std::endl;
     }, 1));

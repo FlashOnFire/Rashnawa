@@ -7,6 +7,7 @@
 #include "../screens/Screens.h"
 #include "Keybinds.h"
 #include "../graphics/Animations.h"
+#include "../storage/options/OptionDataStructs.h"
 
 namespace Events {
     struct CloseGame {
@@ -27,6 +28,18 @@ namespace Events {
     struct AnimationCreated {
         std::weak_ptr<Animation> animation;
     };
+
+    namespace Options {
+        struct SoundOptionChangeEvent {
+            SoundOptionType type;
+            GenericOption value;
+        };
+
+        struct GraphicsOptionChangeEvent {
+            SoundOptionType type;
+            GenericOption value;
+        };
+    }
 }
 
 

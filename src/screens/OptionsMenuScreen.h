@@ -4,15 +4,15 @@
 
 #include "objects/BasicScreen.h"
 #include "dexode/EventBus.hpp"
-#include "../audio/AudioManager.h"
 #include "objects/Slider.h"
 #include "objects/OptionsCategory.h"
 #include "objects/Button.h"
-#include "../graphics/Animations.h"
+#include "../storage/OptionsManager.h"
 
 class OptionsMenuScreen : public BasicScreen {
 public:
-    explicit OptionsMenuScreen(std::shared_ptr<dexode::EventBus> eventBus, std::shared_ptr<sf::Font> font,
+    explicit OptionsMenuScreen(std::shared_ptr<dexode::EventBus> eventBus,
+                               std::shared_ptr<OptionsManager> options_manager, std::shared_ptr<sf::Font> font,
                                const sf::Vector2<unsigned int>& windowSize);
 
     void onMouseMove(const sf::Event::MouseMoveEvent& event) override;
@@ -27,6 +27,7 @@ public:
 
 private:
     const std::shared_ptr<dexode::EventBus> event_bus_;
+    const std::shared_ptr<OptionsManager> options_manager_;
 
     std::unique_ptr<dexode::EventBus::Listener> event_listener_;
 

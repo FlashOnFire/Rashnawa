@@ -69,6 +69,5 @@ add_executable(Rashnawa
         src/graphics/Animations.cpp
         src/storage/OptionsManager.h
         src/storage/OptionsManager.cpp
-        src/storage/options/SoundOptions.cpp
-        src/storage/options/SoundOptions.h
+        src/storage/options/OptionDataStructs.h
 )

@@ -11,8 +11,10 @@ Game::Game() {
     _window = std::make_shared<sf::RenderWindow>(sf::VideoMode(1920, 1080), "Rashnawa");
     _window->setFramerateLimit(240);
 
+    options_manager_ = std::make_shared<OptionsManager>(_eventBus);
+
     _audioMgr = std::make_shared<Audio::AudioManager>();
-    _musicManager = std::make_unique<Audio::MusicManager>(_eventBus, _audioMgr);
+    _musicManager = std::make_unique<Audio::MusicManager>(_eventBus, _audioMgr, options_manager_);
 
     _renderer = std::make_unique<Graphics::Renderer>(_window);
 
@@ -22,8 +24,7 @@ Game::Game() {
     _audioMgr->loadBank("../assets/audio/Master.bank");
     _audioMgr->loadBank("../assets/audio/Master.strings.bank");
 
-    _eventBus->postpone<Events::ChangeScreen>({.from =  Screens::None, .to =  Screens::MainMenu});
-
+    _eventBus->postpone<Events::ChangeScreen>({.from = Screens::None, .to = Screens::MainMenu});
 
     if (!_font->loadFromFile("../assets/fonts/Unitblock.ttf")) {
         std::cout << "Error: can't load font!" << std::endl;
@@ -38,10 +39,10 @@ void Game::run() {
     });
 
     dexode::EventBus::Listener changeScreenListener{_eventBus};
-    changeScreenListener.listen<Events::ChangeScreen>([this](const Events::ChangeScreen &e) {
+    changeScreenListener.listen<Events::ChangeScreen>([this](const Events::ChangeScreen& e) {
         switch (e.to) {
-            using
-            enum Screens;
+                using
+                        enum Screens;
 
             case None:
                 _currentScreen.reset();
@@ -50,13 +51,14 @@ void Game::run() {
                 _currentScreen = std::make_unique<MainMenuScreen>(_eventBus, _font);
                 break;
             case OptionsMenu:
-                _currentScreen = std::make_unique<OptionsMenuScreen>(_eventBus, _font, _window->getSize());
+                _currentScreen = std::make_unique<OptionsMenuScreen>(_eventBus, options_manager_, _font,
+                                                                     _window->getSize());
                 break;
         }
     });
 
     dexode::EventBus::Listener AnimationCreated{_eventBus};
-    AnimationCreated.listen<Events::AnimationCreated>([this](const Events::AnimationCreated &event) {
+    AnimationCreated.listen<Events::AnimationCreated>([this](const Events::AnimationCreated& event) {
         _animations.push_back(event.animation);
     });
 

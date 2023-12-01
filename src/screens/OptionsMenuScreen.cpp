@@ -6,8 +6,10 @@
 
 #include <utility>
 
-OptionsMenuScreen::OptionsMenuScreen(std::shared_ptr<dexode::EventBus> eventBus, std::shared_ptr<sf::Font> font,
+OptionsMenuScreen::OptionsMenuScreen(std::shared_ptr<dexode::EventBus> eventBus,
+                                     std::shared_ptr<OptionsManager> options_manager, std::shared_ptr<sf::Font> font,
                                      const sf::Vector2<unsigned int>& windowSize) : BasicScreen(std::move(font)),
+    options_manager_(std::move(options_manager)),
     event_bus_(std::move(eventBus)) {
     if (!background_texture_->loadFromFile("../assets/menu/new_background.png")) {
         std::cout << "Can't load menu background backgroundTexture from file";
@@ -93,7 +95,7 @@ OptionsMenuScreen::OptionsMenuScreen(std::shared_ptr<dexode::EventBus> eventBus,
                 std::cout << "clicked" << std::endl;
             }).build();
 
-    current_option_category_ = std::make_unique<SoundOptions>(slider_texture_, slider_knob_texture_);
+    current_option_category_ = std::make_unique<SoundOptions>(options_manager_, slider_texture_, slider_knob_texture_);
 
     updateComponentsTransform(windowSize);
 
