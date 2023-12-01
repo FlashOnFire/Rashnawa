@@ -55,17 +55,18 @@ OptionsMenuScreen::OptionsMenuScreen(std::shared_ptr<dexode::EventBus> eventBus,
 
     options_background_.setTexture(options_background_texture_.get());
 
-    auto buttonSize = sf::Vector2i((int) buttons_background_texture_->getSize().x,
-                                   (int) buttons_background_texture_->getSize().y / 3);
+    const auto button_size = sf::Vector2i(static_cast<int>(buttons_background_texture_->getSize().x),
+                                          static_cast<int>(buttons_background_texture_->getSize().y) / 3);
 
-    auto buttonNormalCoords = sf::Vector2i(0, 0);
-    auto buttonHoveredCoords = sf::Vector2i(0, (int) buttons_background_texture_->getSize().y / 3);
-    auto buttonClickedCoords = sf::Vector2i(0, ((int) buttons_background_texture_->getSize().y) * 2 / 3);
+    const auto button_normal_coords = sf::Vector2i(0, 0);
+    const auto button_hovered_coords = sf::Vector2i(0, static_cast<int>(buttons_background_texture_->getSize().y) / 3);
+    const auto button_clicked_coords = sf::Vector2i(
+        0, static_cast<int>(buttons_background_texture_->getSize().y) * 2 / 3);
 
     sound_category_background_button_ = ButtonBuilder()
-            .backgroundTexture(buttons_background_texture_, buttonNormalCoords, buttonSize)
-            .hoverBackgroundTexCoords(buttonHoveredCoords, buttonSize)
-            .clickedBackgroundTexCoords(buttonClickedCoords, buttonSize)
+            .backgroundTexture(buttons_background_texture_, button_normal_coords, button_size)
+            .hoverBackgroundTexCoords(button_hovered_coords, button_size)
+            .clickedBackgroundTexCoords(button_clicked_coords, button_size)
             .foregroundTexture(buttons_foreground_texture_)
             .animation(event_bus_, "button", 0, 1, 2)
             .callback([]() {
@@ -73,9 +74,9 @@ OptionsMenuScreen::OptionsMenuScreen(std::shared_ptr<dexode::EventBus> eventBus,
             }).build();
 
     graphics_category_background_button_ = ButtonBuilder()
-            .backgroundTexture(buttons_background_texture_, buttonNormalCoords, buttonSize)
-            .hoverBackgroundTexCoords(buttonHoveredCoords, buttonSize)
-            .clickedBackgroundTexCoords(buttonClickedCoords, buttonSize)
+            .backgroundTexture(buttons_background_texture_, button_normal_coords, button_size)
+            .hoverBackgroundTexCoords(button_hovered_coords, button_size)
+            .clickedBackgroundTexCoords(button_clicked_coords, button_size)
             .foregroundTexture(buttons_foreground_texture_)
             .animation(event_bus_, "button", 3, 4, 5)
             .callback([]() {
@@ -83,9 +84,9 @@ OptionsMenuScreen::OptionsMenuScreen(std::shared_ptr<dexode::EventBus> eventBus,
             }).build();
 
     other_category_background_button_ = ButtonBuilder()
-            .backgroundTexture(buttons_background_texture_, buttonNormalCoords, buttonSize)
-            .hoverBackgroundTexCoords(buttonHoveredCoords, buttonSize)
-            .clickedBackgroundTexCoords(buttonClickedCoords, buttonSize)
+            .backgroundTexture(buttons_background_texture_, button_normal_coords, button_size)
+            .hoverBackgroundTexCoords(button_hovered_coords, button_size)
+            .clickedBackgroundTexCoords(button_clicked_coords, button_size)
             .foregroundTexture(buttons_foreground_texture_)
             .animation(event_bus_, "button", 6, 7, 8)
             .callback([]() {
@@ -108,15 +109,17 @@ void OptionsMenuScreen::updateComponentsTransform(const sf::Vector2<unsigned int
     background_.setSize(sf::Vector2f(windowSize));
 
     title_text_.setPosition(
-        (float) windowSize.x / 2.0f - title_text_.getLocalBounds().width / 2.0f - title_text_.getLocalBounds().left,
-        (float) windowSize.y / 10.0f - title_text_.getLocalBounds().height / 2.0f - title_text_.getLocalBounds().top);
+        static_cast<float>(windowSize.x) / 2.0f - title_text_.getLocalBounds().width / 2.0f - title_text_.
+        getLocalBounds().left,
+        static_cast<float>(windowSize.y) / 10.0f - title_text_.getLocalBounds().height / 2.0f - title_text_.
+        getLocalBounds().top);
 
 
-    const auto optionsBackgroundPosX = (float) windowSize.x * (0.1f + 0.1f + 0.05f);
-    const auto optionsBackgroundPosY = (float) windowSize.y * 0.2f;
+    const auto optionsBackgroundPosX = static_cast<float>(windowSize.x) * (0.1f + 0.1f + 0.05f);
+    const auto optionsBackgroundPosY = static_cast<float>(windowSize.y) * 0.2f;
 
-    const auto optionsBackgroundSizeX = (float) windowSize.x * 0.65f;
-    const auto optionsBackgroundSizeY = (float) windowSize.y * (1.0f - 0.2f - 0.1f);
+    const auto optionsBackgroundSizeX = static_cast<float>(windowSize.x) * 0.65f;
+    const auto optionsBackgroundSizeY = static_cast<float>(windowSize.y) * (1.0f - 0.2f - 0.1f);
 
     options_background_.setPosition(optionsBackgroundPosX, optionsBackgroundPosY);
     options_background_.setSize(sf::Vector2f(optionsBackgroundSizeX, optionsBackgroundSizeY));
@@ -124,11 +127,11 @@ void OptionsMenuScreen::updateComponentsTransform(const sf::Vector2<unsigned int
     current_option_category_->setTransform(sf::Vector2f(optionsBackgroundPosX, optionsBackgroundPosY),
                                            sf::Vector2f(optionsBackgroundSizeX, optionsBackgroundSizeY));
 
-    const auto buttonCategoriesPosX = (float) windowSize.x * 0.1f;
-    const auto buttonCategoriesPosY = (float) windowSize.y * 0.2f;
+    const auto buttonCategoriesPosX = static_cast<float>(windowSize.x) * 0.1f;
+    const auto buttonCategoriesPosY = static_cast<float>(windowSize.y) * 0.2f;
 
-    const auto buttonCategoriesSize = (float) windowSize.x * 0.1f;
-    const auto betweenCategoryButtonsGap = (float) windowSize.x * 0.02f;
+    const auto buttonCategoriesSize = static_cast<float>(windowSize.x) * 0.1f;
+    const auto betweenCategoryButtonsGap = static_cast<float>(windowSize.x) * 0.02f;
 
     sound_category_background_button_->setTransform(sf::Vector2f(buttonCategoriesPosX, buttonCategoriesPosY),
                                                     sf::Vector2f(buttonCategoriesSize, buttonCategoriesSize));
