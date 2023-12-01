@@ -67,4 +67,8 @@ add_executable(Rashnawa
         src/screens/objects/ButtonBuilder.h
         src/graphics/Animations.h
         src/graphics/Animations.cpp
+        src/storage/OptionsManager.h
+        src/storage/OptionsManager.cpp
+        src/storage/options/SoundOptions.cpp
+        src/storage/options/SoundOptions.h
 )

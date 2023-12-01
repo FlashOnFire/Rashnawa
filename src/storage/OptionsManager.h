@@ -2,11 +2,12 @@
 #define RASHNAWA_OPTIONSSTATE_H
 
 
-class OptionsState {
+class OptionsManager {
 public:
 
-private:
 
+private:
+    //SoundOptions sound_options_;
 };
 
 
