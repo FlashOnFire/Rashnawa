@@ -1,66 +1,61 @@
 #include "AudioManager.h"
 #include <iostream>
 
+#include "Utils.hpp"
+
 namespace Audio {
     AudioManager::AudioManager() {
-        FMOD::Studio::System* sys;
-        FMOD::Studio::System::create(&sys);
-
-        system_.reset(sys, [](FMOD::Studio::System* system) {
-            system->release();
-        });
+        FMOD_Studio_System_Create(&system_, FMOD_VERSION);
 
         std::cout << "Created AudioManager!" << std::endl;
     }
 
+    AudioManager::~AudioManager() {
+        FMOD_Studio_System_Release(system_);
+    }
+
     void AudioManager::initialize() {
-        ErrCheck(system_->initialize(512, FMOD_STUDIO_INIT_NORMAL, FMOD_INIT_NORMAL, nullptr));
+        ErrCheck(FMOD_Studio_System_Initialize(system_, 512, FMOD_STUDIO_INIT_NORMAL, FMOD_INIT_NORMAL, nullptr));
     }
 
     void AudioManager::update() const {
-        system_->update();
+        FMOD_Studio_System_Update(system_);
     }
 
-    std::weak_ptr<FMOD::Studio::Bank> AudioManager::loadBank(const std::string& path) {
-        FMOD::Studio::Bank* bank;
-        ErrCheck(system_->loadBankFile(path.c_str(), FMOD_STUDIO_LOAD_BANK_NORMAL, &bank));
+    std::weak_ptr<FMOD_STUDIO_BANK> AudioManager::loadBank(const std::string& path) {
+        FMOD_STUDIO_BANK* bank;
+        ErrCheck(FMOD_Studio_System_LoadBankFile(system_, path.c_str(), FMOD_STUDIO_LOAD_BANK_NORMAL, &bank));
 
-        std::shared_ptr<FMOD::Studio::Bank> bankPtr(bank, [](FMOD::Studio::Bank* b) {
-            b->unload();
+        std::shared_ptr<FMOD_STUDIO_BANK> bankPtr(bank, [](FMOD_STUDIO_BANK* b) {
+            FMOD_Studio_Bank_Unload(b);
         });
 
         banks_.push_back(bankPtr);
         return bankPtr;
     }
 
-    std::weak_ptr<FMOD::Studio::System> AudioManager::getSystem() const {
-        return system_;
-    }
-
     std::unique_ptr<EventInstance>
     AudioManager::createEventInstance(const std::string& path) {
-        FMOD::Studio::EventInstance* instance;
-        getEventDescription(path).lock()->createInstance(&instance);
-        std::unique_ptr<FMOD::Studio::EventInstance, EventInstanceDeleter> ptr_instance(
-            instance, EventInstanceDeleter());
+        FMOD_STUDIO_EVENTINSTANCE* instance;
+        FMOD_Studio_EventDescription_CreateInstance(getEventDescription(path).lock().get(), &instance);
 
-        return std::make_unique<Audio::EventInstance>(std::move(ptr_instance));
+        return std::make_unique<Audio::EventInstance>(instance);
     }
 
-    std::weak_ptr<FMOD::Studio::EventDescription> AudioManager::getEventDescription(const std::string& path) {
+    std::weak_ptr<FMOD_STUDIO_EVENTDESCRIPTION> AudioManager::getEventDescription(const std::string& path) {
         if (!event_descriptions_.contains(path)) {
-            FMOD::Studio::EventDescription* event;
+            FMOD_STUDIO_EVENTDESCRIPTION* event;
 
-            ErrCheck(system_->getEvent(path.c_str(), &event));
+            ErrCheck(FMOD_Studio_System_GetEvent(system_, path.c_str(), &event));
 
-            if (!event->isValid()) {
+            if (!FMOD_Studio_EventDescription_IsValid(event)) {
                 std::cout << "AudioManager Error! (Invalid EventDescription for event " << path << ")" << std::endl;
                 exit(EXIT_FAILURE);
             }
 
-            auto event_ptr = std::shared_ptr<FMOD::Studio::EventDescription>(event,
-                                                                             [](FMOD::Studio::EventDescription* evt) {
-                                                                                 evt->releaseAllInstances();
+            auto event_ptr = std::shared_ptr<FMOD_STUDIO_EVENTDESCRIPTION>(event,
+                                                                             [](FMOD_STUDIO_EVENTDESCRIPTION* evt) {
+                                                                                 FMOD_Studio_EventDescription_ReleaseAllInstances(evt);
                                                                              });
 
             event_descriptions_.insert(std::pair(path, event_ptr));

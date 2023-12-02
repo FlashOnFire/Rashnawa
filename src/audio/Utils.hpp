@@ -1,19 +1,10 @@
 #ifndef RASHNAWA_AUDIO_UTILS_HPP
 #define RASHNAWA_AUDIO_UTILS_HPP
 
-#include "FMOD/fmod_studio.hpp"
+#include "FMOD/fmod_studio.h"
 #include <iostream>
 
 namespace Audio {
-    struct EventInstanceDeleter {
-        void operator()(FMOD::Studio::EventInstance* p) const {
-            p->stop(FMOD_STUDIO_STOP_MODE::FMOD_STUDIO_STOP_ALLOWFADEOUT);
-            p->release();
-
-            std::cout << "Destroyed audio event instance" << std::endl;
-        }
-    };
-
     static void ErrCheck(FMOD_RESULT result) {
         if (result != FMOD_OK) {
             std::cout << "FMOD error! (" << result << ")" << std::endl;

@@ -1,16 +1,16 @@
 #ifndef RASHNAWA_AUDIO_EVENTINSTANCE_H
 #define RASHNAWA_AUDIO_EVENTINSTANCE_H
 
-#include "FMOD/fmod_studio.hpp"
 #include <string>
 #include <memory>
-#include "Utils.hpp"
+#include <FMOD/fmod_studio_common.h>
 
 namespace Audio {
-
     class EventInstance {
     public:
-        explicit EventInstance(std::unique_ptr<FMOD::Studio::EventInstance, EventInstanceDeleter>);
+        explicit EventInstance(FMOD_STUDIO_EVENTINSTANCE* instance);
+
+        ~EventInstance();
 
         void start();
 
@@ -50,13 +50,13 @@ namespace Audio {
         /** Skipped 3D attributes and functions since we are in a 2D game  **/
         /********************************************************************/
 
-        float getParameterByName(const std::string &name) const;
+        [[nodiscard]] float getParameterByName(const std::string& name) const;
 
-        void setParameterByName(const std::string &name, float value, bool ignoreSeekSpeed);
+        void setParameterByName(const std::string& name, float value, bool ignoreSeekSpeed);
 
-        void setParameterByNameWithLabel(const std::string &name, const std::string &label, bool ignoreSeekSpeed);
+        void setParameterByNameWithLabel(const std::string& name, const std::string& label, bool ignoreSeekSpeed);
 
-        [[nodiscard]] std::shared_ptr<FMOD::ChannelGroup> getChannelGroup() const;
+        [[nodiscard]] std::shared_ptr<FMOD_CHANNELGROUP> getChannelGroup() const;
 
         [[nodiscard]] float getReverbLevel(int index) const;
 
@@ -65,12 +65,11 @@ namespace Audio {
         // two values, must create a struct for this : void getCPUUsage(int *exclusive, int *inclusive) const;
         [[nodiscard]] FMOD_STUDIO_MEMORY_USAGE getMemoryUsage() const;
 
-        bool isValid() const;
+        [[nodiscard]] bool isValid() const;
 
     private:
-        std::unique_ptr<FMOD::Studio::EventInstance, EventInstanceDeleter> instance_;
+        FMOD_STUDIO_EVENTINSTANCE* instance_;
     };
-
 } // Audio
 
 #endif //RASHNAWA_AUDIO_EVENTINSTANCE_H
