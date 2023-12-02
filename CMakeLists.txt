@@ -10,7 +10,7 @@ if (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
     link_directories(lib_windows)
 elseif (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
     link_directories(lib_linux)
-    set(CMAKE_BUILD_RPATH "./lib_linux")
+    set(CMAKE_BUILD_RPATH "lib_linux:../lib_linux:.")
 endif ()
 
 link_libraries(sfml-graphics sfml-window sfml-system fmod fmodstudio)
