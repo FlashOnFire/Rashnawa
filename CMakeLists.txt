@@ -70,4 +70,5 @@ add_executable(Rashnawa
         src/storage/OptionsManager.h
         src/storage/OptionsManager.cpp
         src/storage/options/OptionDataStructs.h
+        src/entities/items/Item.cpp
 )

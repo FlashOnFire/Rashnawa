@@ -9,7 +9,7 @@ class Hitbox {
 public:
     Hitbox(int x, int y, int dx, int dy);
 private:
-    sf::IntRect _square;
+    sf::IntRect square_;
 };
 
 

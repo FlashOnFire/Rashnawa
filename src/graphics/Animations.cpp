@@ -2,12 +2,20 @@
 #include <fstream>
 #include <cassert>
 
-Animation::Animation(const std::string& fileName,
+
+Animation::Animation() {
+    frames_per_timeline_ = std::vector<unsigned int> ();
+    size_ = sf::Vector2i(0, 0);
+    frame_time_ = 0;
+    nb_frames_ = 0;
+}
+
+Animation::Animation(const std::string& file_name,
                      const std::function<void(sf::Vector2i coords, sf::Vector2i size)>& callback) {
-    std::ifstream file("../assets/animations/" + fileName + ".txt");
+    std::ifstream file("../assets/animations/" + file_name + ".txt");
 
     if (!file.is_open()) {
-        std::cout << "cannot open file " << fileName << std::endl;
+        std::cout << "cannot open file " << file_name << std::endl;
         return;
     }
 
@@ -38,7 +46,7 @@ Animation::Animation(const std::string& fileName,
 
     total_animation_time_ = frame_time_ * frames_per_timeline_.at(current_timeline_);
 
-    _callback = callback;
+    callback_ = callback;
 
     triggerCallback(); //To set correctly the first frame
 }
@@ -79,7 +87,7 @@ void Animation::update(int deltaTime) {
 }
 
 void Animation::triggerCallback() const {
-    _callback(sf::Vector2i(static_cast<int>(current_frame_) * size_.x, static_cast<int>(current_timeline_) * size_.y),
+    callback_(sf::Vector2i(static_cast<int>(current_frame_) * size_.x, static_cast<int>(current_timeline_) * size_.y),
               size_);
 }
 
@@ -90,3 +98,4 @@ unsigned int Animation::getTimeline() const {
 bool Animation::paused() const {
     return paused_;
 }
+
