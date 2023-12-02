@@ -27,6 +27,8 @@ Animation::Animation(const std::string& fileName,
     std::getline(file, line);
     nb_frames_ = std::stoi(line);
 
+    std::getline(file, line);
+
     int i = 0;
     while (!file.eof() && (i < nb_frames_)) {
         std::getline(file, line);

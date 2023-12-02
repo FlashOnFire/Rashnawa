@@ -4,8 +4,8 @@
 
 class Entity {
 private:
-    float x_;
-    float y_;
+    float _x;
+    float _y;
 public:
     Entity(float x, float y);
 

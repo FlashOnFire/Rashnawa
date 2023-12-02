@@ -2,8 +2,14 @@
 #define RASHNAWA_HITBOX_H
 
 
-class Hitbox {
+#include <SFML/System/Vector2.hpp>
+#include <SFML/Graphics/Rect.hpp>
 
+class Hitbox {
+public:
+    Hitbox(int x, int y, int dx, int dy);
+private:
+    sf::IntRect _square;
 };
 
 
