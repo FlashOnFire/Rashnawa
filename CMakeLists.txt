@@ -6,8 +6,12 @@ set(CMAKE_CXX_STANDARD 20)
 include_directories(/usr/include)
 include_directories(./inc)
 
-link_directories(/usr/lib)
-link_directories(./lib)
+if (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
+    link_directories(lib_windows)
+elseif (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+    link_directories(lib_linux)
+    set(CMAKE_BUILD_RPATH "./lib_linux")
+endif ()
 
 link_libraries(sfml-graphics sfml-window sfml-system fmod fmodstudio)
 
