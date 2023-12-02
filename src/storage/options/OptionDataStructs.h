@@ -28,5 +28,10 @@ union GenericOption {
     bool _bool;
 };
 
+struct OptionsSnapshot {
+    SoundOptionData sound;
+    GraphicsOptionsData graphics;
+};
+
 
 #endif //OPTIONDATASTRUCTS_H

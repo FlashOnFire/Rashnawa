@@ -5,10 +5,15 @@
 
 #include "options/OptionDataStructs.h"
 
+const std::string OPTIONS_FILE_NAME = "options.txt";
 
 class OptionsManager {
 public:
     explicit OptionsManager(std::shared_ptr<dexode::EventBus> event_bus);
+
+    void loadOptionsSnapshot();
+
+    void saveOptionsSnapshot() const;
 
     [[nodiscard]] SoundOptionData getSoundOptions() const;
 
@@ -24,11 +29,14 @@ public:
 
     void setGraphicsOptionsData(const GraphicsOptionsData& graphics_options_data);
 
+    [[nodiscard]] OptionsSnapshot getOptionsSnapshot() const;
+
+    void setOptionsSnapshot(const OptionsSnapshot& options_snapshot);
+
 private:
     std::shared_ptr<dexode::EventBus> event_bus_;
 
-    SoundOptionData sound_options_;
-    GraphicsOptionsData graphics_options_;
+    OptionsSnapshot options_snapshot_;
 };
 
 

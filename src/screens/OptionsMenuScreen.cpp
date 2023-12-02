@@ -101,6 +101,8 @@ OptionsMenuScreen::OptionsMenuScreen(std::shared_ptr<dexode::EventBus> eventBus,
 
     event_listener_ = std::make_unique<dexode::EventBus::Listener>(event_bus_);
     event_listener_->listen<Events::EscapeBtn>([this](const Events::EscapeBtn) {
+        options_manager_->saveOptionsSnapshot();
+
         event_bus_->postpone<Events::ChangeScreen>({.from = Screens::OptionsMenu, .to = Screens::MainMenu});
     });
 

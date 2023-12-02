@@ -70,7 +70,7 @@ void Slider::onMouseMove(const sf::Event::MouseMoveEvent& event) {
                 ((static_cast<float>(event.x) - slider_knob_.getSize().x * scale_ * 0.5f) - min_knob_x_)
                 / (max_knob_x_ - min_knob_x_);
 
-        value_ = std::clamp(invLerp, 0.0f, 1.0f);
+        value_ = std::round(std::clamp(invLerp, 0.0f, 1.0f) * 100.0f) / 100.0f;
         updateKnobPlacement();
 
         callback_(value_);
