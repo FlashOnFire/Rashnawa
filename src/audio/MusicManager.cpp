@@ -17,13 +17,19 @@ namespace Audio {
                 music_instance_->setVolume(options_manager_->getSoundOption(SoundOptionType::MUSIC_VOLUME)._float);
                 music_instance_->start();
             } else if (e.to == None) {
-                music_instance_->stop(FMOD_STUDIO_STOP_MODE::FMOD_STUDIO_STOP_ALLOWFADEOUT);
+                music_instance_->stop(FMOD_STUDIO_STOP_ALLOWFADEOUT);
             }
 
             if (e.to == OptionsMenu) {
                 music_instance_->setParameterByName("midhigh", 0, false);
             } else if (e.to == MainMenu) {
                 music_instance_->setParameterByName("midhigh", 1, false);
+            }
+
+            if (e.to == None) {
+                music_instance_ = audio_manager_->createEventInstance("event:/unknoawedplez");
+                music_instance_->setVolume(options_manager_->getSoundOption(SoundOptionType::MUSIC_VOLUME)._float);
+                music_instance_->start();
             }
         });
 
