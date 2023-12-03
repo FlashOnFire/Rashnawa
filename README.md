@@ -53,6 +53,8 @@ cd cmake-build-release
 make
 ```
 
+Et ``./Rashnawa`` pour lancer le programme
+
 ### Sous Windows :
 
 ```bash
@@ -60,6 +62,8 @@ cmake -G "MinGW Makefiles" -B cmake-build-release
 cd cmake-build-release
 make
 ```
+
+Et ``Rashnawa.exe`` pour lancer le programme
 
 Suivant les installations, il faudra peut être adapter légèrement les commandes (par exemple utiliser ``mingw32-make`` au lieu de ``make``)
 
