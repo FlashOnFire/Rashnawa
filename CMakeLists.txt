@@ -8,6 +8,7 @@ include_directories(./inc)
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
     link_directories(lib_windows)
+    set(CMAKE_EXE_LINKER_FLAGS "-static-libgcc -static-libstdc++")
 elseif (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
     link_directories(lib_linux)
     set(CMAKE_BUILD_RPATH "lib_linux:../lib_linux:.")
