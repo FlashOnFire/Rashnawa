@@ -35,10 +35,10 @@ Le repo se divise en plusieurs dossiers correspondant aux différentes parties d
 
 Le dossier assets contient plusieurs sous-dossiers :
 
-- ``animations`` contient les fichiers représentant les différentes animations
+- ``assets/animations`` contient les fichiers représentant les différentes animations
   (//TODO expliquer qu'est ce qu'il y a à chaque ligne)
-- ``audio`` contient les assets audio
-- ``fonts`` contient les polices utilisées pour le texte du jeu
+- ``assets/audio`` contient les assets audio
+- ``assets/fonts`` contient les polices utilisées pour le texte du jeu
 - //TODO finir de dire tout ce qu'il y a
 
 ## Compilation
