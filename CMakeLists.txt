@@ -3,13 +3,23 @@ project(Rashnawa)
 
 set(CMAKE_CXX_STANDARD 20)
 
-include_directories(/usr/include)
 include_directories(./inc)
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
     link_directories(lib_windows)
-    set(CMAKE_EXE_LINKER_FLAGS "-static-libgcc -static-libstdc++")
+    set(CMAKE_EXE_LINKER_FLAGS "-static-libgcc -static-libstdc++ -mwindows")
+
+    cmake_path(GET CMAKE_CXX_COMPILER PARENT_PATH PARENT_DIR)
+    file(GLOB WINDOWS_DLLS
+            "lib_windows/*.dll"
+            "${PARENT_DIR}/*.dll"
+    )
+
+    message("${WINDOWS_DLLS}")
+    message("dfgfd")
+    file( COPY ${WINDOWS_DLLS} DESTINATION "${cmake-build-debug}/" )
 elseif (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+    include_directories(/usr/include)
     link_directories(lib_linux)
     set(CMAKE_BUILD_RPATH "lib_linux:../lib_linux:.")
 endif ()
