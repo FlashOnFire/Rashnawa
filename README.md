@@ -61,7 +61,8 @@ cd cmake-build-release
 make
 ```
 
-Suivant les installations, il faudrait peut être utiliser ``mingw32-make`` au lieu de ``make``
+Suivant les installations, il faudra peut être adapter légèrement les commandes (par exemple utiliser ``mingw32-make`` au lieu de ``make``)
+
 > Nous avons fait au mieux pour inclure les shared libraries nécéssaires au fonctionnement du programme (fichiers .dll)
 > dans le dossier de build. Les dll liés aux bibliothèques que nous utilisons sont correctement copiés mais il se peut que
 > ceux de la lib C++ ne se copient pas correctement si vous avez un compilateur différent du notre (MinGW). Dans ce cas,
