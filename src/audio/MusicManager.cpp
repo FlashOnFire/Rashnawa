@@ -1,4 +1,5 @@
 #include "MusicManager.h"
+
 #include "../events/Events.h"
 
 namespace Audio {
@@ -30,6 +31,21 @@ namespace Audio {
                 music_instance_ = audio_manager_->createEventInstance("event:/unknoawedplez");
                 music_instance_->setVolume(options_manager_->getSoundOption(SoundOptionType::MUSIC_VOLUME)._float);
                 music_instance_->start();
+
+                audio_manager_->update();
+
+                while (music_instance_->getPlaybackState() != FMOD_STUDIO_PLAYBACK_PLAYING) {
+                }
+
+                music_instance_->setTimelinePosition(30000);
+                music_instance_->setParameterByName("drum1", 1.0);
+                music_instance_->setParameterByName("drum2", 1.0);
+                music_instance_->setParameterByName("drum3", 1.0);
+                music_instance_->setParameterByName("drum4", 1.0);
+                music_instance_->setParameterByName("bass", 1.0);
+                music_instance_->setParameterByName("acc", 1.0);
+                music_instance_->setParameterByName("attack", 1.0);
+                music_instance_->setParameterByName("choeur", 1.0);
             }
         });
 

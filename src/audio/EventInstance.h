@@ -52,7 +52,7 @@ namespace Audio {
 
         [[nodiscard]] float getParameterByName(const std::string& name) const;
 
-        void setParameterByName(const std::string& name, float value, bool ignoreSeekSpeed);
+        void setParameterByName(const std::string& name, float value, bool ignoreSeekSpeed = false);
 
         void setParameterByNameWithLabel(const std::string& name, const std::string& label, bool ignoreSeekSpeed);
 
