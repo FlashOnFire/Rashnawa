@@ -3,6 +3,7 @@
 
 #include <string>
 #include <memory>
+
 #include <FMOD/fmod_studio_common.h>
 
 namespace Audio {
