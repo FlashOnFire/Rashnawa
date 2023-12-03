@@ -11,9 +11,9 @@
 
 class OptionsMenuScreen : public BasicScreen {
 public:
-    explicit OptionsMenuScreen(std::shared_ptr<dexode::EventBus> eventBus,
-                               std::shared_ptr<OptionsManager> options_manager, std::shared_ptr<sf::Font> font,
-                               const sf::Vector2<unsigned int>& windowSize);
+    explicit OptionsMenuScreen(std::shared_ptr<dexode::EventBus> event_bus, std::shared_ptr<sf::Font> font,
+                               std::shared_ptr<OptionsManager> options_manager,
+                               const sf::Vector2<unsigned int>& window_size);
 
     void onMouseMove(const sf::Event::MouseMoveEvent& event) override;
 
@@ -26,10 +26,7 @@ public:
     void render(std::shared_ptr<sf::RenderWindow> window) const override;
 
 private:
-    const std::shared_ptr<dexode::EventBus> event_bus_;
     const std::shared_ptr<OptionsManager> options_manager_;
-
-    std::unique_ptr<dexode::EventBus::Listener> event_listener_;
 
     const std::unique_ptr<sf::Texture> background_texture_ = std::make_unique<sf::Texture>();
 

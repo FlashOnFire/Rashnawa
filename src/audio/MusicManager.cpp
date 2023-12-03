@@ -18,34 +18,30 @@ namespace Audio {
                 music_instance_->setVolume(options_manager_->getSoundOption(SoundOptionType::MUSIC_VOLUME)._float);
                 music_instance_->start();
             } else if (e.to == None) {
-                music_instance_->stop(FMOD_STUDIO_STOP_ALLOWFADEOUT);
-            }
+                if (e.from == PauseMenu) {
+                    audio_manager_->setParameterByName("midhigh", 1, false);
+                } else {
+                    music_instance_ = audio_manager_->createEventInstance("event:/unknoawedplez");
+                    music_instance_->setVolume(options_manager_->getSoundOption(SoundOptionType::MUSIC_VOLUME)._float);
+                    music_instance_->start();
 
-            if (e.to == OptionsMenu) {
-                music_instance_->setParameterByName("midhigh", 0, false);
-            } else if (e.to == MainMenu) {
-                music_instance_->setParameterByName("midhigh", 1, false);
-            }
+                    audio_manager_->update();
 
-            if (e.to == None) {
-                music_instance_ = audio_manager_->createEventInstance("event:/unknoawedplez");
-                music_instance_->setVolume(options_manager_->getSoundOption(SoundOptionType::MUSIC_VOLUME)._float);
-                music_instance_->start();
+                    while (music_instance_->getPlaybackState() != FMOD_STUDIO_PLAYBACK_PLAYING) {
+                    }
 
-                audio_manager_->update();
-
-                while (music_instance_->getPlaybackState() != FMOD_STUDIO_PLAYBACK_PLAYING) {
+                    music_instance_->setTimelinePosition(30000);
+                    music_instance_->setParameterByName("drum1", 1.0);
+                    music_instance_->setParameterByName("drum2", 1.0);
+                    music_instance_->setParameterByName("drum3", 1.0);
+                    music_instance_->setParameterByName("drum4", 1.0);
+                    music_instance_->setParameterByName("bass", 1.0);
+                    music_instance_->setParameterByName("acc", 1.0);
+                    music_instance_->setParameterByName("attack", 1.0);
+                    music_instance_->setParameterByName("choeur", 1.0);
                 }
-
-                music_instance_->setTimelinePosition(30000);
-                music_instance_->setParameterByName("drum1", 1.0);
-                music_instance_->setParameterByName("drum2", 1.0);
-                music_instance_->setParameterByName("drum3", 1.0);
-                music_instance_->setParameterByName("drum4", 1.0);
-                music_instance_->setParameterByName("bass", 1.0);
-                music_instance_->setParameterByName("acc", 1.0);
-                music_instance_->setParameterByName("attack", 1.0);
-                music_instance_->setParameterByName("choeur", 1.0);
+            } else if (e.to == PauseMenu) {
+                audio_manager_->setParameterByName("midhigh", 0, false);
             }
         });
 

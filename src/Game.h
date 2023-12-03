@@ -25,6 +25,8 @@ private:
 
     std::shared_ptr<dexode::EventBus> event_bus_;
 
+    std::unique_ptr<dexode::EventBus::Listener> gamePausedListener_;
+
     std::shared_ptr<sf::RenderWindow> window_;
 
     std::shared_ptr<OptionsManager> options_manager_;

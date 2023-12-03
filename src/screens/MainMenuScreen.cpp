@@ -6,7 +6,7 @@
 #include "objects/ButtonBuilder.h"
 
 MainMenuScreen::MainMenuScreen(std::shared_ptr<dexode::EventBus> event_bus, std::shared_ptr<sf::Font> font)
-    : BasicScreen(std::move(font)), event_bus_(std::move(event_bus)) {
+    : BasicScreen(std::move(event_bus), std::move(font)) {
     if (!background_texture_->loadFromFile("../assets/menu/menu_background2.png")) {
         std::cout << "Can't load menu background backgroundTexture from file";
         exit(EXIT_FAILURE);

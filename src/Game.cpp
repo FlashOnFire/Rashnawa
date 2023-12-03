@@ -4,9 +4,12 @@
 #include "screens/MainMenuScreen.h"
 #include "screens/OptionsMenuScreen.h"
 #include "events/Events.h"
+#include "screens/PauseMenuScreen.h"
 
 Game::Game() {
     event_bus_ = std::make_shared<dexode::EventBus>();
+
+    gamePausedListener_ = std::make_unique<dexode::EventBus::Listener>(event_bus_);
 
     window_ = std::make_shared<sf::RenderWindow>(sf::VideoMode(1920, 1080), "Rashnawa");
     window_->setFramerateLimit(240);
@@ -38,7 +41,7 @@ void Game::run() {
         running_ = false;
     });
 
-    dexode::EventBus::Listener change_screen_listener{event_bus_};
+    dexode::EventBus::Listener change_screen_listener(event_bus_);
     change_screen_listener.listen<Events::ChangeScreen>([this](const Events::ChangeScreen& e) {
         switch (e.to) {
                 using
@@ -46,18 +49,25 @@ void Game::run() {
 
             case None:
                 current_screen_.reset();
+                gamePausedListener_->listen<Events::EscapeBtn>([this](const Events::EscapeBtn&) {
+                    event_bus_->postpone<Events::ChangeScreen>({.from = None, .to = PauseMenu});
+                });
+
                 break;
             case MainMenu:
                 current_screen_ = std::make_unique<MainMenuScreen>(event_bus_, font_);
                 break;
             case OptionsMenu:
-                current_screen_ = std::make_unique<OptionsMenuScreen>(event_bus_, options_manager_, font_,
+                current_screen_ = std::make_unique<OptionsMenuScreen>(event_bus_, font_, options_manager_,
                                                                       window_->getSize());
                 break;
+            case PauseMenu:
+                current_screen_ = std::make_unique<PauseMenuScreen>(event_bus_, font_);
+                gamePausedListener_->unlistenAll();
         }
     });
 
-    dexode::EventBus::Listener animation_created_listener{event_bus_};
+    dexode::EventBus::Listener animation_created_listener(event_bus_);
     animation_created_listener.listen<Events::AnimationCreated>([this](const Events::AnimationCreated& event) {
         animations_.push_back(event.animation);
     });

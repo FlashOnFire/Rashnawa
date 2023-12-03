@@ -6,11 +6,11 @@
 
 #include <utility>
 
-OptionsMenuScreen::OptionsMenuScreen(std::shared_ptr<dexode::EventBus> eventBus,
-                                     std::shared_ptr<OptionsManager> options_manager, std::shared_ptr<sf::Font> font,
-                                     const sf::Vector2<unsigned int>& windowSize) : BasicScreen(std::move(font)),
-    options_manager_(std::move(options_manager)),
-    event_bus_(std::move(eventBus)) {
+OptionsMenuScreen::OptionsMenuScreen(std::shared_ptr<dexode::EventBus> event_bus, std::shared_ptr<sf::Font> font,
+                                     std::shared_ptr<OptionsManager> options_manager,
+                                     const sf::Vector2<unsigned int>& window_size) : BasicScreen(std::move(event_bus),
+        std::move(font)),
+    options_manager_(std::move(options_manager)) {
     if (!background_texture_->loadFromFile("../assets/menu/new_background.png")) {
         std::cout << "Can't load menu background backgroundTexture from file";
         exit(EXIT_FAILURE);
@@ -97,9 +97,8 @@ OptionsMenuScreen::OptionsMenuScreen(std::shared_ptr<dexode::EventBus> eventBus,
 
     current_option_category_ = std::make_unique<SoundOptions>(options_manager_, slider_texture_, slider_knob_texture_);
 
-    updateComponentsTransform(windowSize);
+    updateComponentsTransform(window_size);
 
-    event_listener_ = std::make_unique<dexode::EventBus::Listener>(event_bus_);
     event_listener_->listen<Events::EscapeBtn>([this](const Events::EscapeBtn) {
         options_manager_->saveOptionsSnapshot();
 

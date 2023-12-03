@@ -42,6 +42,10 @@ namespace Audio {
         return std::make_unique<Audio::EventInstance>(instance);
     }
 
+    void AudioManager::setParameterByName(std::string name, float value, bool ignoreSeekSpeed) {
+        ErrCheck(FMOD_Studio_System_SetParameterByName(system_, name.c_str(), value, ignoreSeekSpeed));
+    }
+
     std::weak_ptr<FMOD_STUDIO_EVENTDESCRIPTION> AudioManager::getEventDescription(const std::string& path) {
         if (!event_descriptions_.contains(path)) {
             FMOD_STUDIO_EVENTDESCRIPTION* event;
@@ -54,9 +58,10 @@ namespace Audio {
             }
 
             auto event_ptr = std::shared_ptr<FMOD_STUDIO_EVENTDESCRIPTION>(event,
-                                                                             [](FMOD_STUDIO_EVENTDESCRIPTION* evt) {
-                                                                                 FMOD_Studio_EventDescription_ReleaseAllInstances(evt);
-                                                                             });
+                                                                           [](FMOD_STUDIO_EVENTDESCRIPTION* evt) {
+                                                                               FMOD_Studio_EventDescription_ReleaseAllInstances(
+                                                                                   evt);
+                                                                           });
 
             event_descriptions_.insert(std::pair(path, event_ptr));
 

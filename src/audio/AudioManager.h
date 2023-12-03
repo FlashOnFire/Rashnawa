@@ -23,6 +23,8 @@ namespace Audio {
 
         std::unique_ptr<EventInstance> createEventInstance(const std::string& path);
 
+        void setParameterByName(std::string name, float value, bool ignoreSeekSpeed = false);
+
     private:
         FMOD_STUDIO_SYSTEM* system_;
         std::vector<std::shared_ptr<FMOD_STUDIO_BANK>> banks_;

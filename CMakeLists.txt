@@ -86,4 +86,6 @@ add_executable(Rashnawa
         src/storage/OptionsManager.cpp
         src/storage/options/OptionDataStructs.h
         src/entities/items/Item.cpp
+        src/screens/PauseMenuScreen.cpp
+        src/screens/PauseMenuScreen.h
 )
