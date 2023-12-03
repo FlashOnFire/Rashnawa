@@ -3,7 +3,7 @@ project(Rashnawa)
 
 set(CMAKE_CXX_STANDARD 20)
 
-include_directories(./inc)
+include_directories(include)
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
     link_directories(lib_windows)
@@ -57,7 +57,7 @@ add_executable(Rashnawa
         src/entities/Player.h
         src/entities/weapons/Weapon.h
         src/events/Events.h
-        inc/dexode/EventBus.cpp
+        include/dexode/EventBus.cpp
         src/screens/OptionsMenuScreen.cpp
         src/screens/OptionsMenuScreen.h
         src/audio/MusicManager.cpp
