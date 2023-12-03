@@ -1,5 +1,7 @@
 #include "MusicManager.h"
 
+#include <thread>
+
 #include "../events/Events.h"
 
 namespace Audio {
@@ -28,6 +30,7 @@ namespace Audio {
                     audio_manager_->update();
 
                     while (music_instance_->getPlaybackState() != FMOD_STUDIO_PLAYBACK_PLAYING) {
+                        std::this_thread::sleep_for(std::chrono::milliseconds(15));
                     }
 
                     music_instance_->setTimelinePosition(30000);
