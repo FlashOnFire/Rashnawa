@@ -56,6 +56,10 @@ void Animation::resetTimeline() {
     current_time_ = 0;
 }
 
+bool Animation::paused() const {
+    return paused_;
+}
+
 void Animation::setPaused(bool paused) {
     paused_ = paused;
 }
@@ -94,8 +98,3 @@ void Animation::triggerCallback() const {
 unsigned int Animation::getTimeline() const {
     return current_timeline_;
 }
-
-bool Animation::paused() const {
-    return paused_;
-}
-

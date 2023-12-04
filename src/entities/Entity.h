@@ -17,7 +17,7 @@ private:
     std::unique_ptr<sf::Texture> texture_;
     sf::Sprite sprite_;
 public:
-    Entity(float x, float y, const std::string &name_file);
+    Entity(float x, float y, const std::string &name_file, bool has_animation);
 
     virtual ~Entity();
 
@@ -28,6 +28,10 @@ public:
     [[nodiscard]] float getY() const;
 
     void setY(float y);
+
+    void update(int delta_time);
+
+    void set_paused();
 };
 
 
