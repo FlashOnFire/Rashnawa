@@ -4,6 +4,7 @@
 
 #include <SFML/Graphics/Sprite.hpp>
 #include <memory>
+#include <optional>
 #include "../graphics/Animations.h"
 #include "items/Item.h"
 
@@ -12,12 +13,12 @@ private:
     float x_;
     float y_;
     std::vector<Item> item = std::vector<Item> ();
-    Animation animation_;
+    std::optional<std::unique_ptr<Animation>> animation_;
     std::string name_file_;
     std::unique_ptr<sf::Texture> texture_;
     sf::Sprite sprite_;
 public:
-    Entity(float x, float y, const std::string &name_file, bool has_animation);
+    Entity(float x, float y, const std::string &file_name, bool has_animation);
 
     virtual ~Entity();
 
@@ -31,7 +32,7 @@ public:
 
     void update(int delta_time);
 
-    void set_paused();
+    void set_paused(bool is_paused);
 };
 
 

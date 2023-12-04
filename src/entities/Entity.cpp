@@ -1,18 +1,20 @@
 #include <SFML/Graphics/Texture.hpp>
 #include "Entity.h"
 
-Entity::Entity(float x, float y, const std::string &name_file = "default", bool has_animation = false) {
+Entity::Entity(const float x, const float y, const std::string &file_name = "default", bool has_animation = false) {
     x_ = x;
     y_ = y;
     sprite_.setPosition(x_, y_);
-    if (!texture_->loadFromFile("../assets/sprites/" + name_file + ".png")) {
-        std::cout << "Can't load " << name_file << ".png, You are so disappointed  :(" << std::endl;
-        texture_->loadFromFile("../assets/sprites/default/.png");
+    if (!texture_->loadFromFile("../assets/sprites/" + file_name + ".png")) {
+        std::cout << "Can't load " << file_name << ".png, You are so disappointed  :(" << std::endl;
+        texture_->loadFromFile("../assets/sprites/default.png");
     }
     sprite_.setTexture(*texture_);
-    animation_ = Animation(name_file, [this](const sf::Vector2i coords, const sf::Vector2i size) {
-        sprite_.setTextureRect(sf::IntRect(coords, size));
-    });
+    if (has_animation) {
+        animation_ = std::make_unique<Animation>(file_name, [this](const sf::Vector2i coords, const sf::Vector2i size) {
+            sprite_.setTextureRect(sf::IntRect(coords, size));
+        });
+    }
 }
 
 Entity::~Entity() = default;
@@ -34,11 +36,13 @@ void Entity::setY(const float y) {
 }
 
 void Entity::update(int delta_time) {
-    animation_.update(delta_time);
+    if (animation_.has_value()) {
+        animation_.value()->update(delta_time);
+    }
 }
 
-void Entity::set_paused() {
-    animation_.setPaused(!animation_.paused());
+void Entity::set_paused(const bool is_paused) {
+    if (animation_.has_value()) {
+        animation_.value()->setPaused(is_paused);
+    }
 }
-
-

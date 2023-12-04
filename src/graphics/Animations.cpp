@@ -2,16 +2,8 @@
 #include <fstream>
 #include <cassert>
 
-
-Animation::Animation() {
-    frames_per_timeline_ = std::vector<unsigned int> ();
-    size_ = sf::Vector2i(0, 0);
-    frame_time_ = 0;
-    nb_frames_ = 0;
-}
-
-Animation::Animation(const std::string& file_name,
-                     const std::function<void(sf::Vector2i coords, sf::Vector2i size)>& callback) {
+Animation::Animation(const std::string &file_name,
+                     const std::function<void(sf::Vector2i coords, sf::Vector2i size)> &callback) {
     std::ifstream file("../assets/animations/" + file_name + ".txt");
 
     if (!file.is_open()) {

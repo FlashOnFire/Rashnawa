@@ -9,7 +9,7 @@
 
 class Animation {
 public:
-    Animation();
+    Animation() = delete;
 
     explicit Animation(const std::string& file_name, const std::function<void(sf::Vector2i coords,
                                                                               sf::Vector2i size)>& callback);
