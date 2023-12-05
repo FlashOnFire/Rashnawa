@@ -1,11 +1,16 @@
 #ifndef RASHNAWA_WORLD_H
 #define RASHNAWA_WORLD_H
 
+#include <vector>
+#include <memory>
+#include "Room.h"
 
 class World {
-
 public:
-    void update(int deltaTime);
+
+private:
+    std::vector<std::unique_ptr<Room>> zone_;
+
 };
 
 

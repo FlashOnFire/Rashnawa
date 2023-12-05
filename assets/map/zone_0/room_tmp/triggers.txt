@@ -1,0 +1,4 @@
+screen_transition_0-1 80 40 20 20 ROOM change room_tmp room_tmp
+music_start_0 50 30 10 10 MUSIC start spaceship_theme
+player_stop_0 50 30 10 10 PLAYER stop
+cutscene_intro 50 30 10 10 CUTSCENE start intro_cutscene

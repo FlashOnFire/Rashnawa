@@ -87,4 +87,6 @@ add_executable(Rashnawa
         src/entities/items/Item.cpp
         src/screens/PauseMenuScreen.cpp
         src/screens/PauseMenuScreen.h
+        src/world/TriggerBox.cpp
+        src/world/TriggerBox.h
 )
