@@ -2,6 +2,7 @@
 #define RASHNAWA_TRIGGERBOX_H
 
 #include <SFML/Graphics.hpp>
+#include <unordered_map>
 
 enum class TriggerType {
     MUSIC,
