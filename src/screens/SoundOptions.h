@@ -3,13 +3,12 @@
 
 
 #include <memory>
-#include <dexode/EventBus.hpp>
 #include <SFML/Graphics/Texture.hpp>
 
 #include "../storage/OptionsManager.h"
 #include "objects/OptionsCategory.h"
 
-class SoundOptions : public OptionsCategory {
+class SoundOptions final : public OptionsCategory {
 public:
     SoundOptions(std::shared_ptr<OptionsManager> options_manager,
                  std::shared_ptr<sf::Texture> slider_texture, std::shared_ptr<sf::Texture> slider_knob_texture);

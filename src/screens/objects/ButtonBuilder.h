@@ -11,9 +11,6 @@
 #include "Button.h"
 
 class ButtonBuilder {
-private:
-    std::unique_ptr<Button> _button = std::unique_ptr<Button>(new Button());
-
 public:
     ButtonBuilder& backgroundTexture(std::shared_ptr<sf::Texture> texture, const sf::IntRect& tex_coords);
 
@@ -23,7 +20,7 @@ public:
     ButtonBuilder&
     backgroundTexture(std::shared_ptr<sf::Texture> texture, int x, int y, int dx, int dy);
 
-    ButtonBuilder& foregroundTexture(std::shared_ptr<sf::Texture> texture);
+    ButtonBuilder& foregroundTexture(const std::shared_ptr<sf::Texture> &texture);
 
     ButtonBuilder& hoverBackgroundTexCoords(const sf::IntRect& tex_coords);
 
@@ -52,6 +49,9 @@ public:
               int hovered_timeline, int clicked_timeline);
 
     std::unique_ptr<Button> build();
+
+private:
+    std::unique_ptr<Button> _button = std::unique_ptr<Button>(new Button());
 };
 
 

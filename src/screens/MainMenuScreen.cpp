@@ -35,7 +35,7 @@ MainMenuScreen::MainMenuScreen(std::shared_ptr<dexode::EventBus> event_bus, std:
         .hoverBackgroundTexCoords(hovered_button_tex_coords)
         .text("PLAY", font_)
         .transform(120, 300, 200, 80)
-        .callback([this]() {
+        .callback([this] {
             std::cout << "Play" << std::endl;
             event_bus_->postpone(
                 Events::ChangeScreen{.from = Screens::MainMenu, .to = Screens::None});
@@ -46,7 +46,7 @@ MainMenuScreen::MainMenuScreen(std::shared_ptr<dexode::EventBus> event_bus, std:
         .hoverBackgroundTexCoords(hovered_button_tex_coords)
         .text("OPTIONS", font_)
         .transform(120, 400, 200, 80)
-        .callback([this]() {
+        .callback([this] {
             std::cout << "Options" << std::endl;
             event_bus_->postpone(
                 Events::ChangeScreen{.from = Screens::MainMenu, .to = Screens::OptionsMenu});
@@ -57,7 +57,7 @@ MainMenuScreen::MainMenuScreen(std::shared_ptr<dexode::EventBus> event_bus, std:
         .hoverBackgroundTexCoords(hovered_button_tex_coords)
         .text("EXIT", font_)
         .transform(120, 600, 200, 80)
-        .callback([this]() {
+        .callback([this] {
             std::cout << "Exit" << std::endl;
             event_bus_->postpone(Events::CloseGame{});
         }).build());
@@ -98,8 +98,8 @@ void MainMenuScreen::render(std::shared_ptr<sf::RenderWindow> window) const {
     mainText.setCharacterSize(100);
 
     float x =
-            static_cast<float>(window_size.x) / 2.0f - (mainText.getLocalBounds().width / 2.0f)
-            - (mainText.getLocalBounds().left / 2.0f);
+            static_cast<float>(window_size.x) / 2.0f - mainText.getLocalBounds().width / 2.0f
+            - mainText.getLocalBounds().left / 2.0f;
     float y =
             static_cast<float>(window_size.y) / 7.0f - (mainText.getLocalBounds().height / 2.0f)
             - (mainText.getLocalBounds().top / 2.0f);

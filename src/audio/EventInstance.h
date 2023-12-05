@@ -13,9 +13,9 @@ namespace Audio {
 
         ~EventInstance();
 
-        void start();
+        void start() const;
 
-        void stop(FMOD_STUDIO_STOP_MODE mode);
+        void stop(FMOD_STUDIO_STOP_MODE mode) const;
 
         [[nodiscard]] FMOD_STUDIO_PLAYBACK_STATE getPlaybackState() const;
 

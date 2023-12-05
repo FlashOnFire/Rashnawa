@@ -14,7 +14,7 @@ namespace Audio {
         FMOD_Studio_System_Release(system_);
     }
 
-    void AudioManager::initialize() {
+    void AudioManager::initialize() const {
         ErrCheck(FMOD_Studio_System_Initialize(system_, 512, FMOD_STUDIO_INIT_NORMAL, FMOD_INIT_NORMAL, nullptr));
     }
 
@@ -39,10 +39,11 @@ namespace Audio {
         FMOD_STUDIO_EVENTINSTANCE* instance;
         FMOD_Studio_EventDescription_CreateInstance(getEventDescription(path).lock().get(), &instance);
 
-        return std::make_unique<Audio::EventInstance>(instance);
+        return std::make_unique<EventInstance>(instance);
     }
 
-    void AudioManager::setParameterByName(std::string name, float value, bool ignoreSeekSpeed) {
+    void AudioManager::setParameterByName(const std::string& name, const float value,
+                                          const bool ignoreSeekSpeed) const {
         ErrCheck(FMOD_Studio_System_SetParameterByName(system_, name.c_str(), value, ignoreSeekSpeed));
     }
 
@@ -66,8 +67,8 @@ namespace Audio {
             event_descriptions_.insert(std::pair(path, event_ptr));
 
             return event_ptr;
-        } else {
-            return event_descriptions_.at(path);
         }
+
+        return event_descriptions_.at(path);
     }
 } // Audio

@@ -4,7 +4,7 @@
 #include <utility>
 #include <iostream>
 
-KeybindHandler::KeybindHandler(std::shared_ptr<dexode::EventBus> eventBus) : event_bus_(std::move(eventBus)) {
+KeybindHandler::KeybindHandler(std::shared_ptr<dexode::EventBus> event_bus) : event_bus_(std::move(event_bus)) {
     std::cout << "Created KeybindHandler!" << std::endl;
 }
 

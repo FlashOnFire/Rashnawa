@@ -71,7 +71,7 @@ OptionsMenuScreen::OptionsMenuScreen(std::shared_ptr<dexode::EventBus> event_bus
             .clickedBackgroundTexCoords(button_clicked_coords, button_size)
             .foregroundTexture(buttons_foreground_texture_)
             .animation(event_bus_, "button", 0, 1, 2)
-            .callback([]() {
+            .callback([] {
                 std::cout << "clicked" << std::endl;
             }).build();
 
@@ -81,7 +81,7 @@ OptionsMenuScreen::OptionsMenuScreen(std::shared_ptr<dexode::EventBus> event_bus
             .clickedBackgroundTexCoords(button_clicked_coords, button_size)
             .foregroundTexture(buttons_foreground_texture_)
             .animation(event_bus_, "button", 3, 4, 5)
-            .callback([]() {
+            .callback([] {
                 std::cout << "clicked" << std::endl;
             }).build();
 
@@ -91,7 +91,7 @@ OptionsMenuScreen::OptionsMenuScreen(std::shared_ptr<dexode::EventBus> event_bus
             .clickedBackgroundTexCoords(button_clicked_coords, button_size)
             .foregroundTexture(buttons_foreground_texture_)
             .animation(event_bus_, "button", 6, 7, 8)
-            .callback([]() {
+            .callback([] {
                 std::cout << "clicked" << std::endl;
             }).build();
 

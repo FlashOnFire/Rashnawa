@@ -8,12 +8,12 @@
 
 #include "OptionComponent.h"
 
-class Slider : public OptionComponent {
+class Slider final : public OptionComponent {
 public:
     Slider() = delete;
 
     Slider(std::shared_ptr<sf::Texture> sliderTexture, std::shared_ptr<sf::Texture> slider_knob_texture,
-           std::function<void(const float value)> callback, float value = 0);
+           std::function<void(float value)> callback, float value = 0);
 
     [[nodiscard]] float getValue() const;
 
@@ -38,7 +38,7 @@ private:
     sf::RectangleShape slider_;
     sf::RectangleShape slider_knob_;
 
-    std::function<void(const float value)> callback_;
+    std::function<void(float value)> callback_;
 
     void updateKnobPlacement();
 

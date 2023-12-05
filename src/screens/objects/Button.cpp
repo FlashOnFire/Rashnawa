@@ -8,8 +8,8 @@
 void Button::onMouseMoved(const sf::Event::MouseMoveEvent& e) {
     const auto pos = sf::Vector2i(background_shape_.getPosition());
 
-    const bool inside = (e.x > pos.x && e.x < (pos.x + static_cast<int>(background_shape_.getSize().x))
-                         && e.y > pos.y && e.y < (pos.y + static_cast<int>(background_shape_.getSize().y)));
+    const bool inside = e.x > pos.x && e.x < pos.x + static_cast<int>(background_shape_.getSize().x)
+                        && e.y > pos.y && e.y < pos.y + static_cast<int>(background_shape_.getSize().y);
 
     if (!hovered_ && inside) {
         hovered_ = true;

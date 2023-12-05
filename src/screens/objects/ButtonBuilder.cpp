@@ -14,18 +14,18 @@ ButtonBuilder::backgroundTexture(std::shared_ptr<sf::Texture> texture, const sf:
 ButtonBuilder&
 ButtonBuilder::backgroundTexture(std::shared_ptr<sf::Texture> texture, const sf::Vector2i& tex_coords_position,
                                  const sf::Vector2i& tex_coords_size) {
-    return ButtonBuilder::backgroundTexture(std::move(texture), {tex_coords_position, tex_coords_size});
+    return backgroundTexture(std::move(texture), {tex_coords_position, tex_coords_size});
 }
 
 ButtonBuilder&
 ButtonBuilder::backgroundTexture(std::shared_ptr<sf::Texture> texture, const int x, const int y, const int dx,
                                  const int dy) {
-    return ButtonBuilder::backgroundTexture(std::move(texture), sf::Vector2i(x, y), sf::Vector2i(dx, dy));
+    return backgroundTexture(std::move(texture), sf::Vector2i(x, y), sf::Vector2i(dx, dy));
 }
 
 ButtonBuilder&
-ButtonBuilder::foregroundTexture(std::shared_ptr<sf::Texture> texture) {
-    _button->setForegroundTexture(std::move(texture));
+ButtonBuilder::foregroundTexture(const std::shared_ptr<sf::Texture>& texture) {
+    _button->setForegroundTexture(texture);
     return *this;
 }
 
@@ -38,11 +38,11 @@ ButtonBuilder& ButtonBuilder::hoverBackgroundTexCoords(const sf::IntRect& tex_co
 ButtonBuilder&
 ButtonBuilder::hoverBackgroundTexCoords(const sf::Vector2i& hover_tex_coords_pos,
                                         const sf::Vector2i& hover_tex_coords_size) {
-    return ButtonBuilder::hoverBackgroundTexCoords({hover_tex_coords_pos, hover_tex_coords_size});
+    return hoverBackgroundTexCoords({hover_tex_coords_pos, hover_tex_coords_size});
 }
 
 ButtonBuilder& ButtonBuilder::hoverBackgroundTexCoords(const int x, const int y, const int dx, const int dy) {
-    return ButtonBuilder::hoverBackgroundTexCoords(sf::Vector2i(x, y), sf::Vector2i(dx, dy));
+    return hoverBackgroundTexCoords(sf::Vector2i(x, y), sf::Vector2i(dx, dy));
 }
 
 ButtonBuilder& ButtonBuilder::clickedBackgroundTexCoords(const sf::IntRect& tex_coords) {

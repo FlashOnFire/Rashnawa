@@ -1,6 +1,6 @@
 
 #include "Hitbox.h"
 
-Hitbox::Hitbox(int x, int y, int dx, int dy) {
+Hitbox::Hitbox(const int x, const int y, const int dx, const int dy) {
     square_ = sf::IntRect(x, y, dx, dy);
 }

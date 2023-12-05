@@ -18,7 +18,7 @@ struct ButtonAnimationTimelines {
     int clicked = 0;
 };
 
-class Button : public sf::Drawable {
+class Button final : public sf::Drawable {
 public:
     void onMouseMoved(const sf::Event::MouseMoveEvent& e);
 

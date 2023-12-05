@@ -21,7 +21,7 @@ public:
 
     void setSoundOptions(const SoundOptionData& sound_options);
 
-    void setSoundOption(const SoundOptionType& type, GenericOption value);
+    void setSoundOption(const SoundOptionType& type, const GenericOption &value);
 
     [[nodiscard]] GraphicsOptionsData getGraphicsOptionsData() const;
 

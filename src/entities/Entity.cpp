@@ -1,7 +1,7 @@
 #include <SFML/Graphics/Texture.hpp>
 #include "Entity.h"
 
-Entity::Entity(const float x, const float y, const std::string &file_name = "default", bool has_animation = false) {
+Entity::Entity(const float x, const float y, const std::string &file_name = "default", const bool has_animation = false) {
     x_ = x;
     y_ = y;
     sprite_.setPosition(x_, y_);
@@ -35,7 +35,7 @@ void Entity::setY(const float y) {
     y_ = y;
 }
 
-void Entity::update(int delta_time) {
+void Entity::update(const int delta_time) const {
     if (animation_.has_value()) {
         animation_.value()->update(delta_time);
     }

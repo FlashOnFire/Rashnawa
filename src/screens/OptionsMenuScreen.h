@@ -9,7 +9,7 @@
 #include "objects/Button.h"
 #include "../storage/OptionsManager.h"
 
-class OptionsMenuScreen : public BasicScreen {
+class OptionsMenuScreen final : public BasicScreen {
 public:
     explicit OptionsMenuScreen(std::shared_ptr<dexode::EventBus> event_bus, std::shared_ptr<sf::Font> font,
                                std::shared_ptr<OptionsManager> options_manager,

@@ -2,7 +2,6 @@
 #define RASHNAWA_HITBOX_H
 
 
-#include <SFML/System/Vector2.hpp>
 #include <SFML/Graphics/Rect.hpp>
 
 class Hitbox {

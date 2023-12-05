@@ -30,7 +30,7 @@ Animation::Animation(const std::string &file_name,
     std::getline(file, line);
 
     int i = 0;
-    while (!file.eof() && (i < nb_frames_)) {
+    while (!file.eof() && i < nb_frames_) {
         std::getline(file, line);
         frames_per_timeline_.insert(frames_per_timeline_.end(), std::stoi(line));
         i++;
@@ -52,7 +52,7 @@ bool Animation::paused() const {
     return paused_;
 }
 
-void Animation::setPaused(bool paused) {
+void Animation::setPaused(const bool paused) {
     paused_ = paused;
 }
 
@@ -68,13 +68,13 @@ void Animation::setTimeline(const unsigned int new_timeline) {
     }
 }
 
-void Animation::update(int deltaTime) {
+void Animation::update(const int deltaTime) {
     if (paused_) {
         return;
     }
     if (total_animation_time_ != frame_time_) {
         current_time_ = (current_time_ + deltaTime) % total_animation_time_;
-        unsigned int new_frame = current_time_ / frame_time_;
+        const unsigned int new_frame = current_time_ / frame_time_;
         if (new_frame != current_frame_) {
             current_frame_ = new_frame;
             triggerCallback();

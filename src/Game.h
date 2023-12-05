@@ -6,7 +6,6 @@
 #include "dexode/EventBus.hpp"
 
 #include "audio/AudioManager.h"
-#include "world/World.h"
 #include "graphics/Renderer.h"
 #include "screens/objects/BasicScreen.h"
 #include "audio/MusicManager.h"
@@ -44,7 +43,7 @@ private:
 
     std::vector<std::weak_ptr<Animation>> animations_;
 
-    void handleEvents();
+    void handleEvents() const;
 };
 
 

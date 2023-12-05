@@ -6,7 +6,7 @@
 #include "../audio/AudioManager.h"
 #include "dexode/EventBus.hpp"
 
-class MainMenuScreen : public BasicScreen {
+class MainMenuScreen final : public BasicScreen {
 public:
     explicit MainMenuScreen(std::shared_ptr<dexode::EventBus> event_bus, std::shared_ptr<sf::Font> font);
 

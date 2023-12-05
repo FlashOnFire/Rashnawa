@@ -102,7 +102,7 @@ void Game::run() {
     }
 }
 
-void Game::handleEvents() {
+void Game::handleEvents() const {
     sf::Event event{};
     while (window_->pollEvent(event)) {
         switch (event.type) {

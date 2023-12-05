@@ -11,7 +11,7 @@ namespace Graphics {
         std::cout << "Created Renderer!" << std::endl;
     }
 
-    void Renderer::render() {
+    void Renderer::render() const {
         // TODO: actually render
         sf::RectangleShape shape;
         shape.setFillColor(sf::Color::Black);

@@ -43,9 +43,9 @@ void Slider::updateComponentTransform() {
 
     slider_knob_.setScale(scale_, scale_);
 
-    min_knob_x_ = slider_.getPosition().x - (slider_knob_.getSize().x * scale_ * 0.5f);
+    min_knob_x_ = slider_.getPosition().x - slider_knob_.getSize().x * scale_ * 0.5f;
     max_knob_x_ =
-            slider_.getPosition().x + (slider_.getSize().x * scale_) - (slider_knob_.getSize().x * scale_ * 0.5f);
+            slider_.getPosition().x + slider_.getSize().x * scale_ - slider_knob_.getSize().x * scale_ * 0.5f;
 
     slider_knob_.setPosition(0,
                              slider_.getPosition().y + slider_.getSize().y * scale_ * 0.5f -

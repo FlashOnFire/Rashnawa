@@ -15,7 +15,7 @@ namespace Audio {
 
         ~AudioManager();
 
-        void initialize();
+        void initialize() const;
 
         void update() const;
 
@@ -23,10 +23,10 @@ namespace Audio {
 
         std::unique_ptr<EventInstance> createEventInstance(const std::string& path);
 
-        void setParameterByName(std::string name, float value, bool ignoreSeekSpeed = false);
+        void setParameterByName(const std::string& name, float value, bool ignoreSeekSpeed = false) const;
 
     private:
-        FMOD_STUDIO_SYSTEM* system_;
+        FMOD_STUDIO_SYSTEM* system_ = nullptr;
         std::vector<std::shared_ptr<FMOD_STUDIO_BANK>> banks_;
         std::map<const std::string, std::shared_ptr<FMOD_STUDIO_EVENTDESCRIPTION>> event_descriptions_;
 

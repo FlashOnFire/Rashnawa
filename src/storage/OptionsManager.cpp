@@ -87,7 +87,7 @@ void OptionsManager::setSoundOptions(const SoundOptionData& sound_options) {
     this->options_snapshot_.sound = sound_options;
 }
 
-void OptionsManager::setSoundOption(const SoundOptionType& type, GenericOption value) {
+void OptionsManager::setSoundOption(const SoundOptionType& type, const GenericOption &value) {
     switch (type) {
         case SoundOptionType::MASTER_VOLUME:
             options_snapshot_.sound.master_volume = value._float;

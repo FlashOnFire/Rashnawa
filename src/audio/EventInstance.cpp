@@ -17,11 +17,11 @@ namespace Audio {
         std::cout << "Destroyed audio event instance" << std::endl;
     }
 
-    void EventInstance::start() {
+    void EventInstance::start() const {
         ErrCheck(FMOD_Studio_EventInstance_Start(instance_));
     }
 
-    void EventInstance::stop(const FMOD_STUDIO_STOP_MODE mode) {
+    void EventInstance::stop(const FMOD_STUDIO_STOP_MODE mode) const {
         ErrCheck(FMOD_Studio_EventInstance_Stop(instance_, mode));
     }
 
@@ -56,7 +56,7 @@ namespace Audio {
         return pitch;
     }
 
-    void EventInstance::setPitch(float pitch) {
+    void EventInstance::setPitch(const float pitch) {
         ErrCheck(FMOD_Studio_EventInstance_SetPitch(instance_, pitch));
     }
 
@@ -66,7 +66,7 @@ namespace Audio {
         return val;
     }
 
-    void EventInstance::setProperty(FMOD_STUDIO_EVENT_PROPERTY index, float value) {
+    void EventInstance::setProperty(const FMOD_STUDIO_EVENT_PROPERTY index, const float value) {
         ErrCheck(FMOD_Studio_EventInstance_SetProperty(instance_, index, value));
     }
 
@@ -76,7 +76,7 @@ namespace Audio {
         return pos;
     }
 
-    void EventInstance::setTimelinePosition(int pos) {
+    void EventInstance::setTimelinePosition(const int pos) {
         ErrCheck(FMOD_Studio_EventInstance_SetTimelinePosition(instance_, pos));
     }
 
@@ -109,7 +109,7 @@ namespace Audio {
     }
 
     void EventInstance::setParameterByNameWithLabel(const std::string& name, const std::string& label,
-                                                    bool ignoreSeekSpeed) {
+                                                    const bool ignoreSeekSpeed) {
         ErrCheck(FMOD_Studio_EventInstance_SetParameterByNameWithLabel(instance_, name.c_str(), label.c_str(),
                                                                        ignoreSeekSpeed));
     }
@@ -125,13 +125,13 @@ namespace Audio {
         return ptr;
     }
 
-    float EventInstance::getReverbLevel(int index) const {
+    float EventInstance::getReverbLevel(const int index) const {
         float reverb;
         ErrCheck(FMOD_Studio_EventInstance_GetReverbLevel(instance_, index, &reverb));
         return reverb;
     }
 
-    void EventInstance::setReverbLevel(int index, float level) {
+    void EventInstance::setReverbLevel(const int index, const float level) {
         ErrCheck(FMOD_Studio_EventInstance_SetReverbLevel(instance_, index, level));
     }
 

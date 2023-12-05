@@ -6,7 +6,7 @@
 
 namespace Audio {
     MusicManager::MusicManager(std::shared_ptr<dexode::EventBus> event_bus,
-                               std::shared_ptr<Audio::AudioManager> audio_manager,
+                               std::shared_ptr<AudioManager> audio_manager,
                                std::shared_ptr<OptionsManager> options_manager)
         : event_bus_(std::move(event_bus)),
           audio_manager_(std::move(audio_manager)),

@@ -5,7 +5,7 @@
 class World {
 
 public:
-    void update(int deltaT);
+    void update(int deltaTime);
 };
 
 

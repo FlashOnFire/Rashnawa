@@ -5,7 +5,6 @@
 #include <memory>
 #include "LivingEntity.h"
 #include "weapons/Weapon.h"
-#include "items/Item.h"
 
 class Player : public LivingEntity {
 public:

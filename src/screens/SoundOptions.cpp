@@ -43,7 +43,7 @@ void SoundOptions::updateComponentsTransform() {
 
     const auto padding_y_between_comp = (size_.y - 2 * padding_y) * 0.05f;
 
-    const auto comp_size = sf::Vector2f((size_.x / 2.0f) - (padding_x * 1.5f), ((size_.y - 2 * padding_y) * 0.15f));
+    const auto comp_size = sf::Vector2f(size_.x / 2.0f - padding_x * 1.5f, (size_.y - 2 * padding_y) * 0.15f);
 
     for (int i = 0; i < components_.size(); i++) {
         components_.at(i)->setTransform(

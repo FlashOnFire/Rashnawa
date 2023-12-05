@@ -3,7 +3,7 @@
 #include "objects/BasicScreen.h"
 
 
-class PauseMenuScreen : public BasicScreen {
+class PauseMenuScreen final : public BasicScreen {
 public:
     PauseMenuScreen(std::shared_ptr<dexode::EventBus> event_bus, std::shared_ptr<sf::Font> font);
 
