@@ -4,7 +4,7 @@
 #include <sstream>
 
 Room::Room(std::string zone_number, std::string room_number) {
-    std::ifstream roomFile (".../assets/map/zone_" + zone_number + "/room_" + room_number + "/room.txt");
+    std::ifstream roomFile ("../assets/map/zone_" + zone_number + "/room_" + room_number + "/room.txt");
     if (!roomFile.is_open()) {
         std::cout << "Cannot open Room file" << std::endl;
     } else {
@@ -12,13 +12,13 @@ Room::Room(std::string zone_number, std::string room_number) {
         roomFile >> size_.x >> size_.y;
 
         getline(roomFile, line);
-        if (!background_texture_->loadFromFile(".../assets/map/zone_" + zone_number + "/room_" + room_number + "/" + line)) {
+        if (!background_texture_->loadFromFile("../assets/map/zone_" + zone_number + "/room_" + room_number + "/" + line)) {
             std::cout << "Cannot load room_" + room_number + "'s background" << std::endl;
         }
         roomFile.close();
     }
 
-    std::ifstream entityFile (".../assets/map/zone_" + zone_number + "/room_" + room_number + "/entities.txt");
+    std::ifstream entityFile ("../assets/map/zone_" + zone_number + "/room_" + room_number + "/entities.txt");
     if (!entityFile.is_open()) {
         std::cout << "Cannot open Entity file" << std::endl;
     } else {
@@ -44,7 +44,7 @@ Room::Room(std::string zone_number, std::string room_number) {
         entityFile.close();
     }
 
-    std::ifstream triggerFile (".../assets/map/zone_" + zone_number + "/room_" + room_number + "/triggers.txt");
+    std::ifstream triggerFile ("../assets/map/zone_" + zone_number + "/room_" + room_number + "/triggers.txt");
     if (!entityFile.is_open()) {
         std::cout << "Cannot open Trigger file" << std::endl;
     } else {
