@@ -16,16 +16,16 @@ Game::Game() {
 
     options_manager_ = std::make_shared<OptionsManager>(event_bus_);
 
-    audio_manager_ = std::make_shared<Audio::AudioManager>();
-    music_manager_ = std::make_unique<Audio::MusicManager>(event_bus_, audio_manager_, options_manager_);
+    audio_system_ = std::make_shared<Audio::AudioSystem>();
+    music_manager_ = std::make_unique<Audio::MusicManager>(event_bus_, audio_system_, options_manager_);
 
     renderer_ = std::make_unique<Graphics::Renderer>(window_);
 
     keybind_handler_ = std::make_unique<KeybindHandler>(event_bus_);
 
-    audio_manager_->initialize();
-    audio_manager_->loadBank("../assets/audio/Master.bank");
-    audio_manager_->loadBank("../assets/audio/Master.strings.bank");
+    audio_system_->initialize();
+    audio_system_->loadBank("../assets/audio/Master.bank");
+    audio_system_->loadBank("../assets/audio/Master.strings.bank");
 
     event_bus_->postpone<Events::ChangeScreen>({.from = Screens::None, .to = Screens::MainMenu});
 
@@ -86,7 +86,7 @@ void Game::run() {
             }
         }
         event_bus_->process();
-        audio_manager_->update();
+        audio_system_->update();
 
         handleEvents();
 

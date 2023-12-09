@@ -9,11 +9,11 @@
 #include "FMOD/fmod_studio.h"
 
 namespace Audio {
-    class AudioManager {
+    class AudioSystem {
     public:
-        AudioManager();
+        AudioSystem();
 
-        ~AudioManager();
+        ~AudioSystem();
 
         void initialize() const;
 
@@ -23,7 +23,7 @@ namespace Audio {
 
         std::unique_ptr<EventInstance> createEventInstance(const std::string& path);
 
-        void setParameterByName(const std::string& name, float value, bool ignoreSeekSpeed = false) const;
+        void setParameterByName(const std::string& name, float value, bool ignore_seek_speed = false) const;
 
     private:
         FMOD_STUDIO_SYSTEM* system_ = nullptr;

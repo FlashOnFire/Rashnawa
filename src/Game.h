@@ -30,7 +30,7 @@ private:
 
     std::shared_ptr<OptionsManager> options_manager_;
 
-    std::shared_ptr<Audio::AudioManager> audio_manager_;
+    std::shared_ptr<Audio::AudioSystem> audio_system_;
     std::unique_ptr<Audio::MusicManager> music_manager_;
 
     std::unique_ptr<Graphics::Renderer> renderer_;

@@ -4,25 +4,25 @@
 #include "Utils.hpp"
 
 namespace Audio {
-    AudioManager::AudioManager() {
+    AudioSystem::AudioSystem() {
         FMOD_Studio_System_Create(&system_, FMOD_VERSION);
 
         std::cout << "Created AudioManager!" << std::endl;
     }
 
-    AudioManager::~AudioManager() {
+    AudioSystem::~AudioSystem() {
         FMOD_Studio_System_Release(system_);
     }
 
-    void AudioManager::initialize() const {
+    void AudioSystem::initialize() const {
         ErrCheck(FMOD_Studio_System_Initialize(system_, 512, FMOD_STUDIO_INIT_NORMAL, FMOD_INIT_NORMAL, nullptr));
     }
 
-    void AudioManager::update() const {
+    void AudioSystem::update() const {
         FMOD_Studio_System_Update(system_);
     }
 
-    std::weak_ptr<FMOD_STUDIO_BANK> AudioManager::loadBank(const std::string& path) {
+    std::weak_ptr<FMOD_STUDIO_BANK> AudioSystem::loadBank(const std::string& path) {
         FMOD_STUDIO_BANK* bank;
         ErrCheck(FMOD_Studio_System_LoadBankFile(system_, path.c_str(), FMOD_STUDIO_LOAD_BANK_NORMAL, &bank));
 
@@ -35,19 +35,19 @@ namespace Audio {
     }
 
     std::unique_ptr<EventInstance>
-    AudioManager::createEventInstance(const std::string& path) {
+    AudioSystem::createEventInstance(const std::string& path) {
         FMOD_STUDIO_EVENTINSTANCE* instance;
         FMOD_Studio_EventDescription_CreateInstance(getEventDescription(path).lock().get(), &instance);
 
         return std::make_unique<EventInstance>(instance);
     }
 
-    void AudioManager::setParameterByName(const std::string& name, const float value,
-                                          const bool ignoreSeekSpeed) const {
-        ErrCheck(FMOD_Studio_System_SetParameterByName(system_, name.c_str(), value, ignoreSeekSpeed));
+    void AudioSystem::setParameterByName(const std::string& name, const float value,
+                                          const bool ignore_seek_speed) const {
+        ErrCheck(FMOD_Studio_System_SetParameterByName(system_, name.c_str(), value, ignore_seek_speed));
     }
 
-    std::weak_ptr<FMOD_STUDIO_EVENTDESCRIPTION> AudioManager::getEventDescription(const std::string& path) {
+    std::weak_ptr<FMOD_STUDIO_EVENTDESCRIPTION> AudioSystem::getEventDescription(const std::string& path) {
         if (!event_descriptions_.contains(path)) {
             FMOD_STUDIO_EVENTDESCRIPTION* event;
 
