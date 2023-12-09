@@ -7,7 +7,7 @@
 
 class Room {
 public:
-    Room(std::string zone_number, std::string room_number);
+    Room(const std::string& zone_name, const std::string& room_name);
 
 private:
     sf::Vector2i size_;

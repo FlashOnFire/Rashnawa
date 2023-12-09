@@ -3,9 +3,9 @@
 #include <fstream>
 #include <sstream>
 
-Room::Room(std::string zone_number, std::string room_number) {
-    std::string folder = folder;
-    std::ifstream roomFile (folder + "/room.txt");
+Room::Room(const std::string& zone_name, const std::string& room_name) {
+    std::string folder = "../assets/map/zone_" + zone_name + "/room_" + room_name;
+    std::ifstream roomFile(folder + "/room.txt");
     if (!roomFile.is_open()) {
         std::cout << "Cannot open Room file" << std::endl;
     } else {
@@ -14,12 +14,12 @@ Room::Room(std::string zone_number, std::string room_number) {
 
         getline(roomFile, line);
         if (!background_texture_->loadFromFile(folder + "/" + line)) {
-            std::cout << "Cannot load room_" + room_number + "'s background" << std::endl;
+            std::cout << "Cannot load room_" + room_name + "'s background" << std::endl;
         }
         roomFile.close();
     }
 
-    std::ifstream entityFile (folder + "/entities.txt");
+    std::ifstream entityFile(folder + "/entities.txt");
     if (!entityFile.is_open()) {
         std::cout << "Cannot open Entity file" << std::endl;
     } else {
@@ -45,7 +45,7 @@ Room::Room(std::string zone_number, std::string room_number) {
         entityFile.close();
     }
 
-    std::ifstream triggerFile (folder + "/triggers.txt");
+    std::ifstream triggerFile(folder + "/triggers.txt");
     if (!entityFile.is_open()) {
         std::cout << "Cannot open Trigger file" << std::endl;
     } else {
@@ -60,20 +60,20 @@ Room::Room(std::string zone_number, std::string room_number) {
 
         while (!triggerFile.eof()) {
             while (getline(triggerFile, line)) {
-                std::stringstream ss(line);
-                ss >> name;
-                ss >> rect.left >> rect.top >> rect.width >> rect.height;
-                ss >> word;
-                type = triggerMap.find(word)->second;
-                ss >> action;
-                while (!ss.eof()) {
-                    ss >> word;
+                std::stringstream stream(line);
+                stream >> name;
+                stream >> rect.left >> rect.top >> rect.width >> rect.height;
+                stream >> word;
+                type = TriggerBox::trigger_type_map_.find(word)->second;
+                stream >> action;
+                while (!stream.eof()) {
+                    stream >> word;
                     args.push_back(word);
                 }
             }
-            triggers_.push_back(std::make_unique<TriggerBox>(name, rect, type, action, args));
+            //TODO add real values for uses and cooldown
+            triggers_.push_back(std::make_unique<TriggerBox>(name, rect, 1, 0, type, action, args));
         }
         triggerFile.close();
     }
-
 }

@@ -40,6 +40,37 @@ namespace Events {
             GenericOption value;
         };
     }
+
+    namespace Triggers {
+        namespace Music {
+            struct TriggerMusicStartEvent {
+            };
+
+            struct TriggerMusicStopEvent {
+            };
+
+            struct TriggerMusicParameterSetEvent {
+                std::string parameter_name;
+                float value;
+            };
+
+            struct TriggerMusicGlobalParameterSetEvent {
+                std::string parameter_name;
+                float value;
+            };
+        }
+
+        namespace World {
+            struct TriggerRoomChangeEvent {
+                std::string room;
+            };
+
+            struct TriggerZoneChangeEvent {
+                std::string zone;
+                std::string room;
+            };
+        }
+    }
 }
 
 
