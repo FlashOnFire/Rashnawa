@@ -10,6 +10,7 @@ Entity::Entity(const float x, const float y, const std::string &file_name = "def
         texture_->loadFromFile("../assets/sprites/default.png");
     }
     sprite_.setTexture(*texture_);
+
     if (has_animation) {
         animation_ = std::make_unique<Animation>(file_name, [this](const sf::Vector2i coords, const sf::Vector2i size) {
             sprite_.setTextureRect(sf::IntRect(coords, size));
