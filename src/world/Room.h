@@ -7,7 +7,7 @@
 
 class Room {
 public:
-    Room(std::string zone_name, std::string room_name);
+    Room(const std::string& zone_name, const std::string& room_name);
 
 private:
     std::string zone_name_;

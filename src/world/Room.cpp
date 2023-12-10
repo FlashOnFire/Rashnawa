@@ -3,7 +3,7 @@
 #include <fstream>
 #include <sstream>
 
-Room::Room(std::string zone_name, std::string room_name) {
+Room::Room(const std::string& zone_name, const std::string& room_name) {
     zone_name_ = zone_name;
     room_name_ = room_name;
     std::string folder = "../assets/map/zone_" + zone_name_ + "room_" + room_name_;
@@ -69,18 +69,18 @@ Room::Room(std::string zone_name, std::string room_name) {
 
         while (!triggerFile.eof()) {
             while (getline(triggerFile, line)) {
-                std::stringstream ss(line);
-                ss >> name;
-                ss >> rect.left >> rect.top >> rect.width >> rect.height;
-                ss >> word;
-                type = triggerMap.find(word)->second;
-                ss >> action;
-                while (!ss.eof()) {
-                    ss >> word;
+                std::stringstream stream(line);
+                stream >> name;
+                stream >> rect.left >> rect.top >> rect.width >> rect.height;
+                stream >> word;
+                type = TriggerBox::trigger_type_map_.find(word)->second;
+                stream >> action;
+                while (!stream.eof()) {
+                    stream >> word;
                     args.push_back(word);
                 }
             }
-            triggers_.push_back(std::make_unique<TriggerBox>(name, rect, type, action, args));
+            triggers_.push_back(std::make_unique<TriggerBox>(name, rect, 1, 0, type, action, args));
         }
         triggerFile.close();
     }
