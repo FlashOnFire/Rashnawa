@@ -10,27 +10,21 @@
 
 class Entity {
 public:
-    Entity(float x, float y, const std::string& file_name, bool has_animation);
+    explicit Entity(const std::string &file_name, bool has_animation);
 
     virtual ~Entity();
 
-    [[nodiscard]] float getX() const;
+    [[nodiscard]] sf::Vector2f getPosition() const;
 
-    void setX(float x);
+    void setPosition(float x, float y);
 
-    [[nodiscard]] float getY() const;
+    void setPaused(bool is_paused);
 
-    void setY(float y);
-
-    void update(int delta_time) const;
-
-    void set_paused(bool is_paused);
+    std::optional<std::weak_ptr<Animation>> getAnimation() const;
 
 private:
-    float x_;
-    float y_;
     std::vector<Item> item = std::vector<Item>();
-    std::optional<std::unique_ptr<Animation>> animation_;
+    std::optional<std::shared_ptr<Animation>> animation_;
     std::string name_file_;
     std::unique_ptr<sf::Texture> texture_;
     sf::Sprite sprite_;

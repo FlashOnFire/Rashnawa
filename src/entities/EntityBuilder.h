@@ -6,16 +6,19 @@
 
 #include "Entities.h"
 #include "Entity.h"
+#include "dexode/EventBus.hpp"
 
 class EntityBuilder {
-    EntityBuilder();
+public:
+    explicit EntityBuilder(std::shared_ptr<dexode::EventBus> event_bus);
 
 private:
-    std::unordered_map<Entities, EntityPrototype> entity_prototypes_map;
+    std::shared_ptr<dexode::EventBus> event_bus_;
+    std::unordered_map<Entities, EntityPrototype> entity_prototypes_map_;
 
     void populateEntitiesPrototypeMap();
 
-    std::unique_ptr<Entity> buildEntity(Entities entity);
+    std::unique_ptr<Entity> buildEntity(Entities entity_type);
 };
 
 

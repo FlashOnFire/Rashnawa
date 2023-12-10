@@ -6,8 +6,8 @@
 #include <string>
 
 struct EntityPrototype {
-    std::string name = "placeholder";
-    bool hasAnimation = false;
+    std::string name = "default";
+    bool has_animation = false;
 };
 
 enum class Entities {
