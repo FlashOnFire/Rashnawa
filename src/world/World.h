@@ -7,9 +7,10 @@
 
 class World {
 public:
+    World(std::string start_zone_name, std::string start_room_name);
 
 private:
-    std::vector<std::unique_ptr<Room>> zone_;
+    std::vector<std::unique_ptr<Room>> loaded_room_;
 
 };
 

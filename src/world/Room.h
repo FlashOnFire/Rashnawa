@@ -7,10 +7,14 @@
 
 class Room {
 public:
-    Room(const std::string& zone_name, const std::string& room_name);
+    Room(std::string zone_name, std::string room_name);
 
 private:
+    std::string zone_name_;
+    std::string room_name_;
+
     sf::Vector2i size_;
+    sf::Vector2i spawnpoint_;
 
     const std::unique_ptr<sf::Texture> background_texture_ = std::make_unique<sf::Texture>();
 
