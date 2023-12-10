@@ -10,7 +10,9 @@
 
 class Entity {
 public:
-    explicit Entity(const std::string &file_name, bool has_animation);
+    explicit Entity(std::shared_ptr<sf::Texture> texture);
+
+    explicit Entity(std::shared_ptr<sf::Texture> texture, const std::string &animation_name);
 
     virtual ~Entity();
 
@@ -26,7 +28,7 @@ private:
     std::vector<Item> item = std::vector<Item>();
     std::optional<std::shared_ptr<Animation>> animation_;
     std::string name_file_;
-    std::unique_ptr<sf::Texture> texture_;
+    std::shared_ptr<sf::Texture> texture_;
     sf::Sprite sprite_;
 };
 

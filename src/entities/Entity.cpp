@@ -1,19 +1,15 @@
 #include <SFML/Graphics/Texture.hpp>
 #include "Entity.h"
 
-Entity::Entity(const std::string &file_name, bool has_animation) {
-    if (!texture_->loadFromFile("../assets/sprites/" + file_name + ".png")) {
-        std::cout << "Can't load " << file_name << ".png, You are so disappointed  :(" << std::endl;
-        texture_->loadFromFile("../assets/sprites/default.png");
-    }
+Entity::Entity(std::shared_ptr<sf::Texture> texture) : texture_(std::move(texture)) {
     sprite_.setTexture(*texture_);
+}
 
-    if (has_animation) {
-        animation_ = std::make_shared<Animation>(file_name,
-                                                 [this](const sf::Vector2i coords, const sf::Vector2i size) {
-                                                     sprite_.setTextureRect(sf::IntRect(coords, size));
-                                                 });
-    }
+Entity::Entity(std::shared_ptr<sf::Texture> texture, const std::string &animation_name) : Entity(std::move(texture)) {
+    animation_ = std::make_shared<Animation>(animation_name,
+                                             [this](const sf::Vector2i coords, const sf::Vector2i size) {
+                                                 sprite_.setTextureRect(sf::IntRect(coords, size));
+                                             });
 }
 
 Entity::~Entity() = default;
