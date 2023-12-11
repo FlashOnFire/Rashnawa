@@ -5,9 +5,7 @@
 
 namespace Graphics {
 
-    Renderer::Renderer(std::shared_ptr<sf::RenderWindow> window) {
-        window_ = std::move(window);
-
+    Renderer::Renderer(std::shared_ptr<sf::RenderWindow> window) : window_(std::move(window)) {
         std::cout << "Created Renderer!" << std::endl;
     }
 

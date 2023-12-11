@@ -42,8 +42,9 @@ namespace Events {
     }
 
     namespace Triggers {
-        namespace Music {
+        namespace Sound {
             struct TriggerMusicStartEvent {
+                std::string name;
             };
 
             struct TriggerMusicStopEvent {
@@ -70,6 +71,37 @@ namespace Events {
                 std::string room;
             };
         }
+
+        namespace Cutscene {
+            struct TriggerCutsceneStartEvent {
+                std::string cutscene_name;
+            };
+            struct TriggerCutsceneSkipEvent{
+            };
+        }
+
+        enum class TriggerSoundAction {
+            START,
+            STOP,
+            SET,
+            GLOBAL_SET
+        };
+
+        enum class TriggerWorldAction {
+            ZONE_CHANGE,
+            ROOM_CHANGE
+        };
+
+        enum class TriggerCutsceneAction {
+            START,
+            SKIP
+        };
+
+        union TriggerAction {
+            TriggerSoundAction sound;
+            TriggerWorldAction world;
+            TriggerCutsceneAction cutscene;
+        };
     }
 }
 
