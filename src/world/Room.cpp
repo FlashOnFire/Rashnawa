@@ -44,7 +44,7 @@ Room::Room(const std::string &zone_name, const std::string &room_name, std::shar
 
             std::unique_ptr<Entity> entity = builder->buildEntity(static_cast<Entities>(id));
             entity->setPosition(x, y);
-            entities_.push_back(std::move(entity));
+            entities_->push_back(std::move(entity));
         }
     }
 
@@ -90,7 +90,15 @@ Room::Room(const std::string &zone_name, const std::string &room_name, std::shar
                     args.push_back(word);
                 }
             }
-            triggers_.push_back(std::make_unique<TriggerBox>(name, rect, uses, cooldown, type, action, args));
+            triggers_->push_back(std::make_unique<TriggerBox>(name, rect, uses, cooldown, type, action, args));
         }
     }
+}
+
+std::shared_ptr<std::vector<std::unique_ptr<Entity>>> Room::getEntities() {
+    return entities_;
+}
+
+std::shared_ptr<std::vector<std::unique_ptr<TriggerBox>>> Room::getTriggers() {
+    return triggers_;
 }

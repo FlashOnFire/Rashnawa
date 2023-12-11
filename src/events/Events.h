@@ -83,8 +83,8 @@ namespace Events {
         enum class TriggerSoundAction {
             START,
             STOP,
-            SET,
-            GLOBAL_SET
+            PARAMETER_SET,
+            GLOBAL_PARAMETER_SET
         };
 
         enum class TriggerWorldAction {

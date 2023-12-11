@@ -18,6 +18,10 @@ public:
     TriggerBox(std::string name, sf::IntRect rect, int uses, int cooldown, TriggerType type,
                Events::Triggers::TriggerAction action, const std::vector<std::string>& args);
 
+    TriggerType getTriggerType();
+    Events::Triggers::TriggerAction getAction();
+    std::vector<std::string> getArgs();
+
     inline static std::unordered_map<std::string, TriggerType> const trigger_type_map_ = {
         {"music", TriggerType::SOUND},
         {"world", TriggerType::WORLD},
@@ -26,8 +30,8 @@ public:
     inline static std::unordered_map<std::string, Events::Triggers::TriggerSoundAction> const trigger_sound_action_map_ = {
             {"start", Events::Triggers::TriggerSoundAction::START},
             {"stop", Events::Triggers::TriggerSoundAction::STOP},
-            {"set", Events::Triggers::TriggerSoundAction::SET},
-            {"set", Events::Triggers::TriggerSoundAction::GLOBAL_SET}
+            {"set", Events::Triggers::TriggerSoundAction::PARAMETER_SET},
+            {"set", Events::Triggers::TriggerSoundAction::GLOBAL_PARAMETER_SET}
     };
 
     inline static std::unordered_map<std::string, Events::Triggers::TriggerWorldAction> const trigger_world_action_map_ = {

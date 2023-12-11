@@ -10,7 +10,7 @@ namespace Graphics {
     }
 
     void Renderer::render() const {
-        // TODO: actually render
+        // TODO: actually render ma saucisse
         sf::RectangleShape shape;
         shape.setFillColor(sf::Color::Black);
         shape.setPosition(100, 100);

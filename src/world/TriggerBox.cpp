@@ -21,11 +21,11 @@ void TriggerBox::fireEvent(dexode::EventBus event_bus) {
                 case Events::Triggers::TriggerSoundAction::STOP:
                     event_bus.postpone<Events::Triggers::Sound::TriggerMusicStopEvent>({});
                     break;
-                case Events::Triggers::TriggerSoundAction::SET:
+                case Events::Triggers::TriggerSoundAction::PARAMETER_SET:
                     event_bus.postpone<Events::Triggers::Sound::TriggerMusicParameterSetEvent>(
                             {.parameter_name = args_[0], .value = stof(args_[1])});
                     break;
-                case Events::Triggers::TriggerSoundAction::GLOBAL_SET:
+                case Events::Triggers::TriggerSoundAction::GLOBAL_PARAMETER_SET:
                     event_bus.postpone<Events::Triggers::Sound::TriggerMusicGlobalParameterSetEvent>(
                             {.parameter_name = args_[0], .value = stof(args_[1])});
                     break;
@@ -48,9 +48,21 @@ void TriggerBox::fireEvent(dexode::EventBus event_bus) {
                     event_bus.postpone<Events::Triggers::Cutscene::TriggerCutsceneStartEvent>({.cutscene_name = args_[0]});
                     break;
                 case Events::Triggers::TriggerCutsceneAction::SKIP:
-                    event_bus.postpone<Events::Triggers::Cutscene::TriggerCutsceneSkipEvent({});
+                    event_bus.postpone<Events::Triggers::Cutscene::TriggerCutsceneSkipEvent>({});
                     break;
             }
             break;
     }
+}
+
+TriggerType TriggerBox::getTriggerType() {
+    return type_;
+}
+
+Events::Triggers::TriggerAction TriggerBox::getAction() {
+    return action_;
+}
+
+std::vector<std::string> TriggerBox::getArgs() {
+    return args_;
 }

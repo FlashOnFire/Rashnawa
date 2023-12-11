@@ -19,6 +19,8 @@ private:
 
     std::vector<std::unique_ptr<Room>> loaded_rooms_;
 
+    std::unique_ptr<Room> current_room_;
+
 };
 
 
