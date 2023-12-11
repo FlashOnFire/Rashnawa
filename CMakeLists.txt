@@ -84,4 +84,6 @@ add_executable(Rashnawa
         src/entities/EntityBuilder.cpp
         src/entities/EntityBuilder.h
         src/entities/Entities.h
+        src/entities/patterns/Pattern.h
+        src/entities/patterns/Pattern.cpp
 )

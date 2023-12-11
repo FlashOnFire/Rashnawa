@@ -30,6 +30,10 @@ std::unique_ptr<Entity> EntityBuilder::buildEntity(Entities entity_type) {
         entity->setHitbox(prototype.coord_hitbox);
     }
 
+    if (!prototype.patterns.empty()) {
+        entity->setPatterns(prototype.patterns);
+    }
+
     return entity;
 }
 

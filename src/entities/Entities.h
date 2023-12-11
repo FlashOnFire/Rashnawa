@@ -4,13 +4,15 @@
 
 
 #include <string>
+#include <vector>
 #include "SFML/Graphics/Rect.hpp"
+#include "patterns/Pattern.h"
 
 struct EntityPrototype {
     std::string name = "default";
     bool has_animation = false;
     sf::FloatRect coord_hitbox = sf::FloatRect(0.0f, 0.0f, 0.0f, 0.0f);
-    bool has_patterns = false;
+    std::vector<Pattern> patterns;
     bool has_IA = false;
     // we will add some useful stuff soon ^^
 };
