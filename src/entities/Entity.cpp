@@ -34,7 +34,7 @@ std::optional<std::shared_ptr<std::vector<Pattern>>> Entity::getPatterns() const
 
 void Entity::setPatterns(const std::vector<Pattern> &patterns) {
     if (pattern_.has_value()) {
-        pattern_.reset();
+        pattern_.value()->clear();
     } else {
         pattern_ = std::make_shared<std::vector<Pattern>>();
     }
