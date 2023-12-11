@@ -30,7 +30,7 @@ public:
 
     std::optional<std::weak_ptr<Hitbox>> getHitbox() const;
 
-    void setHitbox(sf::FloatRect new_hitbox);
+    void setHitbox(const Hitbox& new_hitbox);
 
     std::optional<std::weak_ptr<Animation>> getAnimation() const;
 

@@ -33,7 +33,11 @@ std::optional<std::shared_ptr<std::vector<Pattern>>> Entity::getPatterns() const
 }
 
 void Entity::setPatterns(const std::vector<Pattern> &patterns) {
-    pattern_ = std::make_shared<std::vector<Pattern>>();
+    if (pattern_.has_value()) {
+        pattern_.reset();
+    } else {
+        pattern_ = std::make_shared<std::vector<Pattern>>();
+    }
     for (auto pattern: patterns) {
         pattern_.value()->push_back(pattern);
     }
@@ -43,8 +47,8 @@ std::optional<std::weak_ptr<Hitbox>> Entity::getHitbox() const {
     return hitbox_;
 }
 
-void Entity::setHitbox(sf::FloatRect new_hitbox) {
-    hitbox_.value()->setHitbox(new_hitbox);
+void Entity::setHitbox(const Hitbox& new_hitbox) {
+    hitbox_.value() = std::make_shared<Hitbox>(new_hitbox);
 }
 
 std::optional<std::weak_ptr<Animation>> Entity::getAnimation() const {
