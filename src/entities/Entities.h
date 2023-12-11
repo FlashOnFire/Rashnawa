@@ -4,11 +4,15 @@
 
 
 #include <string>
+#include "SFML/Graphics/Rect.hpp"
 
 struct EntityPrototype {
     std::string name = "default";
     bool has_animation = false;
-    // we will add hasIA, hasHitbox, hasPattern and some stuff useful ^^
+    sf::FloatRect coord_hitbox = sf::FloatRect(0.0f, 0.0f, 0.0f, 0.0f);
+    bool has_patterns = false;
+    bool has_IA = false;
+    // we will add some useful stuff soon ^^
 };
 
 enum class Entities {

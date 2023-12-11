@@ -6,9 +6,14 @@
 
 class Hitbox {
 public:
-    Hitbox(int x, int y, int dx, int dy);
+    Hitbox(float x, float y, float dx, float dy);
+
+    void setHitbox(sf::FloatRect new_hitbox);
+
+    bool isTriggered(sf::Vector2f pos);
+
 private:
-    sf::IntRect square_;
+    sf::FloatRect square_;
 };
 
 

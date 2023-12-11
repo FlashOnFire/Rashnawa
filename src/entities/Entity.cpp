@@ -22,10 +22,21 @@ void Entity::setPosition(const float x, const float y) {
     sprite_.setPosition(x, y);
 }
 
+
 void Entity::setPaused(const bool is_paused) {
     if (animation_.has_value()) {
         animation_.value()->setPaused(is_paused);
     }
+}
+
+
+std::optional<std::weak_ptr<Hitbox>> Entity::getHitbox() const {
+    return hitbox_;
+}
+
+
+void Entity::setHitbox(sf::FloatRect new_hitbox) {
+    hitbox_.value()->setHitbox(new_hitbox);
 }
 
 std::optional<std::weak_ptr<Animation>> Entity::getAnimation() const {

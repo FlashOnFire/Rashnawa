@@ -7,6 +7,7 @@
 #include <optional>
 #include "../graphics/Animations.h"
 #include "items/Item.h"
+#include "Hitbox.h"
 
 class Entity {
 public:
@@ -22,11 +23,16 @@ public:
 
     void setPaused(bool is_paused);
 
+    std::optional<std::weak_ptr<Hitbox>> getHitbox() const;
+
+    void setHitbox(sf::FloatRect new_hitbox);
+
     std::optional<std::weak_ptr<Animation>> getAnimation() const;
 
 private:
     std::vector<Item> item = std::vector<Item>();
     std::optional<std::shared_ptr<Animation>> animation_;
+    std::optional<std::shared_ptr<Hitbox>> hitbox_;
     std::string name_file_;
     std::shared_ptr<sf::Texture> texture_;
     sf::Sprite sprite_;

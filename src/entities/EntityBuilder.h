@@ -12,7 +12,7 @@ class EntityBuilder {
 public:
     explicit EntityBuilder(std::shared_ptr<dexode::EventBus> event_bus);
 
-    std::unique_ptr<Entity> buildEntity(Entities entity_type);
+    [[nodiscard]] std::unique_ptr<Entity> buildEntity(Entities entity_type);
 
 private:
     std::shared_ptr<dexode::EventBus> event_bus_;

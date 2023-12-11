@@ -7,22 +7,30 @@ EntityBuilder::EntityBuilder(std::shared_ptr<dexode::EventBus> event_bus) : even
 }
 
 void EntityBuilder::populateEntitiesPrototypeMap() {
-    entity_prototypes_map_.emplace(Entities::GROUND, EntityPrototype{.name = "ground", .has_animation = false});
-    entity_prototypes_map_.emplace(Entities::PLAYER, EntityPrototype{.name = "halteroman", .has_animation = true});
+    entity_prototypes_map_.emplace(Entities::GROUND, EntityPrototype{.name = "ground"});
+    entity_prototypes_map_.emplace(Entities::PLAYER,
+                                   EntityPrototype{.name = "halteroman", .has_animation = true, .coord_hitbox=sf::FloatRect(
+                                           1.0f, 1.0f, 1.0f, 1.0f)});
 }
 
 std::unique_ptr<Entity> EntityBuilder::buildEntity(Entities entity_type) {
     const auto prototype = entity_prototypes_map_.find(entity_type)->second;
     auto texture = getTexture(prototype.name);
+    std::unique_ptr<Entity> entity;
 
     if (prototype.has_animation) {
-        auto entity = std::make_unique<Entity>(std::move(texture), prototype.name);
+        entity = std::make_unique<Entity>(std::move(texture), prototype.name);
         event_bus_->postpone<Events::AnimationCreated>({entity->getAnimation().value()});
 
-        return entity;
+    } else {
+        entity = std::make_unique<Entity>(std::move(texture));
     }
 
-    return std::make_unique<Entity>(std::move(texture));
+    if (prototype.coord_hitbox != sf::FloatRect(0.0f, 0.0f, 0.0f, 0.0f)) {
+        entity->setHitbox(prototype.coord_hitbox);
+    }
+
+    return entity;
 }
 
 std::shared_ptr<sf::Texture> EntityBuilder::getTexture(const std::string &name) {
