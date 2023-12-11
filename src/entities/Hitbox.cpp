@@ -15,7 +15,3 @@ bool Hitbox::isTriggered(sf::Vector2f pos) {
     }
     return false;
 }
-
-bool Hitbox::isNull() const {
-    return (square_.getPosition() == sf::Vector2f(0.0f, 0.0f) && square_.getSize() == sf::Vector2f (0.0f, 0.0f));
-}

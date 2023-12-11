@@ -12,8 +12,6 @@ public:
 
     bool isTriggered(sf::Vector2f pos);
 
-    [[nodiscard]] bool isNull() const;
-
 private:
     sf::FloatRect square_;
 };

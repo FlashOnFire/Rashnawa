@@ -26,8 +26,8 @@ std::unique_ptr<Entity> EntityBuilder::buildEntity(Entities entity_type) {
         entity = std::make_unique<Entity>(std::move(texture));
     }
 
-    if (prototype.coord_hitbox.isNull()) {
-        entity->setHitbox(prototype.coord_hitbox);
+    if (prototype.coord_hitbox.has_value()) {
+        entity->setHitbox(prototype.coord_hitbox.value());
     }
 
     if (!prototype.patterns.empty()) {
