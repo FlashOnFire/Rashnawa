@@ -3,10 +3,10 @@
 
 
 #include <memory>
-#include "LivingEntity.h"
 #include "weapons/Weapon.h"
+#include "Entity.h"
 
-class Player : public LivingEntity {
+class Player : public Entity {
 public:
 
 

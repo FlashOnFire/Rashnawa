@@ -8,6 +8,7 @@
 struct EntityPrototype {
     std::string name = "default";
     bool has_animation = false;
+    // we will add hasIA, hasHitbox, hasPattern and some stuff useful ^^
 };
 
 enum class Entities {
