@@ -48,7 +48,7 @@ std::optional<std::weak_ptr<Hitbox>> Entity::getHitbox() const {
 }
 
 void Entity::setHitbox(const Hitbox& new_hitbox) {
-    hitbox_.value() = std::make_shared<Hitbox>(new_hitbox);
+    hitbox_ = std::make_shared<Hitbox>(new_hitbox);
 }
 
 std::optional<std::weak_ptr<Animation>> Entity::getAnimation() const {
