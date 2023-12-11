@@ -3,7 +3,7 @@
 #include <fstream>
 #include <sstream>
 
-Room::Room(const std::string& zone_name, const std::string& room_name) {
+Room::Room(const std::string &zone_name, const std::string &room_name, std::shared_ptr<EntityBuilder> builder) {
     zone_name_ = zone_name;
     room_name_ = room_name;
     std::string folder = "../assets/map/zone_" + zone_name_ + "room_" + room_name_;
@@ -37,17 +37,22 @@ Room::Room(const std::string& zone_name, const std::string& room_name) {
         //PLaceholder test before real implementation of entity classes
         unsigned int i = 0;
         std::string word;
+        int id;
+        std::string entity_name;
+        int x = 0, y = 0;
+        float scale_x = 0, scale_y = 0;
         while (!entityFile.eof()) {
-            entityFile >> word;
-            std::cout << "Entity " << i << "'s id : " << stoi(word);
-            entityFile >> word;
-            std::cout << "Entity " << i << "'s name : " << word;
-            entityFile >> word;
-            std::cout << "Entity " << i << "'s x coord : " << stoi(word);
-            entityFile >> word;
-            std::cout << "Entity " << i << "'s y coord : " << stoi(word);
-            entityFile >> word;
-            std::cout << "Entity " << i << "'s texture name : " << word;
+            entityFile >> id;
+            entityFile >> entity_name;
+            entityFile >> x;
+            entityFile >> y;
+            entityFile >> scale_x;
+            entityFile >> scale_y;
+
+            std::unique_ptr<Entity> entity = builder->buildEntity(static_cast<Entities>(id));
+            entity->setPosition(x, y);
+            entities_.push_back(std::move(entity));
+
             i++;
         }
         entityFile.close();
@@ -84,5 +89,4 @@ Room::Room(const std::string& zone_name, const std::string& room_name) {
         }
         triggerFile.close();
     }
-
 }

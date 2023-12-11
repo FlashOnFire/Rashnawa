@@ -3,11 +3,12 @@
 
 #include <SFML/Graphics.hpp>
 #include "../entities/Entity.h"
+#include "../entities/EntityBuilder.h"
 #include "../world/TriggerBox.h"
 
 class Room {
 public:
-    Room(const std::string& zone_name, const std::string& room_name);
+    Room(const std::string& zone_name, const std::string& room_name, std::shared_ptr<EntityBuilder> builder);
 
 private:
     std::string zone_name_;
