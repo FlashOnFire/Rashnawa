@@ -7,11 +7,12 @@
 #include <vector>
 #include "SFML/Graphics/Rect.hpp"
 #include "patterns/Pattern.h"
+#include "Hitbox.h"
 
 struct EntityPrototype {
     std::string name = "default";
     bool has_animation = false;
-    sf::FloatRect coord_hitbox = sf::FloatRect(0.0f, 0.0f, 0.0f, 0.0f);
+    Hitbox coord_hitbox = Hitbox(0.0f, 0.0f, 0.0f, 0.0f);
     std::vector<Pattern> patterns;
     bool has_IA = false;
     // we will add some useful stuff soon ^^

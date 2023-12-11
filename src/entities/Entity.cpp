@@ -1,5 +1,6 @@
 #include <SFML/Graphics/Texture.hpp>
 #include "Entity.h"
+#include <SFML/Graphics/RenderTarget.hpp>
 
 Entity::Entity(std::shared_ptr<sf::Texture> texture) : texture_(std::move(texture)) {
     sprite_.setTexture(*texture_);
@@ -55,3 +56,6 @@ std::optional<std::weak_ptr<Animation>> Entity::getAnimation() const {
     return animation_;
 }
 
+void Entity::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+    target.draw(sprite_);
+}

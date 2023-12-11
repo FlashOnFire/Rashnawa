@@ -10,13 +10,13 @@
 #include "Hitbox.h"
 #include "patterns/Pattern.h"
 
-class Entity {
+class Entity : public sf::Drawable {
 public:
     explicit Entity(std::shared_ptr<sf::Texture> texture);
 
     explicit Entity(std::shared_ptr<sf::Texture> texture, const std::string &animation_name);
 
-    virtual ~Entity();
+    ~Entity() override;
 
     [[nodiscard]] sf::Vector2f getPosition() const;
 
@@ -33,6 +33,9 @@ public:
     void setHitbox(const Hitbox& new_hitbox);
 
     std::optional<std::weak_ptr<Animation>> getAnimation() const;
+
+protected:
+    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 private:
     std::vector<Item> item = std::vector<Item>();
