@@ -10,7 +10,7 @@ class World {
 public:
     explicit World(std::shared_ptr<dexode::EventBus> event_bus);
 
-    std::shared_ptr<Room> getCurrentRoom() const;
+    [[nodiscard]] std::shared_ptr<Room> getCurrentRoom() const;
 
     void load(const std::string &zone_name, const std::string &room_name);
 

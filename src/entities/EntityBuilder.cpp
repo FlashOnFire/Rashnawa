@@ -7,16 +7,18 @@ EntityBuilder::EntityBuilder(std::shared_ptr<dexode::EventBus> event_bus) : even
 }
 
 void EntityBuilder::populateEntitiesPrototypeMap() {
-    entity_prototypes_map_.emplace(Entities::GROUND, EntityPrototype{.name = "ground"});
-    entity_prototypes_map_.emplace(Entities::PLAYER,
-                                   EntityPrototype{
-                                       .name = "halteroman", .has_animation = true, .hitbox = Hitbox(
-                                           1.0f, 1.0f, 1.0f, 1.0f)
-                                   });
+    using enum Entities;
 
-    entity_prototypes_map_.emplace(Entities::BEDS1, EntityPrototype{.name = "beds1"});
-    entity_prototypes_map_.emplace(Entities::BEDS2, EntityPrototype{.name = "beds2"});
-    entity_prototypes_map_.emplace(Entities::HUBLOT, EntityPrototype{.name = "hublot"});
+    entity_prototypes_map_.try_emplace(GROUND, EntityPrototype{.name = "ground"});
+    entity_prototypes_map_.try_emplace(PLAYER,
+                                       EntityPrototype{
+                                               .name = "halteroman", .has_animation = true, .hitbox = Hitbox(
+                                                       1.0f, 1.0f, 1.0f, 1.0f)
+                                       });
+
+    entity_prototypes_map_.try_emplace(BEDS1, EntityPrototype{.name = "beds1"});
+    entity_prototypes_map_.try_emplace(BEDS2, EntityPrototype{.name = "beds2"});
+    entity_prototypes_map_.try_emplace(HUBLOT, EntityPrototype{.name = "hublot"});
 }
 
 std::unique_ptr<Entity> EntityBuilder::buildEntity(Entities entity_type) {
@@ -42,7 +44,7 @@ std::unique_ptr<Entity> EntityBuilder::buildEntity(Entities entity_type) {
     return entity;
 }
 
-std::shared_ptr<sf::Texture> EntityBuilder::getTexture(const std::string& name) {
+std::shared_ptr<sf::Texture> EntityBuilder::getTexture(const std::string &name) {
     if (textures_map_.contains(name) && !textures_map_.at(name).expired()) {
         return textures_map_.at(name).lock();
     } else {

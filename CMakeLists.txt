@@ -86,4 +86,5 @@ add_executable(Rashnawa
         src/entities/Entities.h
         src/entities/patterns/Pattern.h
         src/entities/patterns/Pattern.cpp
+        src/utils/StringHasher.h
 )

@@ -10,7 +10,7 @@ public:
 
     void setHitbox(sf::FloatRect new_hitbox);
 
-    bool isTriggered(sf::Vector2f pos);
+    [[nodiscard]] bool isTriggered(sf::Vector2f pos) const;
 
 private:
     sf::FloatRect square_;

@@ -23,7 +23,7 @@ Room::Room(std::string zone_name, std::string room_name, const std::shared_ptr<E
         exit(EXIT_FAILURE);
     }
 
-    room_file >> spawnpoint_.x >> spawnpoint_.y;
+    room_file >> spawn_point_.x >> spawn_point_.y;
 
     std::ifstream entity_file(folder + "/entities.txt");
     if (!entity_file.is_open()) {

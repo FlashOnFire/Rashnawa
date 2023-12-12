@@ -23,7 +23,7 @@ private:
     std::string room_name_;
 
     sf::Vector2i size_;
-    sf::Vector2i spawnpoint_;
+    sf::Vector2i spawn_point_;
 
     const std::shared_ptr<sf::Texture> background_texture_ = std::make_shared<sf::Texture>();
 

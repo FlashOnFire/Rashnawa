@@ -6,6 +6,7 @@
 #include <dexode/EventBus.hpp>
 #include <dexode/eventbus/Bus.hpp>
 #include "../events/Events.h"
+#include "../utils/StringHasher.h"
 
 enum class TriggerType {
     SOUND,
@@ -24,25 +25,25 @@ public:
 
     [[nodiscard]] std::vector<std::string> getArgs() const;
 
-    inline static std::unordered_map<std::string, TriggerType> const trigger_type_map_ = {
+    inline static std::unordered_map<std::string, TriggerType, StringHash, std::equal_to<>> const trigger_type_map_ = {
             {"SOUND",    TriggerType::SOUND},
             {"WORLD",    TriggerType::WORLD},
             {"CUTSCENE", TriggerType::CUTSCENE}
     };
 
-    inline static std::unordered_map<std::string, Events::Triggers::TriggerSoundAction> const trigger_sound_action_map_ = {
+    inline static std::unordered_map<std::string, Events::Triggers::TriggerSoundAction, StringHash, std::equal_to<>> const trigger_sound_action_map_ = {
             {"start",                Events::Triggers::TriggerSoundAction::START},
             {"stop",                 Events::Triggers::TriggerSoundAction::STOP},
             {"parameter_set",        Events::Triggers::TriggerSoundAction::PARAMETER_SET},
             {"global_parameter_set", Events::Triggers::TriggerSoundAction::GLOBAL_PARAMETER_SET}
     };
 
-    inline static std::unordered_map<std::string, Events::Triggers::TriggerWorldAction> const trigger_world_action_map_ = {
+    inline static std::unordered_map<std::string, Events::Triggers::TriggerWorldAction, StringHash, std::equal_to<>> const trigger_world_action_map_ = {
             {"zone_change", Events::Triggers::TriggerWorldAction::ZONE_CHANGE},
             {"room_change", Events::Triggers::TriggerWorldAction::ROOM_CHANGE}
     };
 
-    inline static std::unordered_map<std::string, Events::Triggers::TriggerCutsceneAction> const trigger_cutscene_action_map_ = {
+    inline static std::unordered_map<std::string, Events::Triggers::TriggerCutsceneAction, StringHash, std::equal_to<>> const trigger_cutscene_action_map_ = {
             {"start", Events::Triggers::TriggerCutsceneAction::START},
             {"skip",  Events::Triggers::TriggerCutsceneAction::SKIP}
     };

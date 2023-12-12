@@ -71,11 +71,13 @@ SoundOptionData OptionsManager::getSoundOptions() const {
 
 GenericOption OptionsManager::getSoundOption(const SoundOptionType& type) const {
     switch (type) {
-        case SoundOptionType::MASTER_VOLUME:
+        using enum SoundOptionType;
+
+        case MASTER_VOLUME:
             return GenericOption(options_snapshot_.sound.master_volume);
-        case SoundOptionType::MUSIC_VOLUME:
+        case MUSIC_VOLUME:
             return GenericOption(options_snapshot_.sound.music_volume);
-        case SoundOptionType::EFFECTS_VOLUME:
+        case EFFECTS_VOLUME:
             return GenericOption(options_snapshot_.sound.effects_volume);
         default:
             std::cerr << "Not implemented";
@@ -89,13 +91,15 @@ void OptionsManager::setSoundOptions(const SoundOptionData& sound_options) {
 
 void OptionsManager::setSoundOption(const SoundOptionType& type, const GenericOption &value) {
     switch (type) {
-        case SoundOptionType::MASTER_VOLUME:
+        using enum SoundOptionType;
+
+        case MASTER_VOLUME:
             options_snapshot_.sound.master_volume = value._float;
             break;
-        case SoundOptionType::MUSIC_VOLUME:
+        case MUSIC_VOLUME:
             options_snapshot_.sound.music_volume = value._float;
             break;
-        case SoundOptionType::EFFECTS_VOLUME:
+        case EFFECTS_VOLUME:
             options_snapshot_.sound.effects_volume = value._float;
             break;
     }
@@ -109,7 +113,9 @@ GraphicsOptionsData OptionsManager::getGraphicsOptionsData() const {
 
 GenericOption OptionsManager::getGraphicsOption(const GraphicsOptionType& type) const {
     switch (type) {
-        case GraphicsOptionType::FPS:
+        using enum GraphicsOptionType;
+
+        case FPS:
             return GenericOption({._int = options_snapshot_.graphics.fps});
         default:
             std::cerr << "Not implemented";
