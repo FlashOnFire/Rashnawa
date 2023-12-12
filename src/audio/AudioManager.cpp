@@ -22,11 +22,11 @@ namespace Audio {
         FMOD_Studio_System_Update(system_);
     }
 
-    std::weak_ptr<FMOD_STUDIO_BANK> AudioSystem::loadBank(const std::string& path) {
-        FMOD_STUDIO_BANK* bank;
+    std::weak_ptr<FMOD_STUDIO_BANK> AudioSystem::loadBank(const std::string &path) {
+        FMOD_STUDIO_BANK *bank;
         ErrCheck(FMOD_Studio_System_LoadBankFile(system_, path.c_str(), FMOD_STUDIO_LOAD_BANK_NORMAL, &bank));
 
-        std::shared_ptr<FMOD_STUDIO_BANK> bankPtr(bank, [](FMOD_STUDIO_BANK* b) {
+        std::shared_ptr<FMOD_STUDIO_BANK> bankPtr(bank, [](FMOD_STUDIO_BANK *b) {
             FMOD_Studio_Bank_Unload(b);
         });
 
@@ -35,21 +35,21 @@ namespace Audio {
     }
 
     std::unique_ptr<EventInstance>
-    AudioSystem::createEventInstance(const std::string& path) {
-        FMOD_STUDIO_EVENTINSTANCE* instance;
+    AudioSystem::createEventInstance(const std::string &path) {
+        FMOD_STUDIO_EVENTINSTANCE *instance;
         FMOD_Studio_EventDescription_CreateInstance(getEventDescription(path).lock().get(), &instance);
 
         return std::make_unique<EventInstance>(instance);
     }
 
-    void AudioSystem::setParameterByName(const std::string& name, const float value,
-                                          const bool ignore_seek_speed) const {
+    void AudioSystem::setParameterByName(const std::string &name, const float value,
+                                         const bool ignore_seek_speed) const {
         ErrCheck(FMOD_Studio_System_SetParameterByName(system_, name.c_str(), value, ignore_seek_speed));
     }
 
-    std::weak_ptr<FMOD_STUDIO_EVENTDESCRIPTION> AudioSystem::getEventDescription(const std::string& path) {
+    std::weak_ptr<FMOD_STUDIO_EVENTDESCRIPTION> AudioSystem::getEventDescription(const std::string &path) {
         if (!event_descriptions_.contains(path)) {
-            FMOD_STUDIO_EVENTDESCRIPTION* event;
+            FMOD_STUDIO_EVENTDESCRIPTION *event;
 
             ErrCheck(FMOD_Studio_System_GetEvent(system_, path.c_str(), &event));
 
@@ -59,12 +59,12 @@ namespace Audio {
             }
 
             auto event_ptr = std::shared_ptr<FMOD_STUDIO_EVENTDESCRIPTION>(event,
-                                                                           [](FMOD_STUDIO_EVENTDESCRIPTION* evt) {
+                                                                           [](FMOD_STUDIO_EVENTDESCRIPTION *evt) {
                                                                                FMOD_Studio_EventDescription_ReleaseAllInstances(
-                                                                                   evt);
+                                                                                       evt);
                                                                            });
 
-            event_descriptions_.insert(std::pair(path, event_ptr));
+            event_descriptions_.try_emplace(path, event_ptr);
 
             return event_ptr;
         }

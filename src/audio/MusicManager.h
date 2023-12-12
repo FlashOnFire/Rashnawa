@@ -4,6 +4,7 @@
 #include "dexode/EventBus.hpp"
 #include "AudioManager.h"
 #include "../storage/OptionsManager.h"
+#include "../events/Events.h"
 
 namespace Audio {
     class MusicManager {
@@ -19,6 +20,10 @@ namespace Audio {
         dexode::EventBus::Listener event_listener_;
 
         std::unique_ptr<EventInstance> music_instance_;
+
+        void onScreenChange(const Events::ChangeScreen &event);
+
+        void onSoundOptionChange(const Events::Options::SoundOptionChangeEvent &event);
     };
 } // Audio
 

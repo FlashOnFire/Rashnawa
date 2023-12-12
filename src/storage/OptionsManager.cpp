@@ -74,11 +74,11 @@ GenericOption OptionsManager::getSoundOption(const SoundOptionType& type) const 
         using enum SoundOptionType;
 
         case MASTER_VOLUME:
-            return GenericOption(options_snapshot_.sound.master_volume);
+            return options_snapshot_.sound.master_volume;
         case MUSIC_VOLUME:
-            return GenericOption(options_snapshot_.sound.music_volume);
+            return options_snapshot_.sound.music_volume;
         case EFFECTS_VOLUME:
-            return GenericOption(options_snapshot_.sound.effects_volume);
+            return options_snapshot_.sound.effects_volume;
         default:
             std::cerr << "Not implemented";
             exit(EXIT_FAILURE);

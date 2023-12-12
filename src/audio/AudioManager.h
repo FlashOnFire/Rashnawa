@@ -4,9 +4,10 @@
 #include <memory>
 #include "EventInstance.h"
 #include <vector>
-#include <map>
+#include <unordered_map>
 
 #include "FMOD/fmod_studio.h"
+#include "../utils/StringHasher.h"
 
 namespace Audio {
     class AudioSystem {
@@ -19,18 +20,19 @@ namespace Audio {
 
         void update() const;
 
-        std::weak_ptr<FMOD_STUDIO_BANK> loadBank(const std::string& path);
+        std::weak_ptr<FMOD_STUDIO_BANK> loadBank(const std::string &path);
 
-        std::unique_ptr<EventInstance> createEventInstance(const std::string& path);
+        std::unique_ptr<EventInstance> createEventInstance(const std::string &path);
 
-        void setParameterByName(const std::string& name, float value, bool ignore_seek_speed = false) const;
+        void setParameterByName(const std::string &name, float value, bool ignore_seek_speed = false) const;
 
     private:
-        FMOD_STUDIO_SYSTEM* system_ = nullptr;
+        FMOD_STUDIO_SYSTEM *system_ = nullptr;
         std::vector<std::shared_ptr<FMOD_STUDIO_BANK>> banks_;
-        std::map<const std::string, std::shared_ptr<FMOD_STUDIO_EVENTDESCRIPTION>> event_descriptions_;
 
-        std::weak_ptr<FMOD_STUDIO_EVENTDESCRIPTION> getEventDescription(const std::string& path);
+        std::unordered_map<const std::string, std::shared_ptr<FMOD_STUDIO_EVENTDESCRIPTION>, StringHash, std::equal_to<>> event_descriptions_;
+
+        std::weak_ptr<FMOD_STUDIO_EVENTDESCRIPTION> getEventDescription(const std::string &path);
     };
 } // Audio
 

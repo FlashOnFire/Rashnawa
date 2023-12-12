@@ -44,14 +44,14 @@ void Game::run() {
     });
 
     dexode::EventBus::Listener change_screen_listener(event_bus_);
-    change_screen_listener.listen<Events::ChangeScreen>([this](const Events::ChangeScreen& e) {
+    change_screen_listener.listen<Events::ChangeScreen>([this](const Events::ChangeScreen &e) {
         switch (e.to) {
-                using
-                        enum Screens;
+            using
+            enum Screens;
 
             case None:
                 current_screen_.reset();
-                gamePausedListener_->listen<Events::EscapeBtn>([this](const Events::EscapeBtn&) {
+                gamePausedListener_->listen<Events::EscapeBtn>([this](const Events::EscapeBtn &) {
                     event_bus_->postpone<Events::ChangeScreen>({.from = None, .to = PauseMenu});
                 });
 
@@ -70,7 +70,7 @@ void Game::run() {
     });
 
     dexode::EventBus::Listener animation_created_listener(event_bus_);
-    animation_created_listener.listen<Events::AnimationCreated>([this](const Events::AnimationCreated& event) {
+    animation_created_listener.listen<Events::AnimationCreated>([this](const Events::AnimationCreated &event) {
         animations_.push_back(event.animation);
     });
 

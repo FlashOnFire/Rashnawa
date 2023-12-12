@@ -49,7 +49,7 @@ void SoundOptions::updateComponentsTransform() {
         components_.at(i)->setTransform(
                 sf::Vector2f(
                         position_.x + ((i % 2 == 0) ? padding_x : size_.x / 2.0f + padding_x * 0.5f),
-                        position_.y + padding_y + (comp_size.y + padding_y_between_comp) * (i / 2)),
+                        position_.y + padding_y + (comp_size.y + padding_y_between_comp) * (float) (i / 2)),
                 comp_size);
     }
 }

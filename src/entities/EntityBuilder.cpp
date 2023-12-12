@@ -54,7 +54,8 @@ std::shared_ptr<sf::Texture> EntityBuilder::getTexture(const std::string &name) 
             std::cerr << "Can't load " << name << ".png, You are so disappointed  :(" << std::endl;
             texture->loadFromFile("../assets/sprites/default.png");
         }
-        textures_map_.emplace(name, texture);
+
+        textures_map_.try_emplace(name, texture);
 
         return texture;
     }
