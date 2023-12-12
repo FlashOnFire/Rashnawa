@@ -9,14 +9,12 @@ namespace Graphics {
         std::cout << "Created Renderer!" << std::endl;
     }
 
-    void Renderer::render() const {
-        // TODO: actually render ma saucisse
-        sf::RectangleShape shape;
-        shape.setFillColor(sf::Color::Black);
-        shape.setPosition(100, 100);
-        shape.setSize(sf::Vector2f(250, 250));
-
-        window_->draw(shape);
+    void Renderer::render(std::shared_ptr<World> world) const {
+        std::shared_ptr<Room> current_room = world->getCurrentRoom();
+        auto background = sf::RectangleShape(sf::Vector2f(window_->getSize()));
+        background.setTexture(current_room->getBackgroundTexture().get());
+        window_->draw(background);
+        // TODO Call current_room->entities->draw(); (not implemented yet)
     }
 
 } // Graphics

@@ -41,6 +41,8 @@ private:
 
     std::shared_ptr<KeybindHandler> keybind_handler_;
 
+    std::shared_ptr<World> world_;
+
     std::vector<std::weak_ptr<Animation>> animations_;
 
     void handleEvents() const;

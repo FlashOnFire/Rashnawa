@@ -4,6 +4,7 @@
 #include <memory>
 
 #include <SFML/Graphics.hpp>
+#include "../world/World.h"
 
 namespace Graphics {
 
@@ -11,7 +12,7 @@ namespace Graphics {
     public:
         explicit Renderer(std::shared_ptr<sf::RenderWindow> window);
 
-        void render() const;
+        void render(std::shared_ptr<World> world) const;
 
     private:
         std::shared_ptr<sf::RenderWindow> window_;

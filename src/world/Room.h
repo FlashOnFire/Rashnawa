@@ -8,10 +8,13 @@
 
 class Room {
 public:
-    Room(const std::string& zone_name, const std::string& room_name, std::shared_ptr<EntityBuilder> builder);
+    Room(const std::string &zone_name, const std::string &room_name, std::shared_ptr<EntityBuilder> builder);
 
     std::shared_ptr<std::vector<std::unique_ptr<Entity>>> getEntities();
+
     std::shared_ptr<std::vector<std::unique_ptr<TriggerBox>>> getTriggers();
+
+    const std::shared_ptr<sf::Texture> getBackgroundTexture();
 
 private:
     std::string zone_name_;
@@ -20,10 +23,10 @@ private:
     sf::Vector2i size_;
     sf::Vector2i spawnpoint_;
 
-    const std::unique_ptr<sf::Texture> background_texture_ = std::make_unique<sf::Texture>();
+    const std::shared_ptr<sf::Texture> background_texture_ = std::make_shared<sf::Texture>();
 
-    std::shared_ptr<std::vector<std::unique_ptr<Entity>>> entities_;
-    std::shared_ptr<std::vector<std::unique_ptr<TriggerBox>>> triggers_;
+    std::shared_ptr<std::vector<std::unique_ptr<Entity>>> entities_ = std::make_shared<std::vector<std::unique_ptr<Entity>>>();
+    std::shared_ptr<std::vector<std::unique_ptr<TriggerBox>>> triggers_ = std::make_shared<std::vector<std::unique_ptr<TriggerBox>>>();
 };
 
 

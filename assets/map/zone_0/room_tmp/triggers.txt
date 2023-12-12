@@ -1,3 +1,3 @@
 screen_transition_0-1 80 40 20 20 1 0 WORLD room_change room_tmp
-music_start_0 50 30 10 10 1 0 MUSIC start spaceship_theme
+music_start_0 50 30 10 10 1 0 SOUND start spaceship_theme
 cutscene_intro 50 30 10 10 1 0 CUTSCENE start intro_cutscene

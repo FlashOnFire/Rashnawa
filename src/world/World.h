@@ -10,6 +10,8 @@ class World {
 public:
     World(std::shared_ptr<dexode::EventBus> event_bus);
 
+    std::shared_ptr<Room> getCurrentRoom();
+
     void load(std::string zone_name, std::string room_name);
 
 private:
@@ -17,10 +19,9 @@ private:
 
     std::shared_ptr<EntityBuilder> entity_builder_;
 
-    std::vector<std::unique_ptr<Room>> loaded_rooms_;
+    std::vector<std::shared_ptr<Room>> loaded_rooms_;
 
-    std::unique_ptr<Room> current_room_;
-
+    std::shared_ptr<Room> current_room_;
 };
 
 

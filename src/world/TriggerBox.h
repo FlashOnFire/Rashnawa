@@ -16,32 +16,35 @@ enum class TriggerType {
 class TriggerBox {
 public:
     TriggerBox(std::string name, sf::IntRect rect, int uses, int cooldown, TriggerType type,
-               Events::Triggers::TriggerAction action, const std::vector<std::string>& args);
+               Events::Triggers::TriggerAction action, const std::vector<std::string> &args);
 
     TriggerType getTriggerType();
+
     Events::Triggers::TriggerAction getAction();
+
     std::vector<std::string> getArgs();
 
     inline static std::unordered_map<std::string, TriggerType> const trigger_type_map_ = {
-        {"music", TriggerType::SOUND},
-        {"world", TriggerType::WORLD},
+            {"SOUND", TriggerType::SOUND},
+            {"WORLD", TriggerType::WORLD},
+            {"CUTSCENE", TriggerType::CUTSCENE}
     };
 
     inline static std::unordered_map<std::string, Events::Triggers::TriggerSoundAction> const trigger_sound_action_map_ = {
             {"start", Events::Triggers::TriggerSoundAction::START},
-            {"stop", Events::Triggers::TriggerSoundAction::STOP},
-            {"set", Events::Triggers::TriggerSoundAction::PARAMETER_SET},
-            {"set", Events::Triggers::TriggerSoundAction::GLOBAL_PARAMETER_SET}
+            {"stop",  Events::Triggers::TriggerSoundAction::STOP},
+            {"parameter_set",   Events::Triggers::TriggerSoundAction::PARAMETER_SET},
+            {"global_parameter_set",   Events::Triggers::TriggerSoundAction::GLOBAL_PARAMETER_SET}
     };
 
     inline static std::unordered_map<std::string, Events::Triggers::TriggerWorldAction> const trigger_world_action_map_ = {
             {"zone_change", Events::Triggers::TriggerWorldAction::ZONE_CHANGE},
-            {"room_change", Events::Triggers::TriggerWorldAction::ROOM_CHANGE},
+            {"room_change", Events::Triggers::TriggerWorldAction::ROOM_CHANGE}
     };
 
     inline static std::unordered_map<std::string, Events::Triggers::TriggerCutsceneAction> const trigger_cutscene_action_map_ = {
             {"start", Events::Triggers::TriggerCutsceneAction::START},
-            {"start", Events::Triggers::TriggerCutsceneAction::SKIP}
+            {"skip", Events::Triggers::TriggerCutsceneAction::SKIP}
     };
 
 private:

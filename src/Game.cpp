@@ -23,6 +23,8 @@ Game::Game() {
 
     keybind_handler_ = std::make_unique<KeybindHandler>(event_bus_);
 
+    world_ = std::make_shared<World>(event_bus_);
+
     audio_system_->initialize();
     audio_system_->loadBank("../assets/audio/Master.bank");
     audio_system_->loadBank("../assets/audio/Master.strings.bank");
@@ -95,7 +97,9 @@ void Game::run() {
         if (current_screen_.has_value()) {
             current_screen_.value()->render(window_);
         } else {
-            renderer_->render();
+            //temporary tests (sorry guigui)
+            world_->load("0", "tmp");
+            renderer_->render(world_);
         }
 
         window_->display();

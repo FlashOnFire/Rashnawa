@@ -6,16 +6,17 @@
 Room::Room(const std::string &zone_name, const std::string &room_name, std::shared_ptr<EntityBuilder> builder) {
     zone_name_ = zone_name;
     room_name_ = room_name;
-    std::string folder = "../assets/map/zone_" + zone_name_ + "room_" + room_name_;
+    std::string folder = "../assets/map/zone_" + zone_name_ + "/room_" + room_name_;
     std::ifstream room_file(folder + "/room.txt");
     if (!room_file.is_open()) {
         std::cerr << "Cannot open Room file" << std::endl;
         exit(EXIT_FAILURE);
     } else {
         std::string line;
+
         room_file >> size_.x >> size_.y;
 
-        getline(room_file, line);
+        getline(room_file >> std::ws, line);
         if (!background_texture_->loadFromFile(folder + "/" + line)) {
             std::cerr << "Cannot load room_" + room_name_ + "'s background" << std::endl;
             exit(EXIT_FAILURE);
@@ -44,6 +45,8 @@ Room::Room(const std::string &zone_name, const std::string &room_name, std::shar
 
             std::unique_ptr<Entity> entity = builder->buildEntity(static_cast<Entities>(id));
             entity->setPosition(x, y);
+            // Not implemented yet
+            // entity->setScale(scale_x, scale_y);
             entities_->push_back(std::move(entity));
         }
     }
@@ -65,7 +68,7 @@ Room::Room(const std::string &zone_name, const std::string &room_name, std::shar
         std::vector<std::string> args;
 
         while (!trigger_file.eof()) {
-            while (getline(trigger_file, line)) {
+            while (getline(trigger_file >> std::ws, line)) {
                 std::stringstream stream(line);
                 stream >> name;
                 stream >> rect.left >> rect.top >> rect.width >> rect.height;
@@ -101,4 +104,8 @@ std::shared_ptr<std::vector<std::unique_ptr<Entity>>> Room::getEntities() {
 
 std::shared_ptr<std::vector<std::unique_ptr<TriggerBox>>> Room::getTriggers() {
     return triggers_;
+}
+
+const std::shared_ptr<sf::Texture> Room::getBackgroundTexture() {
+    return background_texture_;
 }
