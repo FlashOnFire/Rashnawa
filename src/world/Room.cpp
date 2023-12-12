@@ -45,8 +45,7 @@ Room::Room(const std::string &zone_name, const std::string &room_name, std::shar
 
             std::unique_ptr<Entity> entity = builder->buildEntity(static_cast<Entities>(id));
             entity->setPosition(x, y);
-            // Not implemented yet
-            // entity->setScale(scale_x, scale_y);
+            entity->setScale(scale_x, scale_y);
             entities_->push_back(std::move(entity));
         }
     }
