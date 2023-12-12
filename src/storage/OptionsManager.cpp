@@ -94,13 +94,13 @@ void OptionsManager::setSoundOption(const SoundOptionType& type, const GenericOp
         using enum SoundOptionType;
 
         case MASTER_VOLUME:
-            options_snapshot_.sound.master_volume = value._float;
+            options_snapshot_.sound.master_volume = std::get<float>(value);
             break;
         case MUSIC_VOLUME:
-            options_snapshot_.sound.music_volume = value._float;
+            options_snapshot_.sound.music_volume = std::get<float>(value);
             break;
         case EFFECTS_VOLUME:
-            options_snapshot_.sound.effects_volume = value._float;
+            options_snapshot_.sound.effects_volume = std::get<float>(value);
             break;
     }
 
@@ -116,7 +116,7 @@ GenericOption OptionsManager::getGraphicsOption(const GraphicsOptionType& type) 
         using enum GraphicsOptionType;
 
         case FPS:
-            return GenericOption({._int = options_snapshot_.graphics.fps});
+            return options_snapshot_.graphics.fps;
         default:
             std::cerr << "Not implemented";
             exit(EXIT_FAILURE);

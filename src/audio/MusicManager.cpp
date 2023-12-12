@@ -17,14 +17,14 @@ namespace Audio {
 
             if (e.from == None && e.to == MainMenu) {
                 music_instance_ = audio_system_->createEventInstance("event:/tension");
-                music_instance_->setVolume(options_manager_->getSoundOption(SoundOptionType::MUSIC_VOLUME)._float);
+                music_instance_->setVolume(std::get<float>(options_manager_->getSoundOption(SoundOptionType::MUSIC_VOLUME)));
                 music_instance_->start();
             } else if (e.to == None) {
                 if (e.from == PauseMenu) {
                     audio_system_->setParameterByName("midhigh", 1, false);
                 } else {
                     music_instance_ = audio_system_->createEventInstance("event:/unknoawedplez");
-                    music_instance_->setVolume(options_manager_->getSoundOption(SoundOptionType::MUSIC_VOLUME)._float);
+                    music_instance_->setVolume(std::get<float>(options_manager_->getSoundOption(SoundOptionType::MUSIC_VOLUME)));
                     music_instance_->start();
 
                     audio_system_->update();
@@ -51,7 +51,7 @@ namespace Audio {
         event_listener_.listen<Events::Options::SoundOptionChangeEvent>(
             [this](const Events::Options::SoundOptionChangeEvent& e) {
                 if (e.type == SoundOptionType::MUSIC_VOLUME) {
-                    music_instance_->setVolume(e.value._float);
+                    music_instance_->setVolume(std::get<float>(e.value));
                 }
             });
 

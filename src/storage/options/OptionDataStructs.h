@@ -2,6 +2,8 @@
 #define OPTIONDATASTRUCTS_H
 
 
+#include <variant>
+
 struct SoundOptionData {
     float master_volume = 1;
     float music_volume = 1;
@@ -22,16 +24,12 @@ enum class GraphicsOptionType {
     FPS,
 };
 
-union GenericOption {
-    float _float;
-    int _int;
-    bool _bool;
-};
-
 struct OptionsSnapshot {
     SoundOptionData sound;
     GraphicsOptionsData graphics;
 };
+
+using GenericOption = std::variant<int, float, bool>;
 
 
 #endif //OPTIONDATASTRUCTS_H
