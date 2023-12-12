@@ -36,7 +36,7 @@ namespace Events {
         };
 
         struct GraphicsOptionChangeEvent {
-            SoundOptionType type;
+            GraphicsOptionType type;
             GenericOption value;
         };
     }
@@ -76,7 +76,8 @@ namespace Events {
             struct TriggerCutsceneStartEvent {
                 std::string cutscene_name;
             };
-            struct TriggerCutsceneSkipEvent{
+
+            struct TriggerCutsceneSkipEvent {
             };
         }
 

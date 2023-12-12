@@ -21,9 +21,9 @@ namespace Audio {
 
         std::unique_ptr<EventInstance> music_instance_;
 
-        void onScreenChange(const Events::ChangeScreen &event);
+        void onScreenChange(const Events::ChangeScreen& event);
 
-        void onSoundOptionChange(const Events::Options::SoundOptionChangeEvent &event);
+        void onSoundOptionChange(const Events::Options::SoundOptionChangeEvent& event) const;
     };
 } // Audio
 

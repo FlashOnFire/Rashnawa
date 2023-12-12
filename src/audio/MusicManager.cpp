@@ -8,31 +8,30 @@ namespace Audio {
     MusicManager::MusicManager(std::shared_ptr<dexode::EventBus> event_bus,
                                std::shared_ptr<AudioSystem> audio_system,
                                std::shared_ptr<OptionsManager> options_manager)
-            : event_bus_(std::move(event_bus)),
-              audio_system_(std::move(audio_system)),
-              options_manager_(std::move(options_manager)),
-              event_listener_(dexode::EventBus::Listener(event_bus_)) {
-
-        event_listener_.listen<Events::ChangeScreen>([this](const Events::ChangeScreen &event) {
+        : event_bus_(std::move(event_bus)),
+          audio_system_(std::move(audio_system)),
+          options_manager_(std::move(options_manager)),
+          event_listener_(dexode::EventBus::Listener(event_bus_)) {
+        event_listener_.listen<Events::ChangeScreen>([this](const Events::ChangeScreen& event) {
             onScreenChange(event);
         });
 
         event_listener_.listen<Events::Options::SoundOptionChangeEvent>(
-                [this](const Events::Options::SoundOptionChangeEvent &event) {
-                    onSoundOptionChange(event);
-                });
+            [this](const Events::Options::SoundOptionChangeEvent& event) {
+                onSoundOptionChange(event);
+            });
 
         std::cout << "Created MusicManager!" << std::endl;
     }
 
-    void MusicManager::onScreenChange(const Events::ChangeScreen &event) {
+    void MusicManager::onScreenChange(const Events::ChangeScreen& event) {
         using
-        enum Screens;
+                enum Screens;
 
         if (event.from == None && event.to == MainMenu) {
             music_instance_ = audio_system_->createEventInstance("event:/tension");
             music_instance_->setVolume(
-                    std::get<float>(options_manager_->getSoundOption(SoundOptionType::MUSIC_VOLUME)));
+                std::get<float>(options_manager_->getSoundOption(SoundOptionType::MUSIC_VOLUME)));
             music_instance_->start();
         } else if (event.to == None) {
             if (event.from == PauseMenu) {
@@ -40,7 +39,7 @@ namespace Audio {
             } else {
                 music_instance_ = audio_system_->createEventInstance("event:/unknoawedplez");
                 music_instance_->setVolume(
-                        std::get<float>(options_manager_->getSoundOption(SoundOptionType::MUSIC_VOLUME)));
+                    std::get<float>(options_manager_->getSoundOption(SoundOptionType::MUSIC_VOLUME)));
                 music_instance_->start();
 
                 audio_system_->update();
@@ -64,7 +63,7 @@ namespace Audio {
         }
     }
 
-    void MusicManager::onSoundOptionChange(const Events::Options::SoundOptionChangeEvent &event) {
+    void MusicManager::onSoundOptionChange(const Events::Options::SoundOptionChangeEvent& event) const {
         if (event.type == SoundOptionType::MUSIC_VOLUME) {
             music_instance_->setVolume(std::get<float>(event.value));
         }
