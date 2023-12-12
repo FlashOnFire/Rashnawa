@@ -22,7 +22,9 @@ struct EntityPrototype {
 enum class Entities {
     GROUND = 0,
     PLAYER,
-    Monster1,
+    BEDS1,
+    BEDS2,
+    HUBLOT,
 
     ENTITIES_COUNT
 };

@@ -2,12 +2,13 @@
 #include <fstream>
 #include <cassert>
 
-Animation::Animation(const std::string &file_name,
-                     const std::function<void(sf::Vector2i coords, sf::Vector2i size)> &callback) {
+Animation::Animation(const std::string& file_name,
+                     const std::function<void(sf::Vector2i coords, sf::Vector2i size)>& callback) {
     std::ifstream file("../assets/animations/" + file_name + ".txt");
 
     if (!file.is_open()) {
-        std::cout << "cannot open file " << file_name << std::endl;
+        std::cerr << "Cannot open file " << file_name << std::endl;
+        std::exit(EXIT_FAILURE);
         return;
     }
 

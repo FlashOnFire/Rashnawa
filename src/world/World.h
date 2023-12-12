@@ -8,11 +8,11 @@
 
 class World {
 public:
-    World(std::shared_ptr<dexode::EventBus> event_bus);
+    explicit World(std::shared_ptr<dexode::EventBus> event_bus);
 
-    std::shared_ptr<Room> getCurrentRoom();
+    std::shared_ptr<Room> getCurrentRoom() const;
 
-    void load(std::string zone_name, std::string room_name);
+    void load(const std::string &zone_name, const std::string &room_name);
 
 private:
     std::shared_ptr<dexode::EventBus> event_bus_;

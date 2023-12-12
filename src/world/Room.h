@@ -8,12 +8,15 @@
 
 class Room {
 public:
-    Room(const std::string &zone_name, const std::string &room_name, std::shared_ptr<EntityBuilder> builder);
+    Room(std::string zone_name, std::string room_name, const std::shared_ptr<EntityBuilder> &builder);
 
-    std::shared_ptr<std::vector<std::unique_ptr<Entity>>> getEntities();
-    std::shared_ptr<std::vector<std::unique_ptr<TriggerBox>>> getTriggers();
-    const std::shared_ptr<sf::Texture> getBackgroundTexture();
-    sf::Vector2i getSize();
+    [[nodiscard]] std::shared_ptr<std::vector<std::unique_ptr<Entity>>> getEntities() const;
+
+    [[nodiscard]] std::shared_ptr<std::vector<std::unique_ptr<TriggerBox>>> getTriggers() const;
+
+    [[nodiscard]] std::shared_ptr<sf::Texture> getBackgroundTexture() const;
+
+    [[nodiscard]] sf::Vector2i getSize() const;
 
 private:
     std::string zone_name_;
