@@ -34,6 +34,8 @@ public:
 
     std::optional<std::weak_ptr<Animation>> getAnimation() const;
 
+    void setScale(float x, float y);
+
 protected:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 

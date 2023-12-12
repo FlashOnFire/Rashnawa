@@ -9,7 +9,7 @@ EntityBuilder::EntityBuilder(std::shared_ptr<dexode::EventBus> event_bus) : even
 void EntityBuilder::populateEntitiesPrototypeMap() {
     entity_prototypes_map_.emplace(Entities::GROUND, EntityPrototype{.name = "ground"});
     entity_prototypes_map_.emplace(Entities::PLAYER,
-                                   EntityPrototype{.name = "halteroman", .has_animation = true, .coord_hitbox=Hitbox(
+                                   EntityPrototype{.name = "halteroman", .has_animation = true, .hitbox=Hitbox(
                                            1.0f, 1.0f, 1.0f, 1.0f)});
 }
 
@@ -26,8 +26,8 @@ std::unique_ptr<Entity> EntityBuilder::buildEntity(Entities entity_type) {
         entity = std::make_unique<Entity>(std::move(texture));
     }
 
-    if (prototype.coord_hitbox.has_value()) {
-        entity->setHitbox(prototype.coord_hitbox.value());
+    if (prototype.hitbox.has_value()) {
+        entity->setHitbox(prototype.hitbox.value());
     }
 
     if (!prototype.patterns.empty()) {

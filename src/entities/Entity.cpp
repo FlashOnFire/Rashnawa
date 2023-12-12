@@ -59,3 +59,7 @@ std::optional<std::weak_ptr<Animation>> Entity::getAnimation() const {
 void Entity::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     target.draw(sprite_);
 }
+
+void Entity::setScale(float x, float y) {
+    sprite_.setScale(x, y);
+}

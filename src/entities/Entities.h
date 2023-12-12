@@ -13,7 +13,7 @@
 struct EntityPrototype {
     std::string name = "default";
     bool has_animation = false;
-    std::optional<Hitbox> coord_hitbox;
+    std::optional<Hitbox> hitbox;
     std::vector<Pattern> patterns;
     bool has_IA = false;
     // we will add some useful stuff soon ^^
