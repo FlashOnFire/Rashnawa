@@ -109,3 +109,7 @@ std::shared_ptr<std::vector<std::unique_ptr<TriggerBox>>> Room::getTriggers() {
 const std::shared_ptr<sf::Texture> Room::getBackgroundTexture() {
     return background_texture_;
 }
+
+sf::Vector2i Room::getSize() {
+    return size_;
+}

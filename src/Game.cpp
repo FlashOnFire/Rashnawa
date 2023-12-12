@@ -75,6 +75,8 @@ void Game::run() {
     });
 
     sf::Clock clock;
+    //temporary tests (sorry guigui)
+    world_->load("0", "tmp");
 
     while (running_) {
         const int delta_time = clock.restart().asMilliseconds();
@@ -97,9 +99,7 @@ void Game::run() {
         if (current_screen_.has_value()) {
             current_screen_.value()->render(window_);
         } else {
-            //temporary tests (sorry guigui)
-            world_->load("0", "tmp");
-            renderer_->render(world_);
+            renderer_->render_game(world_);
         }
 
         window_->display();
@@ -114,8 +114,8 @@ void Game::handleEvents() const {
                 event_bus_->postpone(Events::CloseGame{});
                 break;
             case sf::Event::Resized:
-                window_->setView(sf::View(sf::FloatRect(0, 0, static_cast<float>(event.size.width),
-                                                        static_cast<float>(event.size.height))));
+                //window_->setView(sf::View(sf::FloatRect(0, 0, static_cast<float>(event.size.width),
+                //                                        static_cast<float>(event.size.height))));
 
                 if (current_screen_.has_value()) {
                     current_screen_.value()->onWindowResize(event.size);

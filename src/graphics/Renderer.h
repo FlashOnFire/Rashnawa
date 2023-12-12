@@ -12,7 +12,7 @@ namespace Graphics {
     public:
         explicit Renderer(std::shared_ptr<sf::RenderWindow> window);
 
-        void render(std::shared_ptr<World> world) const;
+        void render_game(const std::shared_ptr<World>& world) const;
 
     private:
         std::shared_ptr<sf::RenderWindow> window_;

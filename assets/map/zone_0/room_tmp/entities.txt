@@ -1,2 +1,2 @@
-0 main_floor 0 20 1.0 1.0
+0 main_floor 0 184 1.0 1.0
 1 main_char 20 70 1.0 1.0

@@ -11,10 +11,9 @@ public:
     Room(const std::string &zone_name, const std::string &room_name, std::shared_ptr<EntityBuilder> builder);
 
     std::shared_ptr<std::vector<std::unique_ptr<Entity>>> getEntities();
-
     std::shared_ptr<std::vector<std::unique_ptr<TriggerBox>>> getTriggers();
-
     const std::shared_ptr<sf::Texture> getBackgroundTexture();
+    sf::Vector2i getSize();
 
 private:
     std::string zone_name_;
