@@ -25,6 +25,14 @@ enum class Entities {
     BEDS1,
     BEDS2,
     HUBLOT,
+    AFFICHE1, //5
+    AFFICHE2,
+    PLINTH,
+    STUFF1,
+    STUFF2,
+    STUFF3,  //10
+    STUFF4,
+    LIGHTS,
 
     ENTITIES_COUNT
 };

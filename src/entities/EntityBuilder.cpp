@@ -15,10 +15,17 @@ void EntityBuilder::populateEntitiesPrototypeMap() {
                                                .name = "halteroman", .has_animation = true, .hitbox = Hitbox(
                                                        1.0f, 1.0f, 1.0f, 1.0f)
                                        });
-
     entity_prototypes_map_.try_emplace(BEDS1, EntityPrototype{.name = "beds1"});
     entity_prototypes_map_.try_emplace(BEDS2, EntityPrototype{.name = "beds2"});
-    entity_prototypes_map_.try_emplace(HUBLOT, EntityPrototype{.name = "hublot"});
+    entity_prototypes_map_.try_emplace(HUBLOT, EntityPrototype{.name = "hublot", .has_animation = true});
+    entity_prototypes_map_.try_emplace(AFFICHE1, EntityPrototype{.name = "affiche1"});
+    entity_prototypes_map_.try_emplace(AFFICHE2, EntityPrototype{.name = "affiche2"});
+    entity_prototypes_map_.try_emplace(PLINTH, EntityPrototype{.name = "plinth"});
+    entity_prototypes_map_.try_emplace(STUFF1, EntityPrototype{.name = "stuff1"});
+    entity_prototypes_map_.try_emplace(STUFF2, EntityPrototype{.name = "stuff2"});
+    entity_prototypes_map_.try_emplace(STUFF3, EntityPrototype{.name = "stuff3"});
+    entity_prototypes_map_.try_emplace(STUFF4, EntityPrototype{.name = "stuff4"});
+    entity_prototypes_map_.try_emplace(LIGHTS, EntityPrototype{.name = "lights", .has_animation = true});
 }
 
 std::unique_ptr<Entity> EntityBuilder::buildEntity(Entities entity_type) {

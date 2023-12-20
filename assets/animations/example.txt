@@ -1,5 +1,5 @@
 Line 1 : Frametime
-Line 2 : Lenght of the frame
+Line 2 : Length of the frame
 Line 3 : Width of the frame
 Line 4 : Timeline's count
 
