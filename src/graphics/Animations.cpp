@@ -11,7 +11,7 @@ Animation::Animation(const std::string &file_name,
     current_time_ = offset;
 
     if (!file.is_open()) {
-        std::cerr << "Cannot open file " << file_name << "\n";
+        std::cerr << "Cannot open file " << file_name << std::endl;
         std::exit(EXIT_FAILURE);
     }
 
@@ -20,7 +20,7 @@ Animation::Animation(const std::string &file_name,
     file >> frame_time_;
     int x, y;
     file >> x >> y;
-    file >> nb_frames_;
+    file >> nb_timeline_;
 
     current_frame_ = offset / frame_time_;
     size_ = sf::Vector2i(x, y);
@@ -30,7 +30,7 @@ Animation::Animation(const std::string &file_name,
     int i = 0;
     unsigned int nb_frame;
     int link_to_another_timeline;
-    while (!file.eof() && i < nb_frames_) {
+    while (!file.eof() && i < nb_timeline_) {
         file >> nb_frame;
         file >> link_to_another_timeline;
         frames_per_timeline_.emplace_back(nb_frame);
@@ -59,7 +59,7 @@ void Animation::setPaused(const bool paused) {
 }
 
 void Animation::setTimeline(const unsigned int new_timeline) {
-    assert(new_timeline < nb_frames_); //button.txt hasn't the true number of frame
+    assert(new_timeline < nb_timeline_); //button.txt hasn't the true number of frame
 
     if (new_timeline != current_timeline_) {
         resetTimeline();

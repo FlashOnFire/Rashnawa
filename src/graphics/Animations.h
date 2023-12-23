@@ -36,7 +36,7 @@ private:
     std::vector<int> link_to_another_timeline_;
     sf::Vector2i size_;
     unsigned int frame_time_ = 0;
-    unsigned int nb_frames_ = 0;
+    unsigned int nb_timeline_ = 0;
     unsigned int current_frame_;
     unsigned int current_time_; //current time in the current animation
     unsigned int current_timeline_; //index of the timeline in FRAME_PER_TIMELINE

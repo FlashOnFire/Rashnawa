@@ -1,6 +1,6 @@
-Line 1 : Frametime
-Line 2 : Length of the frame
-Line 3 : Width of the frame
-Line 4 : Timeline's count
+Line 1 : Frame time
+Line 2 : Height of each frame
+Line 3 : Width of each frame
+Line 4 : Timeline count
 
 Line 6-end : Frame's count + potential link to another timeline for each Timeline. There are as many lines as there are timelines.
