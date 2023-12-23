@@ -14,7 +14,7 @@ public:
     explicit Animation(const std::string &file_name, const std::function<void(sf::Vector2i coords,
                                                                               sf::Vector2i size)> &callback,
                                                                               unsigned int timeline = 0,
-                                                                              unsigned int frame = 0);
+                                                                              unsigned int offset = 0);
 
     [[nodiscard]] bool paused() const;
 
@@ -35,8 +35,8 @@ private:
     std::vector<unsigned int> frames_per_timeline_;
     std::vector<int> link_to_another_timeline_;
     sf::Vector2i size_;
-    unsigned int frame_time_;
-    unsigned int nb_frames_;
+    unsigned int frame_time_ = 0;
+    unsigned int nb_frames_ = 0;
     unsigned int current_frame_;
     unsigned int current_time_; //current time in the current animation
     unsigned int current_timeline_; //index of the timeline in FRAME_PER_TIMELINE

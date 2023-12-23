@@ -2,35 +2,28 @@
 #include <fstream>
 #include <cassert>
 
-Animation::Animation(const std::string& file_name,
-                     const std::function<void(sf::Vector2i coords, sf::Vector2i size)>& callback, unsigned int timeline, unsigned int frame) {
+Animation::Animation(const std::string &file_name,
+                     const std::function<void(sf::Vector2i coords, sf::Vector2i size)> &callback, unsigned int timeline,
+                     unsigned int offset) {
     std::ifstream file("../assets/animations/" + file_name + ".txt");
 
     current_timeline_ = timeline;
-    current_frame_ = frame;
+    current_time_ = offset;
 
     if (!file.is_open()) {
-        std::cerr << "Cannot open file " << file_name << std::endl;
+        std::cerr << "Cannot open file " << file_name << "\n";
         std::exit(EXIT_FAILURE);
     }
 
     std::string line;
 
-    std::getline(file, line);
-    frame_time_ = std::stoi(line);
+    file >> frame_time_;
+    int x, y;
+    file >> x >> y;
+    file >> nb_frames_;
 
-    current_time_ = frame * frame_time_;
-
-    std::getline(file, line);
-    int x = std::stoi(line);
-
-    std::getline(file, line);
-    int y = std::stoi(line);
-
+    current_frame_ = offset / frame_time_;
     size_ = sf::Vector2i(x, y);
-
-    std::getline(file, line);
-    nb_frames_ = std::stoi(line);
 
     std::getline(file, line);
 
@@ -40,8 +33,8 @@ Animation::Animation(const std::string& file_name,
     while (!file.eof() && i < nb_frames_) {
         file >> nb_frame;
         file >> link_to_another_timeline;
-        frames_per_timeline_.insert(frames_per_timeline_.end(), nb_frame);
-        link_to_another_timeline_.insert(link_to_another_timeline_.end(), link_to_another_timeline);
+        frames_per_timeline_.emplace_back(nb_frame);
+        link_to_another_timeline_.emplace_back(link_to_another_timeline);
         i++;
     }
 
@@ -83,12 +76,11 @@ void Animation::update(const int deltaTime) {
     }
     if (total_animation_time_ != frame_time_) {
         unsigned int current_time = current_time_ + deltaTime;
-        if ((current_time >= total_animation_time_) && (link_to_another_timeline_[current_timeline_] != -1)) {
+        if ((link_to_another_timeline_[current_timeline_] != -1) && (current_time >= total_animation_time_)) {
             setTimeline(link_to_another_timeline_[current_timeline_]);
-        }
-        else {
+        } else {
             current_time_ = current_time % total_animation_time_;
-            const unsigned int new_frame = current_time / frame_time_;
+            const auto new_frame = current_time / frame_time_;
             if (new_frame != current_frame_) {
                 current_frame_ = new_frame;
                 triggerCallback();
