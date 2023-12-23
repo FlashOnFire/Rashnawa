@@ -2,8 +2,8 @@
 #include <fstream>
 #include <cassert>
 
-Animation::Animation(const std::string &file_name,
-                     const std::function<void(sf::Vector2i coords, sf::Vector2i size)> &callback, unsigned int timeline,
+Animation::Animation(const std::string& file_name,
+                     const std::function<void(sf::Vector2i coords, sf::Vector2i size)>& callback, unsigned int timeline,
                      unsigned int offset) {
     std::ifstream file("../assets/animations/" + file_name + ".txt");
 
@@ -43,6 +43,12 @@ Animation::Animation(const std::string &file_name,
     callback_ = callback;
 
     triggerCallback(); //To set correctly the first frame
+
+
+    if (file_name == "lights") {
+        std::cout << "lights" << std::endl;
+        std::cout << link_to_another_timeline_.at(0) << std::endl;
+    }
 }
 
 void Animation::resetTimeline() {
@@ -58,7 +64,7 @@ void Animation::setPaused(const bool paused) {
     paused_ = paused;
 }
 
-void Animation::setTimeline(const unsigned int new_timeline) {
+void Animation::setTimeline(const unsigned int new_timeline, bool trigger_callback) {
     assert(new_timeline < nb_timeline_); //button.txt hasn't the true number of frame
 
     if (new_timeline != current_timeline_) {
@@ -66,26 +72,31 @@ void Animation::setTimeline(const unsigned int new_timeline) {
         current_timeline_ = new_timeline;
         total_animation_time_ = frame_time_ * frames_per_timeline_.at(current_timeline_);
 
-        triggerCallback();
+        if (trigger_callback)
+            triggerCallback();
     }
 }
 
-void Animation::update(const int deltaTime) {
-    if (paused_) {
+void Animation::update(const unsigned int deltaTime) {
+    if (paused_ || (frames_per_timeline_.at(current_timeline_) == 1)) {
         return;
     }
-    if (total_animation_time_ != frame_time_) {
-        unsigned int current_time = current_time_ + deltaTime;
-        if ((link_to_another_timeline_[current_timeline_] != -1) && (current_time >= total_animation_time_)) {
-            setTimeline(link_to_another_timeline_[current_timeline_]);
-        } else {
-            current_time_ = current_time % total_animation_time_;
-            const auto new_frame = current_time / frame_time_;
-            if (new_frame != current_frame_) {
-                current_frame_ = new_frame;
-                triggerCallback();
-            }
-        }
+
+    current_time_ += deltaTime;
+
+    // handle transitions
+    if (link_to_another_timeline_[current_timeline_] != -1 && (current_time_ >= total_animation_time_)) {
+        const auto offset = current_time_ % total_animation_time_;
+        setTimeline(link_to_another_timeline_[current_timeline_], false);
+        current_time_ = offset;
+        current_frame_ = -1; // to force triggering callback in the if statement below
+    } else {
+        current_time_ %= total_animation_time_;
+    }
+
+    if (const auto new_frame = current_time_ / frame_time_; new_frame != current_frame_) {
+        current_frame_ = new_frame;
+        triggerCallback();
     }
 }
 

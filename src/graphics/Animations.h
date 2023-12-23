@@ -11,10 +11,10 @@ class Animation {
 public:
     Animation() = delete;
 
-    explicit Animation(const std::string &file_name, const std::function<void(sf::Vector2i coords,
-                                                                              sf::Vector2i size)> &callback,
-                                                                              unsigned int timeline = 0,
-                                                                              unsigned int offset = 0);
+    explicit Animation(const std::string& file_name, const std::function<void(sf::Vector2i coords,
+                                                                              sf::Vector2i size)>& callback,
+                       unsigned int timeline = 0,
+                       unsigned int offset = 0);
 
     [[nodiscard]] bool paused() const;
 
@@ -22,11 +22,11 @@ public:
 
     [[nodiscard]] unsigned int getTimeline() const;
 
-    void setTimeline(unsigned int new_timeline);
+    void setTimeline(unsigned int new_timeline, bool trigger_callback = true);
 
     void resetTimeline();
 
-    void update(int deltaTime);
+    void update(unsigned int deltaTime);
 
     void triggerCallback() const;
 
