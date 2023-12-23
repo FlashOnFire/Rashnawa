@@ -33,6 +33,8 @@ enum class Entities {
     STUFF3,  //10
     STUFF4,
     LIGHTS,
+    REFLECT,
+    ROBIM,
 
     ENTITIES_COUNT
 };

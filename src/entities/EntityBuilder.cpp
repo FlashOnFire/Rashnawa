@@ -26,6 +26,8 @@ void EntityBuilder::populateEntitiesPrototypeMap() {
     entity_prototypes_map_.try_emplace(STUFF3, EntityPrototype{.name = "stuff3"});
     entity_prototypes_map_.try_emplace(STUFF4, EntityPrototype{.name = "stuff4"});
     entity_prototypes_map_.try_emplace(LIGHTS, EntityPrototype{.name = "lights", .has_animation = true});
+    entity_prototypes_map_.try_emplace(REFLECT, EntityPrototype{.name = "reflect"});
+    entity_prototypes_map_.try_emplace(ROBIM, EntityPrototype{.name = "robim"});
 }
 
 std::unique_ptr<Entity> EntityBuilder::buildEntity(Entities entity_type) {

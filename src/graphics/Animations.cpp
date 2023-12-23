@@ -3,19 +3,23 @@
 #include <cassert>
 
 Animation::Animation(const std::string& file_name,
-                     const std::function<void(sf::Vector2i coords, sf::Vector2i size)>& callback) {
+                     const std::function<void(sf::Vector2i coords, sf::Vector2i size)>& callback, unsigned int timeline, unsigned int frame) {
     std::ifstream file("../assets/animations/" + file_name + ".txt");
+
+    current_timeline_ = timeline;
+    current_frame_ = frame;
 
     if (!file.is_open()) {
         std::cerr << "Cannot open file " << file_name << std::endl;
         std::exit(EXIT_FAILURE);
-        return;
     }
 
     std::string line;
 
     std::getline(file, line);
     frame_time_ = std::stoi(line);
+
+    current_time_ = frame * frame_time_;
 
     std::getline(file, line);
     int x = std::stoi(line);
@@ -31,9 +35,13 @@ Animation::Animation(const std::string& file_name,
     std::getline(file, line);
 
     int i = 0;
+    unsigned int nb_frame;
+    int link_to_another_timeline;
     while (!file.eof() && i < nb_frames_) {
-        std::getline(file, line);
-        frames_per_timeline_.insert(frames_per_timeline_.end(), std::stoi(line));
+        file >> nb_frame;
+        file >> link_to_another_timeline;
+        frames_per_timeline_.insert(frames_per_timeline_.end(), nb_frame);
+        link_to_another_timeline_.insert(link_to_another_timeline_.end(), link_to_another_timeline);
         i++;
     }
 
@@ -74,11 +82,17 @@ void Animation::update(const int deltaTime) {
         return;
     }
     if (total_animation_time_ != frame_time_) {
-        current_time_ = (current_time_ + deltaTime) % total_animation_time_;
-        const unsigned int new_frame = current_time_ / frame_time_;
-        if (new_frame != current_frame_) {
-            current_frame_ = new_frame;
-            triggerCallback();
+        unsigned int current_time = current_time_ + deltaTime;
+        if ((current_time >= total_animation_time_) && (link_to_another_timeline_[current_timeline_] != -1)) {
+            setTimeline(link_to_another_timeline_[current_timeline_]);
+        }
+        else {
+            current_time_ = current_time % total_animation_time_;
+            const unsigned int new_frame = current_time / frame_time_;
+            if (new_frame != current_frame_) {
+                current_frame_ = new_frame;
+                triggerCallback();
+            }
         }
     }
 }
