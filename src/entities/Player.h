@@ -8,8 +8,6 @@
 
 class Player : public Entity {
 public:
-
-
     [[nodiscard]] bool isOnGround() const;
 
     [[nodiscard]] bool isJumping() const;
