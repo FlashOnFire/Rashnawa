@@ -1,4 +1,5 @@
 #include "World.h"
+#include "../Defines.h"
 #include <filesystem>
 #include <utility>
 
@@ -16,7 +17,7 @@ void World::load(const std::string &zone_name, const std::string &room_name) {
         current_zone_name_ = zone_name;
         loaded_rooms_.clear();
 
-        std::string zone_folder = "../assets/map/" + zone_name;
+        std::string zone_folder = ASSETS_DIR + "map/" + zone_name;
         for (const auto &room_folder: std::filesystem::directory_iterator(zone_folder)) {
             std::string temp_room_name = room_folder.path().filename().string();
             loaded_rooms_.emplace_back(std::make_shared<Room>(zone_name, temp_room_name, entity_builder_));
