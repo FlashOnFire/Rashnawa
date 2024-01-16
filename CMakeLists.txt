@@ -5,6 +5,13 @@ set(CMAKE_CXX_STANDARD 20)
 
 include_directories(include)
 
+include(FetchContent)
+FetchContent_Declare(SFML
+        GIT_REPOSITORY https://github.com/SFML/SFML.git
+        GIT_TAG 2.6.0)
+FetchContent_MakeAvailable(SFML)
+
+#[[
 if (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
     link_directories(lib_windows)
     set(CMAKE_EXE_LINKER_FLAGS "-static-libgcc -static-libstdc++ -mwindows")
@@ -19,6 +26,14 @@ if (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
     file(COPY ${WINDOWS_DLLS} DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/")
 elseif (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
     include_directories(/usr/include)
+    link_directories(lib_linux)
+    set(CMAKE_BUILD_RPATH "lib_linux:../lib_linux:.")
+endif ()
+]]#
+
+if (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
+    link_directories(lib_windows)
+elseif (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
     link_directories(lib_linux)
     set(CMAKE_BUILD_RPATH "lib_linux:../lib_linux:.")
 endif ()
