@@ -54,7 +54,7 @@ private:
     sf::Sprite sprite_;
 
     std::shared_ptr<EntityData> entityData_;
-    std::unique_ptr<EntityBehavior> beahvior_;
+    std::optional<std::unique_ptr<EntityBehavior>> beahvior_;
 };
 
 
