@@ -23,6 +23,7 @@ namespace Events {
 
     struct PlayerAction {
         Keybinds keybinds;
+        bool pressed;
     };
 
     struct AnimationCreated {

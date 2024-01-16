@@ -56,6 +56,10 @@ std::optional<std::weak_ptr<Animation>> Entity::getAnimation() const {
     return animation_;
 }
 
+std::shared_ptr<EntityData> Entity::getEntityData() const {
+    return entityData_;
+}
+
 void Entity::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     target.draw(sprite_);
 }

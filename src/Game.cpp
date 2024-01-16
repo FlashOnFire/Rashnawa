@@ -122,7 +122,7 @@ void Game::handleEvents() const {
                 }
                 break;
             case sf::Event::KeyPressed:
-                keybind_handler_->handleEvent(event.key);
+                keybind_handler_->handleEvent(event.key, true);
                 switch (event.key.code) {
                     case sf::Keyboard::Escape:
                         event_bus_->postpone(Events::EscapeBtn{});
@@ -131,6 +131,8 @@ void Game::handleEvents() const {
                         break;
                 }
                 break;
+            case sf::Event::KeyReleased:
+                keybind_handler_->handleEvent(event.key, false);
             case sf::Event::MouseMoved:
                 if (current_screen_.has_value()) {
                     current_screen_.value()->onMouseMove(event.mouseMove);

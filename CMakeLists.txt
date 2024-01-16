@@ -45,8 +45,6 @@ add_executable(Rashnawa
         src/entities/Entity.h
         src/entities/Hitbox.cpp
         src/entities/Hitbox.h
-        src/entities/Player.cpp
-        src/entities/Player.h
         src/entities/weapons/Weapon.h
         src/events/Events.h
         include/dexode/EventBus.cpp
@@ -87,4 +85,10 @@ add_executable(Rashnawa
         src/entities/patterns/Pattern.h
         src/entities/patterns/Pattern.cpp
         src/utils/StringHasher.h
+        src/entities/behavior/EntityBehavior.h
+        src/entities/behavior/PlayerBehavior.cpp
+        src/entities/behavior/PlayerBehavior.h
+        src/entities/data/EntityData.h
+        src/entities/behavior/PlayerBehavior.cpp
+        src/entities/behavior/EntityBehavior.cpp
 )

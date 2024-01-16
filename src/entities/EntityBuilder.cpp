@@ -1,4 +1,5 @@
 #include "EntityBuilder.h"
+
 #include "../events/Events.h"
 #include "SFML/Graphics/Texture.hpp"
 

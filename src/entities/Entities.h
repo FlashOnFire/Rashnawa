@@ -15,8 +15,6 @@ struct EntityPrototype {
     bool has_animation = false;
     std::optional<Hitbox> hitbox;
     std::vector<Pattern> patterns;
-    bool has_IA = false;
-    // we will add some useful stuff soon ^^
 };
 
 enum class Entities {
