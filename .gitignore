@@ -4,3 +4,4 @@ cmake-build-release
 .vscode
 bin
 fmod_project/project/.unsaved
+doc/**
