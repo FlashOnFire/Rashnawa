@@ -3,17 +3,19 @@
 #include "../events/Events.h"
 
 #include "MainMenuScreen.h"
+
+#include "../Defines.h"
 #include "objects/ButtonBuilder.h"
 
 MainMenuScreen::MainMenuScreen(std::shared_ptr<dexode::EventBus> event_bus, std::shared_ptr<sf::Font> font)
     : BasicScreen(std::move(event_bus), std::move(font)) {
-    if (!background_texture_->loadFromFile("../assets/menu/menu_background2.png")) {
-        std::cout << "Can't load menu background backgroundTexture from file";
+    if (!background_texture_->loadFromFile(ASSETS_DIR + "menu/menu_background2.png")) {
+        std::cout << "Can't load menu background texture from file" << std::endl;
         exit(EXIT_FAILURE);
     }
     background_texture_->setSmooth(true);
 
-    if (!button_texture_->loadFromFile("../assets/menu/button.png")) {
+    if (!button_texture_->loadFromFile(ASSETS_DIR + "menu/button.png")) {
         std::cout << "Can't load menu button backgroundTexture from file" << std::endl;
         exit(EXIT_FAILURE);
     }

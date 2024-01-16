@@ -6,43 +6,45 @@
 
 #include <utility>
 
+#include "../Defines.h"
+
 OptionsMenuScreen::OptionsMenuScreen(std::shared_ptr<dexode::EventBus> event_bus, std::shared_ptr<sf::Font> font,
                                      std::shared_ptr<OptionsManager> options_manager,
                                      const sf::Vector2<unsigned int>& window_size) : BasicScreen(std::move(event_bus),
-        std::move(font)),
-    options_manager_(std::move(options_manager)) {
-    if (!background_texture_->loadFromFile("../assets/menu/new_background.png")) {
+                                                                                                 std::move(font)),
+                                                                                     options_manager_(std::move(options_manager)) {
+    if (!background_texture_->loadFromFile(ASSETS_DIR + "menu/new_background.png")) {
         std::cout << "Can't load menu background backgroundTexture from file";
         exit(EXIT_FAILURE);
     }
     background_texture_->setSmooth(true);
 
-    if (!title_background_->loadFromFile("../assets/menu/new_background.png")) {
+    if (!title_background_->loadFromFile(ASSETS_DIR + "menu/new_background.png")) {
         std::cout << "Can't load menu background backgroundTexture from file";
         exit(EXIT_FAILURE);
     }
 
-    if (!options_background_texture_->loadFromFile("../assets/menu/options/background.png")) {
+    if (!options_background_texture_->loadFromFile(ASSETS_DIR + "menu/options/background.png")) {
         std::cout << "Can't load menu background backgroundTexture from file";
         exit(EXIT_FAILURE);
     }
 
-    if (!buttons_background_texture_->loadFromFile("../assets/menu/options/button_background.png")) {
+    if (!buttons_background_texture_->loadFromFile(ASSETS_DIR + "menu/options/button_background.png")) {
         std::cout << "Can't load menu button backgroundTexture from file";
         exit(EXIT_FAILURE);
     }
 
-    if (!buttons_foreground_texture_->loadFromFile("../assets/menu/options/button.png")) {
+    if (!buttons_foreground_texture_->loadFromFile(ASSETS_DIR + "menu/options/button.png")) {
         std::cout << "Can't load menu button backgroundTexture from file";
         exit(EXIT_FAILURE);
     }
 
-    if (!slider_texture_->loadFromFile("../assets/menu/options/slider.png")) {
+    if (!slider_texture_->loadFromFile(ASSETS_DIR + "menu/options/slider.png")) {
         std::cout << "Can't load menu slider backgroundTexture from file";
         exit(EXIT_FAILURE);
     }
 
-    if (!slider_knob_texture_->loadFromFile("../assets/menu/options/sliderknob.png")) {
+    if (!slider_knob_texture_->loadFromFile(ASSETS_DIR + "menu/options/sliderknob.png")) {
         std::cout << "Can't load menu sliderknob backgroundTexture from file";
         exit(EXIT_FAILURE);
     }

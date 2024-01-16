@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 3.26)
-project(Rashnawa)
+project(Rashnawa LANGUAGES CXX)
 
-set(CMAKE_CXX_STANDARD 20)
-
-include_directories(include)
+#set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
 
 include(FetchContent)
 FetchContent_Declare(SFML
@@ -13,9 +13,6 @@ FetchContent_MakeAvailable(SFML)
 
 #[[
 if (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
-    link_directories(lib_windows)
-    set(CMAKE_EXE_LINKER_FLAGS "-static-libgcc -static-libstdc++ -mwindows")
-
     cmake_path(GET CMAKE_CXX_COMPILER PARENT_PATH PARENT_DIR)
     file(GLOB WINDOWS_DLLS
             "lib_windows/*.dll"
@@ -24,21 +21,20 @@ if (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
 
     message("${WINDOWS_DLLS}")
     file(COPY ${WINDOWS_DLLS} DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/")
-elseif (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
-    include_directories(/usr/include)
-    link_directories(lib_linux)
-    set(CMAKE_BUILD_RPATH "lib_linux:../lib_linux:.")
 endif ()
 ]]#
 
+
+include_directories(include)
+
 if (${CMAKE_SYSTEM_NAME} MATCHES "Windows")
     link_directories(lib_windows)
+    set(CMAKE_EXE_LINKER_FLAGS "-static-libgcc -static-libstdc++ -mwindows")
 elseif (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+    include_directories(/usr/include)
     link_directories(lib_linux)
-    set(CMAKE_BUILD_RPATH "lib_linux:../lib_linux:.")
+    set(CMAKE_BUILD_RPATH "lib_linux:../lib_linux:../../lib_linux:.")
 endif ()
-
-link_libraries(sfml-graphics sfml-window sfml-system fmod fmodstudio)
 
 add_executable(Rashnawa
         src/main.cpp
@@ -106,4 +102,8 @@ add_executable(Rashnawa
         src/entities/data/EntityData.h
         src/entities/behavior/PlayerBehavior.cpp
         src/entities/behavior/EntityBehavior.cpp
+        src/Defines.h
 )
+
+target_link_libraries(Rashnawa PRIVATE sfml-graphics sfml-window sfml-system fmod fmodstudio)
+target_compile_features(Rashnawa PRIVATE cxx_std_20)

@@ -1,6 +1,8 @@
 #include "Game.h"
 
 #include <memory>
+
+#include "Defines.h"
 #include "screens/MainMenuScreen.h"
 #include "screens/OptionsMenuScreen.h"
 #include "events/Events.h"
@@ -26,12 +28,12 @@ Game::Game() {
     world_ = std::make_shared<World>(event_bus_);
 
     audio_system_->initialize();
-    audio_system_->loadBank("../assets/audio/Master.bank");
-    audio_system_->loadBank("../assets/audio/Master.strings.bank");
+    audio_system_->loadBank(ASSETS_DIR + "audio/Master.bank");
+    audio_system_->loadBank(ASSETS_DIR + "audio/Master.strings.bank");
 
     event_bus_->postpone<Events::ChangeScreen>({.from = Screens::None, .to = Screens::MainMenu});
 
-    if (!font_->loadFromFile("../assets/fonts/Unitblock.ttf")) {
+    if (!font_->loadFromFile(ASSETS_DIR + "fonts/Unitblock.ttf")) {
         std::cout << "Error: can't load font!" << std::endl;
         exit(EXIT_FAILURE);
     }

@@ -4,9 +4,11 @@
 #include <sstream>
 #include <utility>
 
+#include "../Defines.h"
+
 Room::Room(std::string zone_name, std::string room_name, const std::shared_ptr<EntityBuilder>& builder)
         : zone_name_(std::move(zone_name)), room_name_(std::move(room_name)) {
-    std::string folder = "../assets/map/zone_" + zone_name_ + "/room_" + room_name_;
+    std::string folder = ASSETS_DIR + "map/zone_" + zone_name_ + "/room_" + room_name_;
     std::ifstream room_file(folder + "/room.txt");
 
     if (!room_file.is_open()) {

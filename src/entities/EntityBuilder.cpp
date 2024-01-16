@@ -1,5 +1,6 @@
 #include "EntityBuilder.h"
 
+#include "../Defines.h"
 #include "../events/Events.h"
 #include "SFML/Graphics/Texture.hpp"
 
@@ -60,9 +61,9 @@ std::shared_ptr<sf::Texture> EntityBuilder::getTexture(const std::string &name) 
     } else {
         std::shared_ptr<sf::Texture> texture = std::make_unique<sf::Texture>();
 
-        if (!texture->loadFromFile("../assets/sprites/" + name + ".png")) {
-            std::cerr << "Can't load " << name << ".png, You are so disappointed  :(" << std::endl;
-            texture->loadFromFile("../assets/sprites/default.png");
+        if (!texture->loadFromFile(ASSETS_DIR + "sprites/" + name + ".png")) {
+            std::cerr << "Can't load " << name << ".png" << std::endl;
+            texture->loadFromFile(ASSETS_DIR + "sprites/default.png");
         }
 
         textures_map_.try_emplace(name, texture);

@@ -2,10 +2,12 @@
 #include <fstream>
 #include <cassert>
 
+#include "../Defines.h"
+
 Animation::Animation(const std::string& file_name,
                      const std::function<void(sf::Vector2i coords, sf::Vector2i size)>& callback, unsigned int timeline,
                      unsigned int offset) {
-    std::ifstream file("../assets/animations/" + file_name + ".txt");
+    std::ifstream file(ASSETS_DIR + "animations/" + file_name + ".txt");
 
     current_timeline_ = timeline;
     current_time_ = offset;
