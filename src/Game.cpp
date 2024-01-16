@@ -78,7 +78,7 @@ void Game::run() {
 
     sf::Clock clock;
     //temporary tests (sorry guigui)
-    world_->load("0", "tmp");
+    world_->load("zone_0", "room_tmp");
 
     while (running_) {
         const int delta_time = clock.restart().asMilliseconds();

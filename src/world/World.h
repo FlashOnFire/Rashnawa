@@ -21,6 +21,8 @@ private:
 
     std::vector<std::shared_ptr<Room>> loaded_rooms_;
 
+    std::string current_zone_name_;
+
     std::shared_ptr<Room> current_room_;
 };
 

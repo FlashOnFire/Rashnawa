@@ -10,6 +10,8 @@ class Room {
 public:
     Room(std::string zone_name, std::string room_name, const std::shared_ptr<EntityBuilder> &builder);
 
+    [[nodiscard]] std::string getRoomName() const;
+
     [[nodiscard]] std::shared_ptr<std::vector<std::unique_ptr<Entity>>> getEntities() const;
 
     [[nodiscard]] std::shared_ptr<std::vector<std::unique_ptr<TriggerBox>>> getTriggers() const;
