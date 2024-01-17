@@ -11,6 +11,16 @@ struct PlayerData {
     bool dashing = false;
     bool has_dashed = false;
     bool using_weapon = false;
+    int max_life = 100;
+    int life = max_life;
+};
+
+//only a try, you can modify what you want here
+
+struct MonsterData {
+    bool move_left = false;
+    bool move_right = false;
+    int life = 100;
 };
 
 union EntityData {
